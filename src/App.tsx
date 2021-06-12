@@ -1,7 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Home from './Components/Home/Home';
-import About from './Components/About/About';
+
+const code = new URLSearchParams(window.location.search).get('code');
+
+// Views
+import Home from './Views/Home/Home';
+import Landing from './Views/Landing/Landing';
+
+// Components
 import Navbar from './Components/Navbar/Navbar';
 
 const App: React.FC = () => {
@@ -9,10 +15,7 @@ const App: React.FC = () => {
     <BrowserRouter>
       <div>
         <Navbar />
-        <Switch>
-          <Route exact={true} path='/' component={Home} />
-          <Route exact={true} path='/about' component={About} />
-        </Switch>
+        {code ? <Landing code={code} /> : <Home />}
       </div>
     </BrowserRouter>
   );
