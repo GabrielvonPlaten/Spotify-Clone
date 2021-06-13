@@ -8,7 +8,7 @@ import { Route, Switch } from 'react-router-dom';
 // Components
 import Navbar from '../../Components/Navbar/Navbar';
 import About from '../../views/About/About';
-import Profile from '../Profile/Profile';
+import Profile from '../../views/Profile/Profile';
 
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.CLIENT_ID,
