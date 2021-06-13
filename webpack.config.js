@@ -42,6 +42,9 @@ module.exports = {
     contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true,
     publicPath: '/dist/',
+    proxy: {
+      '/api': 'http://localhost:5000',
+    },
   },
   mode: 'development',
   plugins: [

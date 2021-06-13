@@ -6,7 +6,7 @@ const Navbar: React.FC = () => {
   return (
     <header className='navbar-container'>
       <NavLink
-        to='/'
+        to='/landing'
         activeClassName='is-active'
         className='navbar__item router-link'
         exact={true}
@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
         Home
       </NavLink>
       <NavLink
-        to='/about'
+        to='/landing/about'
         activeClassName='is-active'
         className='navbar__item router-link'
       >

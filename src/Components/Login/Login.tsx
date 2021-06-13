@@ -9,8 +9,6 @@ const AUTH_URL = encodeURI(
 );
 
 const Login: React.FC = () => {
-  console.log(AUTH_URL);
-
   return (
     <div>
       <a href={AUTH_URL}>Login with Spotify</a>
