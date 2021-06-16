@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SpotifyWebApi from 'spotify-web-api-node';
 import useAuth from '../../useAuth';
 import { SET_ACCESS_TOKEN } from '../../store/types/codeTypes';
@@ -16,18 +16,29 @@ const spotifyApi = new SpotifyWebApi({
 const Landing: React.FC<{ code: string }> = ({ code }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const accessToken = useAuth(code);
-  const authToken = localStorage.getItem('accessToken');
+  useAuth(code);
+  const accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
-    if (!code) return history.push('/');
+    if (!accessToken) return history.push('/');
+
     dispatch({
       type: SET_ACCESS_TOKEN,
       accessToken,
     });
 
     spotifyApi.setAccessToken(accessToken);
-  }, [accessToken, code, history]);
+
+    spotifyApi
+      .getMe()
+      .then((data) => {
+        console.log(data.body);
+      })
+      .catch(() => {
+        localStorage.removeItem('accessToken');
+        history.push('/');
+      });
+  }, [accessToken, history, code]);
 
   return (
     <div>

@@ -16,6 +16,7 @@ const useAuth = (code: string) => {
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
         setExpiresIn(res.data.expiresIn);
+        localStorage.setItem('accessToken', res.data.accessToken);
         window.history.pushState({}, null, '/landing');
       })
       // If any error - Send the user back to the home page
@@ -25,18 +26,22 @@ const useAuth = (code: string) => {
   }, [code]);
 
   useEffect(() => {
-    if (!accessToken || !expiresIn) return;
-    axios
-      .post('/api/refresh', {
-        refreshToken,
-      })
-      .then((res) => {
-        setAccessToken(res.data.access_token);
-        setExpiresIn(res.data.expires_in);
-      })
-      .catch(() => {
-        window.location.href = '/';
-      });
+    if (!refreshToken || !expiresIn) return;
+    const interval = setInterval(() => {
+      axios
+        .post('/api/refresh', {
+          refreshToken,
+        })
+        .then((res) => {
+          setAccessToken(res.data.accessToken);
+          setExpiresIn(res.data.expiresIn);
+        })
+        .catch(() => {
+          window.location.href = '/';
+        });
+    }, (expiresIn - 60) * 1000);
+
+    return () => clearInterval(interval);
   }, [refreshToken, expiresIn]);
 
   return accessToken;
