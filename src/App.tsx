@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { SET_URL_CODE } from './store/types/codeTypes';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
 
 const code = new URLSearchParams(window.location.search).get('code');
 
@@ -21,7 +21,14 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
-      <div>{code ? <Landing code={code} /> : <Home />}</div>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route
+          exact
+          path='/landing'
+          render={(props) => <Landing {...props} code={code} />}
+        />
+      </Switch>
     </BrowserRouter>
   );
 };
