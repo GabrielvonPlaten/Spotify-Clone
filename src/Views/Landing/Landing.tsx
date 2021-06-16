@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SpotifyWebApi from 'spotify-web-api-node';
 import useAuth from '../../useAuth';
-import { SET_ACCESS_TOKEN } from '../../store/types/codeTypes';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 // Components
 import Navbar from '../../Components/Navbar/Navbar';
@@ -14,30 +13,17 @@ const spotifyApi = new SpotifyWebApi({
 });
 
 const Landing: React.FC<{ code: string }> = ({ code }) => {
-  const history = useHistory();
-  const dispatch = useDispatch();
   useAuth(code);
-  const accessToken = localStorage.getItem('accessToken');
+  const history = useHistory();
+  const accessToken = useSelector((state: any) => state.accessToken);
 
   useEffect(() => {
-    if (!accessToken) return history.push('/');
+    if (accessToken === '') return console.log('hello');
+    spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
-    dispatch({
-      type: SET_ACCESS_TOKEN,
-      accessToken,
+    spotifyApi.getMe().then((data) => {
+      console.log(data.body);
     });
-
-    spotifyApi.setAccessToken(accessToken);
-
-    spotifyApi
-      .getMe()
-      .then((data) => {
-        console.log(data.body);
-      })
-      .catch(() => {
-        localStorage.removeItem('accessToken');
-        history.push('/');
-      });
   }, [accessToken, history, code]);
 
   return (
