@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { SET_URL_CODE } from './store/types/codeTypes';
 import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
 
 const code = new URLSearchParams(window.location.search).get('code');
@@ -11,13 +10,6 @@ import Landing from './Views/Landing/Landing';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch({
-      type: SET_URL_CODE,
-      code,
-    });
-  }, [code]);
 
   return (
     <BrowserRouter>

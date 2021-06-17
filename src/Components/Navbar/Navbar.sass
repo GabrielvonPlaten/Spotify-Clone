@@ -1,9 +1,32 @@
-.navbar-container
+.navbar
+  height: 7rem
+  background: #101f3f
   display: flex
-  justify-content: flex-end
-  padding-right: 1.2rem
-  background: #171544
-  height: 5rem
+
+  &--title
+    margin-right: auto
+
+    h1
+      color: #f4f4f4
+      margin: 0
+      padding: 1.2rem
+
+.user_display
+  display: flex
+  height: 100%
+  margin-left: auto
+  padding: 1.2rem
+
+  &__avatar
+    height: 55%
+    border-radius: 100%
+    margin-right: 2rem
+
+  &__display_name
+    color: #f4f4f4
+    text-transform: capitalize
+    margin-right: 2rem
+    font-size: 1.5rem
 
 .navbar__item
   list-style-type: none

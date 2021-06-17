@@ -25,7 +25,9 @@ const useAuth = (code: string) => {
 
           dispatch({
             type: SET_ACCESS_TOKEN,
-            accessToken,
+            payload: {
+              accessToken,
+            },
           });
           window.history.pushState({}, null, '/landing');
         })

@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
-import { urlCodeReducer } from './urlCodeReducer';
 import { accessTokenReducer } from './accessTokenReducer';
+import { setUserDataReducer } from './userReducer';
 
 const rootReducer = combineReducers({
-  code: urlCodeReducer,
   accessToken: accessTokenReducer,
+  userData: setUserDataReducer,
 });
 
 export default rootReducer;
