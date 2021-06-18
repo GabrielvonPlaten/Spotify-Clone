@@ -13,6 +13,9 @@ import { setRecentlyPlayedTracksAction } from '../../store/actions/setTracksActi
 // Components
 import Navbar from '../../Components/Navbar/Navbar';
 import Tracks from '../../Components/Tracks/Tracks';
+import Player from '../../Components/Player/Player';
+
+// Interface
 import { RecentlyPlayedTracksInterface } from '../../Interfaces/TracksInterface';
 
 const spotifyApi = new SpotifyWebApi();
@@ -22,6 +25,7 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const accessToken = useSelector((state: any) => state.accessToken);
+  const [playingTrack, setPlayingTrack] = useState<any>();
 
   const recentlyPlayedTracks = useSelector(
     (state: RecentlyPlayedTracksInterface) => state.recentlyPlayedTracks,
@@ -39,6 +43,10 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
     dispatch(setRecentlyPlayedTracksAction(accessTokenFromStorage));
   };
 
+  const chooseTrack = (track: any) => {
+    setPlayingTrack(track);
+  };
+
   // console.log(recentlyPlayedTracks.tracks.recentlyPlayedTracks);
 
   return (
@@ -50,12 +58,17 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
           <div className='row-section__items-inline'>
             {recentlyPlayedTracks.tracks.recentlyPlayedTracks?.items.map(
               (track: any, index: number) => (
-                <Tracks key={index} track={track.track} />
+                <Tracks
+                  key={index}
+                  track={track.track}
+                  chooseTrack={chooseTrack}
+                />
               ),
             )}
           </div>
         </section>
       </section>
+      <Player trackUri={playingTrack?.uri} />
     </div>
   );
 };
