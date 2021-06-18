@@ -1,9 +1,15 @@
 @use '../../Styles/base/variables' as v
   
-.landing-section
+.section
   margin: 2rem
 
-.section-label
-  color: v.$white-3
-  font-weight: bold
-  font-size: 2rem
+  .section-label
+    color: v.$white-3
+    font-weight: bold
+    font-size: 2rem
+    display: block
+
+  &__inline-items
+    display: grid
+    grid-auto-flow: column
+    margin: 1em 0

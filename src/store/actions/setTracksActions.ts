@@ -10,7 +10,7 @@ export const setRecentlyPlayedTracksAction = (accessToken: string) => async (
 
   spotifyApi
     .getMyRecentlyPlayedTracks({
-      limit: 20,
+      limit: 10,
     })
     .then((data) => {
       dispatch({
