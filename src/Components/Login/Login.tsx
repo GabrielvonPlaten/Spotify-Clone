@@ -1,5 +1,5 @@
 import React from 'react';
-import './Login.module.sass';
+import './Login.sass';
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const REDIRECT_URI = 'http://localhost:8080/landing';
@@ -23,7 +23,7 @@ const AUTH_URL = encodeURI(
 
 const Login: React.FC = () => {
   return (
-    <div>
+    <div className='login-button'>
       <a href={AUTH_URL}>Login with Spotify</a>
     </div>
   );

@@ -25,6 +25,17 @@ const Player: React.FC<any> = ({ trackUri }) => {
         // Automatically plays the song after clicking on it
         play={play}
         uris={trackUri ? [trackUri] : []}
+        styles={{
+          height: '7.1vh',
+          bgColor: '#191A20',
+          sliderTrackColor: '#969696',
+          sliderColor: '#319BBB',
+          sliderHeight: 8,
+          sliderHandleColor: '#319BBB',
+          trackNameColor: '#D2D2D2',
+          trackArtistColor: '#B0B0B0',
+          color: '#D2D2D2',
+        }}
       />
     </div>
   );
