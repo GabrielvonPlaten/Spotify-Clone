@@ -11,9 +11,7 @@ import { SET_USER_DATA } from '../../store/types/userTypes';
 import Navbar from '../../Components/Navbar/Navbar';
 import Profile from '../../views/Profile/Profile';
 
-const spotifyApi = new SpotifyWebApi({
-  clientId: process.env.CLIENT_ID,
-});
+const spotifyApi = new SpotifyWebApi();
 
 const Landing: React.FC<{ code: string }> = ({ code }) => {
   useAuth(code);
@@ -25,10 +23,16 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
     if (accessToken === '') return history.push('/');
     spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
+    apiCalls();
+  }, [accessToken, history, code]);
+
+  const apiCalls = async () => {
+    // Get user
     spotifyApi.getMe().then((data: any) => {
       dispatch({
         type: SET_USER_DATA,
         payload: {
+          country: data.body.country,
           display_name: data.body.display_name,
           email: data.body.email,
           id: data.body.id,
@@ -38,7 +42,7 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
         },
       });
     });
-  }, [accessToken, history, code]);
+  };
 
   return (
     <div>
