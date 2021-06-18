@@ -1,26 +1,20 @@
 @use '../../Styles/base/variables' as v
   
 .navbar
-  height: 7rem
+  height: 100vh
+  width: 12%
   background: v.$bg-dark-3
-  display: flex
-
-  &--title
-    margin-right: auto
-
-    h1
-      color: #f4f4f4
-      margin: 0
-      padding: 1.2rem
+  float: left
+  margin-right: 2%
 
 .user_display
   display: flex
   height: 100%
   margin-left: auto
-  padding: 1.2rem
+  margin: 1.5em
 
   &__avatar
-    height: 55%
+    height: 5%
     border-radius: 100%
     margin-right: 2rem
 
@@ -28,7 +22,8 @@
     color: #f4f4f4
     text-transform: capitalize
     margin-right: 2rem
-    font-size: 1.5rem
+    font-size: 2rem
+    font-weight: 200
 
 .navbar__item
   list-style-type: none

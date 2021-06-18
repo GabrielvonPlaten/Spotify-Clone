@@ -14,9 +14,6 @@ const Navbar: React.FC = () => {
 
   return (
     <header className='navbar'>
-      <div className='navbar--title'>
-        <h1>Spotify Clone!</h1>
-      </div>
       <div className='user_display'>
         <img className='user_display__avatar' src={userData.imageUrl} />
         <h2 className='user_display__display_name'>{userData.display_name}</h2>

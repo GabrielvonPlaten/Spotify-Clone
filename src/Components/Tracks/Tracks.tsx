@@ -10,9 +10,9 @@ const Tracks: React.FC<{ track: RecentlyPlayedTracksInterface }> = ({
 
   return (
     <div className='track-container'>
-      <img className='track-cover' src={track.album.images[1].url} />
-      <h3 className='track-title'>{track.name}</h3>
-      <h4 className='track-artists'>{track.artists[0].name}</h4>
+      <img className='track-container__cover' src={track.album.images[1].url} />
+      <h3 className='track-container__title'>{track.name}</h3>
+      <h4 className='track-container__artists'>{track.artists[0].name}</h4>
     </div>
   );
 };

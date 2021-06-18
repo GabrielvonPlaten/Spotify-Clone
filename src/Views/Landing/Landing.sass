@@ -1,15 +1,18 @@
 @use '../../Styles/base/variables' as v
   
-.section
+.landing
+  overflow: hidden
+
+.row-section
   margin: 2rem
 
-  .section-label
+  &__label
     color: v.$white-3
     font-weight: bold
     font-size: 2rem
     display: block
 
-  &__inline-items
+  &__items-inline
     display: grid
     grid-auto-flow: column
     margin: 1em 0

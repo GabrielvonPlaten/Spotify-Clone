@@ -42,17 +42,19 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
   // console.log(recentlyPlayedTracks.tracks.recentlyPlayedTracks);
 
   return (
-    <div>
+    <div className='landing'>
       <Navbar />
-      <section className='section'>
-        <label className='section-label'>Recently Played</label>
-        <div className='section__inline-items'>
-          {recentlyPlayedTracks.tracks.recentlyPlayedTracks?.items.map(
-            (track: any, index: number) => (
-              <Tracks key={index} track={track.track} />
-            ),
-          )}
-        </div>
+      <section className='main-section'>
+        <section className='row-section'>
+          <label className='row-section__label'>Recently Played</label>
+          <div className='row-section__items-inline'>
+            {recentlyPlayedTracks.tracks.recentlyPlayedTracks?.items.map(
+              (track: any, index: number) => (
+                <Tracks key={index} track={track.track} />
+              ),
+            )}
+          </div>
+        </section>
       </section>
     </div>
   );
