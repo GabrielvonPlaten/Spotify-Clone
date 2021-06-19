@@ -25,10 +25,9 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const accessToken = useSelector((state: any) => state.accessToken);
-  const [playingTrack, setPlayingTrack] = useState<any>();
 
   const recentlyPlayedTracks = useSelector(
-    (state: RecentlyPlayedTracksInterface) => state.recentlyPlayedTracks,
+    (state: any) => state.recentlyPlayedTracks,
   );
 
   useEffect(() => {
@@ -43,12 +42,6 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
     dispatch(setRecentlyPlayedTracksAction(accessTokenFromStorage));
   };
 
-  const chooseTrack = (track: any) => {
-    setPlayingTrack(track);
-  };
-
-  // console.log(recentlyPlayedTracks.tracks.recentlyPlayedTracks);
-
   return (
     <div className='landing'>
       <div className='landing__body'>
@@ -59,18 +52,14 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
             <div className='row-section__items-inline'>
               {recentlyPlayedTracks.tracks.recentlyPlayedTracks?.items.map(
                 (track: any, index: number) => (
-                  <Tracks
-                    key={index}
-                    track={track.track}
-                    chooseTrack={chooseTrack}
-                  />
+                  <Tracks key={index} track={track.track} />
                 ),
               )}
             </div>
           </section>
         </section>
       </div>
-      <Player trackUri={playingTrack?.uri} />
+      <Player />
     </div>
   );
 };

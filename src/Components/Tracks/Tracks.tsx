@@ -2,14 +2,18 @@ import React, { useState } from 'react';
 import './Tracks.sass';
 import PlayButton from '../../Styles/images/play-btn.svg';
 
+// Redux
+import { useDispatch } from 'react-redux';
+import { setPlayingTrack } from '../../store/actions/setTracksActions';
+
 import { RecentlyPlayedTracksInterface } from './../../Interfaces/TracksInterface';
 
 const Tracks: React.FC<{
   track: RecentlyPlayedTracksInterface;
-  chooseTrack: any;
-}> = ({ track, chooseTrack }) => {
+}> = ({ track }) => {
+  const dispatch = useDispatch();
   const handlePlay = () => {
-    chooseTrack(track);
+    dispatch(setPlayingTrack(track));
   };
 
   return (

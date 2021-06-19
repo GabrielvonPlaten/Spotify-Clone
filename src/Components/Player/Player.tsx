@@ -4,14 +4,20 @@ import './Player.sass';
 // Components
 import SpotifyPlayer from 'react-spotify-web-playback';
 
-const Player: React.FC<any> = ({ trackUri }) => {
+// Redux
+import { useSelector } from 'react-redux';
+
+const Player: React.FC = () => {
   const [play, setPlay] = useState<boolean>(false);
   const accessToken = localStorage.getItem('accessToken');
+  const { track: playingTrackUri } = useSelector(
+    (state: any) => state.playingTrack,
+  );
 
   // Change every time the song selected is changed
   useEffect(() => {
     setPlay(true);
-  }, [trackUri]);
+  }, [playingTrackUri]);
 
   if (!accessToken) return null;
   return (
@@ -25,9 +31,9 @@ const Player: React.FC<any> = ({ trackUri }) => {
         }}
         // Automatically plays the song after clicking on it
         play={play}
-        uris={trackUri ? [trackUri] : []}
+        uris={playingTrackUri.uri ? [playingTrackUri.uri] : []}
         styles={{
-          height: '5vh',
+          height: '4vh',
           bgColor: '#191A20',
           sliderTrackColor: '#3e444f',
           sliderColor: '#61c8d3',
