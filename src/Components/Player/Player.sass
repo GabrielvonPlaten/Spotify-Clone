@@ -1,4 +1,68 @@
+@use '../../Styles/base/variables' as v
+  
 .player-container
-  clear: both
-  margin: 0
-  padding: 0
+  display: flex
+  justify-content: center
+  align-items: center
+  position: fixed
+  bottom: 0
+  width: 97%
+  padding: 1em 2em
+  background: v.$bg-dark-3
+  border-top: 1px solid v.$border-dark-1
+  // background: red
+
+  // The slider knobs
+  span[role="slider"]:not(.rrs__thumb)
+    opacity: 0
+    &:hover
+      transform: scale(1.4)
+
+
+  // Main slider container - NOT the slider itself
+  ._SliderRSWP
+    width: 50%
+    margin: 0 auto
+    margin-bottom: 0.6em
+
+    // Slider bar
+    div[role="presentation"]
+
+      &:hover
+        cursor: pointer
+
+      // 
+      &:hover span[role="slider"]
+        opacity: 1
+
+  // Track Title
+  .__nnvdcq span
+    font-weight: bold
+    font-size: 1.3rem
+
+.PlayerRSWP
+  div[role="presentation"]
+    border-radius: 20px
+    height: 20px
+
+._ControlsRSWP
+  .rswp__toggle
+    padding: 0.4em 0.4em 
+    border-radius: 100%
+    margin: 0
+    transition: 0.2s
+    border: 3px solid v.$white-3
+    &:hover
+      transform: scale(1.05)
+
+    svg
+      color: v.$white-4
+      position: relative
+      left: 0.1em
+      margin: 0
+      padding: 0
+      font-size: 1.4rem
+
+  .rswp__toggle[aria-label="Pause"]
+    svg
+      left: 0

@@ -19,6 +19,7 @@ const Player: React.FC<any> = ({ trackUri }) => {
       <SpotifyPlayer
         token={accessToken}
         showSaveIcon
+        initialVolume={0.4}
         callback={(state) => {
           if (!state.isPlaying) setPlay(false);
         }}
@@ -26,12 +27,12 @@ const Player: React.FC<any> = ({ trackUri }) => {
         play={play}
         uris={trackUri ? [trackUri] : []}
         styles={{
-          height: '7.1vh',
+          height: '5vh',
           bgColor: '#191A20',
-          sliderTrackColor: '#969696',
-          sliderColor: '#319BBB',
-          sliderHeight: 8,
-          sliderHandleColor: '#319BBB',
+          sliderTrackColor: '#3e444f',
+          sliderColor: '#61c8d3',
+          sliderHeight: 5,
+          sliderHandleColor: '#d7d7d7',
           trackNameColor: '#D2D2D2',
           trackArtistColor: '#B0B0B0',
           color: '#D2D2D2',
