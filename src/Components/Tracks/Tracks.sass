@@ -1,9 +1,8 @@
 @use '../../Styles/base/variables' as v
   
 .track-container
-  margin: 0
   padding: 0
-  width: 9em
+  width: 100%
   flex-shrink: 0
   border-bottom-right-radius: 8px
   border-bottom-left-radius: 8px
@@ -14,16 +13,19 @@
     margin-top: 0.2em
     margin-bottom: 0
     font-size: 1.5rem
+    position: relative
+    bottom: 2em
 
   &__artists
     color: v.$white-2
     font-weight: 200
     margin-top: 0.2em
     font-size: 1.3rem
-
+    position: relative
+    bottom: 2em
       
 .poster-container
-  height: 62%
+
   &:hover &__play-button
     opacity: 1
 

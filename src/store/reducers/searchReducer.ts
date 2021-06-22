@@ -6,7 +6,7 @@ import {
 } from '../types/searchTypes';
 
 const initialState = {
-  results: {},
+  songResults: {},
 };
 
 export const searchResultsReducer = (
@@ -16,11 +16,11 @@ export const searchResultsReducer = (
   switch (action.type) {
     case SET_SEARCH:
       return {
-        results: action.payload,
+        songResults: action.payload,
       };
     case DELETE_SEARCH:
       return {
-        results: {},
+        songResults: {},
       };
     default:
       return state;

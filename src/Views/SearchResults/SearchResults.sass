@@ -1,2 +1,20 @@
-li
-  color: white
+@use '../../Styles/base/variables' as v
+  
+.searchResults
+  overflow-y: scroll
+  height: 90vh
+
+.row-section
+  margin: 4em
+
+  &__label
+    color: v.$white-4
+    font-weight: bold
+    font-size: 2rem
+    display: block
+
+  &__items-inline 
+    display: grid
+    grid-template-columns: repeat(10, 1fr)
+    margin: 1em 0
+    grid-gap: 1em

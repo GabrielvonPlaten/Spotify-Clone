@@ -9,6 +9,7 @@ export const setSearchAction = (searchString: string) => async (
   spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
   if (searchString !== '') {
+    // Search tracks
     spotifyApi
       .searchTracks(searchString)
       .then((data: any) => {
@@ -16,6 +17,19 @@ export const setSearchAction = (searchString: string) => async (
           type: SET_SEARCH,
           payload: data.body,
         });
+      })
+      .catch((err) => {
+        console.log('Searching error.');
+      });
+
+    // Search Artists
+    spotifyApi
+      .searchArtists(searchString)
+      .then((data: any) => {
+        // dispatch({
+        //   type: SET_ARTIST,
+        //   payload: data.body
+        // })
       })
       .catch((err) => {
         console.log('Searching error.');

@@ -13,7 +13,6 @@ import { setRecentlyPlayedTracksAction } from '../../store/actions/tracksActions
 // Components
 import SearchResults from '../SearchResults/SearchResults';
 import Navbar from '../../Components/Navbar/Navbar';
-import Tracks from '../../Components/Tracks/Tracks';
 import Player from '../../Components/Player/Player';
 import SongView from '../SongView/SongView';
 import SearchBar from '../../Components/SearchBar/SearchBar';
@@ -48,7 +47,7 @@ const Landing: React.FC<{ code: string; match: any }> = ({ code, match }) => {
         <Navbar />
         <section className='main-section'>
           <SearchBar />
-          {!searchResults.results.hasOwnProperty('tracks') ? (
+          {!searchResults?.songResults?.hasOwnProperty('tracks') ? (
             <div>
               <Switch>
                 <Route path='/landing' component={SongView} />
@@ -56,16 +55,7 @@ const Landing: React.FC<{ code: string; match: any }> = ({ code, match }) => {
               </Switch>
             </div>
           ) : (
-            <section className='row-section'>
-              <label className='row-section__label'>Recently Played</label>
-              <div className='row-section__items-inline'>
-                {searchResults?.results?.tracks?.items.map(
-                  (track: any, index: number) => (
-                    <Tracks key={index} track={track} />
-                  ),
-                )}
-              </div>
-            </section>
+            <SearchResults searchResults={searchResults} />
           )}
         </section>
       </div>
