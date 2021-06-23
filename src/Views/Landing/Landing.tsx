@@ -3,12 +3,11 @@ import './Landing.sass';
 import SpotifyWebApi from 'spotify-web-api-node';
 import useAuth from '../../useAuth';
 import { useHistory } from 'react-router-dom';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserAction } from '../../store/actions/userActions';
-import { setRecentlyPlayedTracksAction } from '../../store/actions/tracksActions';
 
 // Components
 import SearchResults from '../SearchResults/SearchResults';
@@ -19,15 +18,14 @@ import SearchBar from '../../Components/SearchBar/SearchBar';
 
 const spotifyApi = new SpotifyWebApi();
 
-const Landing: React.FC<{ code: string; match: any }> = ({ code, match }) => {
+const Landing: React.FC<{ code: string }> = ({ code }) => {
   useAuth(code);
   const dispatch = useDispatch();
   const history = useHistory();
   const accessToken = useSelector((state: any) => state.accessToken);
 
-  // Test
+  // Search
   const searchResults = useSelector((state: any) => state.searchResults);
-  console.log(searchResults);
 
   useEffect(() => {
     if (accessToken === '') return history.push('/');
@@ -35,10 +33,9 @@ const Landing: React.FC<{ code: string; match: any }> = ({ code, match }) => {
     apiCalls();
   }, [accessToken, history, code]);
 
-  const apiCalls = async () => {
+  const apiCalls = () => {
     const accessTokenFromStorage: string = localStorage.getItem('accessToken');
     dispatch(setUserAction(accessTokenFromStorage));
-    dispatch(setRecentlyPlayedTracksAction(accessTokenFromStorage));
   };
 
   return (
@@ -51,7 +48,6 @@ const Landing: React.FC<{ code: string; match: any }> = ({ code, match }) => {
             <div>
               <Switch>
                 <Route path='/landing' component={SongView} />
-                <Route path='/landing/search' component={SearchResults} />
               </Switch>
             </div>
           ) : (

@@ -6,10 +6,10 @@ import PlayButton from '../../Styles/images/play-btn.svg';
 import { useDispatch } from 'react-redux';
 import { setPlayingTrack } from '../../store/actions/tracksActions';
 
-import { RecentlyPlayedTracksInterface } from './../../Interfaces/TracksInterface';
+import { TracksInterface } from './../../Interfaces/TracksInterface';
 
 const Tracks: React.FC<{
-  track: RecentlyPlayedTracksInterface;
+  track: TracksInterface;
 }> = ({ track }) => {
   const dispatch = useDispatch();
   const handlePlay = () => {

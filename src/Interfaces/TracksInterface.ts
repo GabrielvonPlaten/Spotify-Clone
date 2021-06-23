@@ -1,4 +1,4 @@
-export interface RecentlyPlayedTracksInterface {
+export interface TracksInterface {
   recentlyPlayedTracks: {
     tracks: any;
   };
