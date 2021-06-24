@@ -7,9 +7,10 @@ spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
 // Components
 import Tracks from '../../Components/Tracks/Tracks';
+import Artist from '../../Components/Artist/Artist';
 
 const SearchResults: React.FC<{ searchResults: any }> = ({ searchResults }) => {
-  const [artists, setArtists] = useState([]);
+  const [artists, setArtists] = useState<{}[]>([]);
 
   useEffect(() => {
     let newArr: any = [];
@@ -17,30 +18,39 @@ const SearchResults: React.FC<{ searchResults: any }> = ({ searchResults }) => {
       newArr.push(i.artists);
     });
 
+    // Flat the array by 1, remove duplicates by artist's name and return their id
     newArr = newArr.flat(1);
     newArr = [
-      ...new Map(newArr.map((item: any) => [item.id, item.id])).values(),
+      ...new Map(
+        // Remove duplicates by their id and return items by their id
+        newArr.map((item: any): string[] => [item.id, item.id]),
+      ).values(),
     ];
 
+    newArr = newArr.splice(0, 6);
+
+    // console.log(newArr);
     spotifyApi
       .getArtists(newArr)
       .then((data) => {
-        setArtists([data.body.artists]);
+        setArtists(data.body.artists);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [searchResults]);
 
+  console.log(artists);
+
   return (
     <div className='searchResults'>
       <section className='row-section'>
-        <label className='row-section__label'>Songs</label>
+        <label className='row-section__label'>Artists</label>
         <div className='row-section__items-inline'>
-          {searchResults?.songResults?.tracks?.items.map(
-            (track: any, index: number) => (
-              <Tracks key={index} track={track} />
-            ),
+          {artists.map(
+            (artist: any, index: number) =>
+              artist.images.length > 0 &&
+              artist.images[2] && <Artist key={index} artist={artist} />,
           )}
         </div>
       </section>
