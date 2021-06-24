@@ -13,23 +13,11 @@ export const setSearchAction = (searchString: string) => async (
     spotifyApi
       .searchTracks(searchString)
       .then((data: any) => {
+        console.log(data.body);
         dispatch({
           type: SET_SEARCH,
           payload: data.body,
         });
-      })
-      .catch((err) => {
-        console.log('Searching error.');
-      });
-
-    // Search Artists
-    spotifyApi
-      .searchArtists(searchString)
-      .then((data: any) => {
-        // dispatch({
-        //   type: SET_ARTIST,
-        //   payload: data.body
-        // })
       })
       .catch((err) => {
         console.log('Searching error.');
