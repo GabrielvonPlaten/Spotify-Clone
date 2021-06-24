@@ -3,20 +3,18 @@ import './Landing.sass';
 import SpotifyWebApi from 'spotify-web-api-node';
 import useAuth from '../../useAuth';
 import { useHistory } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_USER_DATA } from '../../store/types/userTypes';
 import { setUserAction } from '../../store/actions/userActions';
-import { setRecentlyPlayedTracksAction } from '../../store/actions/setTracksActions';
 
 // Components
+import SearchResults from '../SearchResults/SearchResults';
 import Navbar from '../../Components/Navbar/Navbar';
-import Tracks from '../../Components/Tracks/Tracks';
 import Player from '../../Components/Player/Player';
-
-// Interface
-import { RecentlyPlayedTracksInterface } from '../../Interfaces/TracksInterface';
+import SongView from '../SongView/SongView';
+import SearchBar from '../../Components/SearchBar/SearchBar';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -26,9 +24,8 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
   const history = useHistory();
   const accessToken = useSelector((state: any) => state.accessToken);
 
-  const recentlyPlayedTracks = useSelector(
-    (state: any) => state.recentlyPlayedTracks,
-  );
+  // Search
+  const searchResults = useSelector((state: any) => state.searchResults);
 
   useEffect(() => {
     if (accessToken === '') return history.push('/');
@@ -36,10 +33,9 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
     apiCalls();
   }, [accessToken, history, code]);
 
-  const apiCalls = async () => {
+  const apiCalls = () => {
     const accessTokenFromStorage: string = localStorage.getItem('accessToken');
     dispatch(setUserAction(accessTokenFromStorage));
-    dispatch(setRecentlyPlayedTracksAction(accessTokenFromStorage));
   };
 
   return (
@@ -47,16 +43,16 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
       <div className='landing__body'>
         <Navbar />
         <section className='main-section'>
-          <section className='row-section'>
-            <label className='row-section__label'>Recently Played</label>
-            <div className='row-section__items-inline'>
-              {recentlyPlayedTracks.tracks.recentlyPlayedTracks?.items.map(
-                (track: any, index: number) => (
-                  <Tracks key={index} track={track.track} />
-                ),
-              )}
+          <SearchBar />
+          {!searchResults?.songResults?.hasOwnProperty('tracks') ? (
+            <div>
+              <Switch>
+                <Route path='/landing' component={SongView} />
+              </Switch>
             </div>
-          </section>
+          ) : (
+            <SearchResults searchResults={searchResults} />
+          )}
         </section>
       </div>
       <Player />

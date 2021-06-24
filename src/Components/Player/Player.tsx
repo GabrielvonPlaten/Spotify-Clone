@@ -27,7 +27,9 @@ const Player: React.FC = () => {
         showSaveIcon
         initialVolume={0.4}
         callback={(state) => {
-          if (!state.isPlaying) setPlay(false);
+          if (!state.isPlaying) {
+            setPlay(false);
+          }
         }}
         // Automatically plays the song after clicking on it
         play={play}

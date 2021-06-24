@@ -4,12 +4,12 @@ import PlayButton from '../../Styles/images/play-btn.svg';
 
 // Redux
 import { useDispatch } from 'react-redux';
-import { setPlayingTrack } from '../../store/actions/setTracksActions';
+import { setPlayingTrack } from '../../store/actions/tracksActions';
 
-import { RecentlyPlayedTracksInterface } from './../../Interfaces/TracksInterface';
+import { TracksInterface } from './../../Interfaces/TracksInterface';
 
 const Tracks: React.FC<{
-  track: RecentlyPlayedTracksInterface;
+  track: TracksInterface;
 }> = ({ track }) => {
   const dispatch = useDispatch();
   const handlePlay = () => {
@@ -19,10 +19,18 @@ const Tracks: React.FC<{
   return (
     <div className='track-container'>
       <div className='poster-container'>
-        <img
-          className='poster-container__cover'
-          src={track.album.images[1].url}
-        />
+        {track.album?.images.length === 0 ? (
+          <img
+            className='poster-container__cover'
+            alt={track.name + '- cover'}
+          />
+        ) : (
+          <img
+            className='poster-container__cover'
+            src={track.album?.images[1].url}
+            alt={track.name + '- cover'}
+          />
+        )}
         <img
           className='poster-container__play-button'
           src={PlayButton}
