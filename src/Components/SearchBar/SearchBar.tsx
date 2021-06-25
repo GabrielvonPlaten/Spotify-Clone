@@ -23,8 +23,9 @@ const SearchBar: React.FC<{ match?: any }> = ({ match }) => {
     }
   }, [searchString]);
 
+  // Clear search bar on url change
   useEffect(() => {
-    return history.listen((location) => {
+    return history.listen(() => {
       setSearchString('');
     });
   }, [history]);
