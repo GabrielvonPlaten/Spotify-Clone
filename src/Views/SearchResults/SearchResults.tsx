@@ -29,7 +29,6 @@ const SearchResults: React.FC<{ searchResults: any }> = ({ searchResults }) => {
 
     newArr = newArr.splice(0, 6);
 
-    // console.log(newArr);
     spotifyApi
       .getArtists(newArr)
       .then((data) => {
@@ -39,8 +38,6 @@ const SearchResults: React.FC<{ searchResults: any }> = ({ searchResults }) => {
         console.log(err);
       });
   }, [searchResults]);
-
-  console.log(artists);
 
   return (
     <div className='searchResults'>

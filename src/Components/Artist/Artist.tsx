@@ -2,7 +2,6 @@ import React from 'react';
 import './Artist.sass';
 
 const Artist: React.FC<{ artist: any }> = ({ artist }) => {
-  console.log(artist);
   return (
     <div className='artist-container'>
       <div className='artist-container__cover-container'>

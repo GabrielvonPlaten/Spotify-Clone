@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import 'normalize.css/normalize.css';
-import './Styles/style.sass';
+import './Styles/index.sass';
 import SpotifyWebApi from 'spotify-web-api-node';
 import App from './App';
 
