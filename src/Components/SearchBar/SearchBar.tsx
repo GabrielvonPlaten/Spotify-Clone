@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import './SearchBar.sass';
+import { useHistory } from 'react-router-dom';
 
 // Redux
 import { setSearchAction } from '../../store/actions/searchActions';
 import { useDispatch } from 'react-redux';
 
-const SearchBar: React.FC = () => {
+const SearchBar: React.FC<{ match?: any }> = ({ match }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [searchString, setSearchString] = useState<string>('');
-  const [loadingText, setLoadingText] = useState<boolean>(false);
 
   useEffect(() => {
     if (searchString !== '') {
@@ -22,6 +23,12 @@ const SearchBar: React.FC = () => {
     }
   }, [searchString]);
 
+  useEffect(() => {
+    return history.listen((location) => {
+      setSearchString('');
+    });
+  }, [history]);
+
   return (
     <div className='search-container'>
       <div className='search__form form'>
@@ -31,6 +38,7 @@ const SearchBar: React.FC = () => {
           className='form__input'
           onChange={(e) => setSearchString(e.target.value)}
           placeholder='Search'
+          value={searchString}
         />
       </div>
     </div>

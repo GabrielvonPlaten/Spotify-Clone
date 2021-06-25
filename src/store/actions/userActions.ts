@@ -23,6 +23,6 @@ export const setUserAction = (accessToken: string) => async (dispatch: any) => {
       });
     })
     .catch(() => {
-      window.location.href = '/';
+      window.location.href = '/login';
     });
 };

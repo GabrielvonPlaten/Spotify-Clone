@@ -7,7 +7,7 @@ spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
 // Components
 import Tracks from '../../Components/Tracks/Tracks';
-import Artist from '../../Components/Artist/Artist';
+import ArtistCard from '../../Components/ArtistCard/ArtistCard';
 
 const SearchResults: React.FC<{ searchResults: any }> = ({ searchResults }) => {
   const [artists, setArtists] = useState<{}[]>([]);
@@ -47,7 +47,7 @@ const SearchResults: React.FC<{ searchResults: any }> = ({ searchResults }) => {
           {artists.map(
             (artist: any, index: number) =>
               artist.images.length > 0 &&
-              artist.images[2] && <Artist key={index} artist={artist} />,
+              artist.images[2] && <ArtistCard key={index} artist={artist} />,
           )}
         </div>
       </section>

@@ -2,7 +2,7 @@ import React from 'react';
 import './Login.sass';
 
 const CLIENT_ID = process.env.CLIENT_ID;
-const REDIRECT_URI = 'http://localhost:8080/landing';
+const REDIRECT_URI = 'http://localhost:8080/';
 const scopes = [
   'streaming',
   'user-top-read',

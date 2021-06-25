@@ -29,14 +29,14 @@ const useAuth = (code: string) => {
               accessToken,
             },
           });
-          window.history.pushState({}, null, '/landing');
+          window.history.pushState({}, null, '/');
         })
         // If any error - Send the user back to the home page
         .catch(() => {
-          window.location.href = '/';
+          window.location.href = '/login';
         });
     } else if (!localStorage.getItem('accessToken')) {
-      window.location.href = '/';
+      window.location.href = '/login';
     }
   }, [code]);
 
@@ -52,7 +52,7 @@ const useAuth = (code: string) => {
           setExpiresIn(res.data.expiresIn);
         })
         .catch(() => {
-          window.location.href = '/';
+          window.location.href = '/login';
         });
     }, (expiresIn - 1) * 1);
 

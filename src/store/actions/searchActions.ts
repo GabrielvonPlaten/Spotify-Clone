@@ -13,7 +13,6 @@ export const setSearchAction = (searchString: string) => async (
     spotifyApi
       .searchTracks(searchString)
       .then((data: any) => {
-        console.log(data.body);
         dispatch({
           type: SET_SEARCH,
           payload: data.body,
