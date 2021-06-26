@@ -1,11 +1,24 @@
 import React, { useEffect } from 'react';
+import SpotifyWebApi from 'spotify-web-api-node';
 import './Artist.sass';
 
 // Redux
-import { setSearchAction } from '../../store/actions/searchActions';
+import { setArtistAction } from '../../store/actions/artistActions';
 import { useDispatch } from 'react-redux';
 
-const Artist: React.FC<{ match: any }> = ({ match }) => {
+interface ArtistProps {
+  params: {
+    artist: string;
+  };
+}
+
+const Artist: React.FC<{ match: ArtistProps }> = ({ match }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setArtistAction(match.params.artist));
+  }, [match]);
+
   return (
     <div>
       <h1>Artist name</h1>

@@ -7,6 +7,7 @@ import {
   setCurrentPlayingTrackReducer,
 } from './tracksReducers';
 import { searchResultsReducer } from './searchReducer';
+import { artistReducer } from './artistsReducer';
 
 const rootReducer = combineReducers({
   accessToken: accessTokenReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   recentlyPlayedTracks: setRecentlyPlayedTracksReducer,
   playingTrack: setCurrentPlayingTrackReducer,
   searchResults: searchResultsReducer,
+  artist: artistReducer,
 });
 
 export default rootReducer;

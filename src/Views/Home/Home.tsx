@@ -31,8 +31,7 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
   const searchResults = useSelector((state: any) => state.searchResults);
 
   useEffect(() => {
-    if (accessToken === '') return history.push('/login');
-
+    // if (accessToken === '') return history.push('/login');
     apiCalls();
   }, [accessToken, history, code]);
 
@@ -48,6 +47,7 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
           <Navbar />
           <section className='main-section'>
             <SearchBar />
+            {/* Hide every route when there are search results */}
             {!searchResults?.songResults?.hasOwnProperty('tracks') ? (
               <Switch>
                 <Route exact path='/' component={SongView} />
