@@ -4,7 +4,7 @@ import './Artist.sass';
 
 // Redux
 import { setArtistAction } from '../../store/actions/artistActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface ArtistProps {
   params: {
@@ -14,13 +14,18 @@ interface ArtistProps {
 
 const Artist: React.FC<{ match: ArtistProps }> = ({ match }) => {
   const dispatch = useDispatch();
+  const { artist } = useSelector((state: any) => state.artist);
 
   useEffect(() => {
     dispatch(setArtistAction(match.params.artist));
   }, [match]);
 
+  useEffect(() => {
+    console.log(artist);
+  }, [artist]);
+
   return (
-    <div>
+    <div className='artist-container'>
       <h1>Artist name</h1>
     </div>
   );

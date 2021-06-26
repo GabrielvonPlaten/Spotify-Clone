@@ -1,6 +1,9 @@
 @use '../../Styles' as v
   
-.artist-container
+.artistCard-link
+  text-decoration: none
+
+.artistCard-container
   padding-bottom: 1em
   width: 100%
   height: 100%
@@ -13,9 +16,8 @@
     background: v.$bg-dark-4
     border: 1px solid v.$border-dark-3
   
-  &:hover .artist-container__cover-container img
+  &:hover .artistCard-container__cover-container img
     filter: v.$drop-shadow
-
 
   &__name
     color: v.$white-3

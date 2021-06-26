@@ -14,16 +14,16 @@ const Artist: React.FC<{ artist: any }> = ({ artist }) => {
   };
 
   return (
-    <div className='artist-container'>
-      <div className='artist-container__cover-container'>
-        <img src={artist.images[2].url} />
-      </div>
-      <Link to={`/artist/${artist.id}`}>
-        <h1 className='artist-container__name' onClick={clearSearchBar}>
+    <Link to={`/artist/${artist.id}`} className='artistCard-link'>
+      <div className='artistCard-container'>
+        <div className='artistCard-container__cover-container'>
+          <img src={artist.images[2].url} />
+        </div>
+        <h1 className='artistCard-container__name' onClick={clearSearchBar}>
           {artist.name}
         </h1>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 };
 
