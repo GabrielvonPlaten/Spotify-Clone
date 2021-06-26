@@ -1,5 +1,48 @@
 .artist-container
-  margin: 4em
-  
-h1
-  color: white
+  margin: 0
+  padding: 0
+  z-index: -20
+  overflow-y: scroll
+  height: 90vh
+
+.artist-jumbotron
+  // height: auto
+  position: relative
+
+  &__images
+    overflow: hidden
+    display: flex
+    justify-content: space-between
+
+    img
+      width: 33.333333%
+      height: 100%
+      user-select: none
+      margin: -5px
+
+
+    &-side
+      filter: brightness(65%) blur(9px)
+
+  &__information
+    width: 20%
+    position: absolute
+    bottom: 15%
+    left: 7%
+    color: white
+
+    &-name
+      font-weight: bold
+      margin: 0
+
+    p
+      text-transform: capitalize
+
+.artist-library-container
+  display: block
+  margin: 0 4em
+  width: 30%
+
+  ul li
+    display: block
+    color: white

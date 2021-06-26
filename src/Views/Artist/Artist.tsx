@@ -18,15 +18,41 @@ const Artist: React.FC<{ match: ArtistProps }> = ({ match }) => {
 
   useEffect(() => {
     dispatch(setArtistAction(match.params.artist));
-  }, [match]);
+  }, [match, artist]);
 
-  useEffect(() => {
-    console.log(artist);
-  }, [artist]);
+  if (artist?.images) {
+    return (
+      <div className='artist-container'>
+        <div className='artist-jumbotron'>
+          <div className='artist-jumbotron__images'>
+            <img
+              className='artist-jumbotron__images-side'
+              src={artist.images[0].url}
+            />
+            <img
+              className='artist-jumbotron__images-middle'
+              src={artist.images[0].url}
+            />
+            <img
+              className='artist-jumbotron__images-side'
+              src={artist.images[0].url}
+            />
+          </div>
+          <div className='artist-jumbotron__information'>
+            <h1 className='artist-jumbotron__information-name'>
+              {artist.name}
+            </h1>
+            <p>{artist.type}</p>
+          </div>
+        </div>
+        <div className='artist-library-container'></div>
+      </div>
+    );
+  }
 
   return (
     <div className='artist-container'>
-      <h1>Artist name</h1>
+      <h1>Loading...</h1>
     </div>
   );
 };
