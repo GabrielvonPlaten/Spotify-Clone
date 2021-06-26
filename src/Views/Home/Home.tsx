@@ -31,7 +31,7 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
   const searchResults = useSelector((state: any) => state.searchResults);
 
   useEffect(() => {
-    // if (accessToken === '') return history.push('/login');
+    if (accessToken === '') return history.push('/');
     apiCalls();
   }, [accessToken, history, code]);
 

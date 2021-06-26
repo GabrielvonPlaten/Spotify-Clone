@@ -33,10 +33,10 @@ const useAuth = (code: string) => {
         })
         // If any error - Send the user back to the home page
         .catch(() => {
-          window.location.href = '/login';
+          window.location.href = '/';
         });
     } else if (!localStorage.getItem('accessToken')) {
-      window.location.href = '/login';
+      window.location.href = '/';
     }
   }, [code]);
 
@@ -52,7 +52,7 @@ const useAuth = (code: string) => {
           setExpiresIn(res.data.expiresIn);
         })
         .catch(() => {
-          window.location.href = '/login';
+          window.location.href = '/';
         });
     }, (expiresIn - 1) * 1);
 
