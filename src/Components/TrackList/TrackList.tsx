@@ -25,8 +25,6 @@ const TrackList: React.FC<{
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
-  console.log(tracks);
-
   return (
     <ul className='track-list-container'>
       <h2>{headerTitle}</h2>
@@ -68,8 +66,9 @@ const TrackList: React.FC<{
           ) : (
             // If album is not displayed, add an empty div to correctly align the list item
             <div style={{ margin: 'auto 0' }}>
-              {track.artists.map((artist: any) => (
+              {track.artists.map((artist: any, index: number) => (
                 <Link
+                  key={index}
                   className='track-list-item__artist'
                   to={`/artist/${artist.id}`}
                 >
