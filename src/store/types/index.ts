@@ -9,8 +9,9 @@ export const SET_RECENTLY_PLAYED_TRACKS = 'RECENTLY_PLAYED_TRACKS';
 export const SET_PLAYING_TRACK = 'SET_PLAYING_TRACK';
 export const SET_ARTIST_TOP_TRACKS = 'SET_ARTIST_TOP_TRACKS';
 
-// Albums
+// Collection
 export const SET_COLLECTION = 'SET_COLLECTION';
+export const SET_ARTIST_ALBUMS = 'SET_ARTIST_ALBUMS';
 
 // Search
 export const SET_SEARCH = 'SET_SEARCH';
@@ -81,9 +82,16 @@ export interface deleteSearch {
   };
 }
 
-export interface setAlbum {
+export interface setCollection {
   type: typeof SET_COLLECTION;
   payload: {
     collection: {};
+  };
+}
+
+export interface setArtistAlbums {
+  type: typeof SET_ARTIST_ALBUMS;
+  payload: {
+    albums: any[];
   };
 }

@@ -4,6 +4,9 @@ import './Artist.sass';
 // Redux
 import { setArtistAction } from '../../store/actions/artistActions';
 import { useDispatch, useSelector } from 'react-redux';
+import { setArtistAlbums } from '../../store/actions/collectionAction';
+
+// Components
 import TrackList from '../../Components/TrackList/TrackList';
 
 interface ArtistPropsInterface {
@@ -19,10 +22,8 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
 
   useEffect(() => {
     dispatch(setArtistAction(match.params.artist));
-    // get artists albums
+    dispatch(setArtistAlbums(match.params.artist));
   }, [match]);
-
-  console.log(tracks);
 
   if (artist?.images) {
     return (
