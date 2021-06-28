@@ -22,6 +22,8 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
     // get artists albums
   }, [match]);
 
+  console.log(tracks);
+
   if (artist?.images) {
     return (
       <div className='artist-container'>

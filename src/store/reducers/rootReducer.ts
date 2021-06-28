@@ -9,6 +9,7 @@ import {
 } from './tracksReducers';
 import { searchResultsReducer } from './searchReducer';
 import { artistReducer } from './artistsReducer';
+import { collectionReducer } from './collectionReducer';
 
 const rootReducer = combineReducers({
   accessToken: accessTokenReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   searchResults: searchResultsReducer,
   artist: artistReducer,
   artistTopTracks: setArtistTopTracksReducer,
+  collection: collectionReducer,
 });
 
 export default rootReducer;

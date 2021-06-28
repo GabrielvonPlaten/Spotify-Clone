@@ -40,31 +40,34 @@
   &__album
     color: v.$white-2
     font-size: 1.4rem
-    width: 70%
-    margin: auto 0
+    margin: auto 2em auto 0
+    text-decoration: none
+    transition: 0.2s
+    &:hover
+      color: v.$blue-10
 
   &__duration
     margin: auto 0
 
 .track-title-image
   display: flex
-  width: 80%
+  height: 80%
+  margin: auto 0
   
   &__image
-    width: 3em
-    height: 3em
     border-radius: 3px
 
   &__title
-    font-weight: 700
-    font-size: 1.8rem
+    font-weight: 400
+    font-size: 1.7rem
+    color: v.$white-5
 
   &__play-button
     height: 2.6em
     width: 2.6em
     position: relative
-    right: 7.6%
-    top: 7.6%
+    right: 6.4%
+    top: 6.4%
     opacity: 0
     transition: all 0.2s
     &:hover

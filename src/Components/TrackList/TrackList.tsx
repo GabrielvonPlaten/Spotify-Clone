@@ -2,15 +2,17 @@ import React from 'react';
 import './TrackList.sass';
 import SpotifyWebApi from 'spotify-web-api-node';
 import PlayButton from '../../Styles/images/play-btn.svg';
+import { Link } from 'react-router-dom';
 
 // Redux
 import { setPlayingTrack } from '../../store/actions/tracksActions';
 import { useDispatch, useSelector } from 'react-redux';
 
-const TrackList: React.FC<{ tracks: any[]; headerTitle: string }> = ({
-  tracks,
-  headerTitle,
-}) => {
+const TrackList: React.FC<{
+  tracks: any[];
+  headerTitle: string;
+  albumImage?: string;
+}> = ({ tracks, headerTitle, albumImage }) => {
   const dispatch = useDispatch();
   const playingTrack = useSelector((state: any) => state.playingTrack);
   const playTrack = (trackId: string) => {
@@ -29,27 +31,42 @@ const TrackList: React.FC<{ tracks: any[]; headerTitle: string }> = ({
     <ul className='track-list-container'>
       <h2>{headerTitle}</h2>
       {tracks.map((track: any, index: number) => (
-        <li className='track-list-item'>
+        <li key={index} className='track-list-item'>
           <p className='list-index'>{index + 1}</p>
           <div className='track-title-image'>
-            <img
-              className='track-title-image__image'
-              src={track.album.images[2].url}
-            />
+            {track.album ? (
+              <img
+                className='track-title-image__image'
+                src={track.album.images[2].url}
+              />
+            ) : (
+              <img className='track-title-image__image' src={albumImage} />
+            )}
             <img
               className='track-title-image__play-button button-opacity-hover'
               src={PlayButton}
               onClick={() => playTrack(track)}
             />
             <p
-              className={`${
+              // className='track-title-image__title'
+              className={` track-title-image__title ${
                 track.uri === playingTrack.track.uri ? 'track-playing-text' : ''
-              } 'track-title-image__title`}
+              }`}
             >
               {track.name}
             </p>
           </div>
-          <p className='track-list-item__album'>{track.album.name}</p>
+          {track.album ? (
+            <Link
+              to={`/collection/${track.album.id}`}
+              className='track-list-item__album'
+            >
+              {track.album.name}
+            </Link>
+          ) : (
+            // If album is not displayed, add an empty div to correctly align the list item
+            <p></p>
+          )}
           <p className='track-list-item__duration'>
             {convertMsTime(track.duration_ms)}
           </p>

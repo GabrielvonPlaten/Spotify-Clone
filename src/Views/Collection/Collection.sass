@@ -1,0 +1,52 @@
+@use '../../Styles' as v
+  
+.collection
+  margin: 0
+  padding: 0
+  z-index: -20
+  overflow-y: scroll
+  height: 90vh
+
+  .collection__jumbotron
+    height: 35vh
+    margin-bottom: 14%
+    position: relative
+
+  .overflow--hidden
+    overflow: hidden
+    height: 100%
+
+.collection__jumbotron__inner
+  height: 100%
+  position: relative
+  padding: 1px
+  background-size: cover
+  background-position-y: 50%
+  filter: brightness(70%) blur(5px)
+  color: v.$white-4
+  margin: -5px 0
+
+
+.collection-information
+  position: absolute
+  left: 10%
+  top: 50%
+
+  &__inner
+    color: white
+    height: 20%
+
+  img
+    filter: v.$drop-shadow
+
+  h2
+    margin: 0.2em 0
+    color: v.$white-4
+    font-weight: 700
+    font-size: 2.3rem
+
+  p
+    margin: 0
+    color: v.$white-2
+    font-size: 1.4rem
+    font-weight: 600
