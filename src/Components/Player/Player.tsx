@@ -5,9 +5,11 @@ import './Player.sass';
 import SpotifyPlayer from 'react-spotify-web-playback';
 
 // Redux
-import { useSelector } from 'react-redux';
+import { setPlayingTrack } from '../../store/actions/tracksActions';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Player: React.FC = () => {
+  const dispatch = useDispatch();
   const [play, setPlay] = useState<boolean>(false);
   const accessToken = localStorage.getItem('accessToken');
   const { track: playingTrackUri } = useSelector(

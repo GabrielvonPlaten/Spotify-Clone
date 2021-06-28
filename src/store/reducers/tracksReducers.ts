@@ -3,6 +3,8 @@ import {
   SET_RECENTLY_PLAYED_TRACKS,
   SET_PLAYING_TRACK,
   setCurrentPlayingTrack,
+  SET_ARTIST_TOP_TRACKS,
+  setArtistTopTracks,
 } from '../types/tracksTypes';
 
 const initialRecentlyPlayedTracksState = {
@@ -11,6 +13,10 @@ const initialRecentlyPlayedTracksState = {
 
 const initialCurrentPlayingTrackState = {
   track: {},
+};
+
+const initialArtistTopTracksState = {
+  tracks: <any>[],
 };
 
 export const setRecentlyPlayedTracksReducer = (
@@ -35,6 +41,20 @@ export const setCurrentPlayingTrackReducer = (
     case SET_PLAYING_TRACK:
       return {
         track: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const setArtistTopTracksReducer = (
+  state = initialArtistTopTracksState,
+  action: setArtistTopTracks,
+) => {
+  switch (action.type) {
+    case SET_ARTIST_TOP_TRACKS:
+      return {
+        tracks: action.payload,
       };
     default:
       return state;

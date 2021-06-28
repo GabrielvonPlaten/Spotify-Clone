@@ -5,6 +5,7 @@ import { setUserDataReducer } from './userReducer';
 import {
   setRecentlyPlayedTracksReducer,
   setCurrentPlayingTrackReducer,
+  setArtistTopTracksReducer,
 } from './tracksReducers';
 import { searchResultsReducer } from './searchReducer';
 import { artistReducer } from './artistsReducer';
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   playingTrack: setCurrentPlayingTrackReducer,
   searchResults: searchResultsReducer,
   artist: artistReducer,
+  artistTopTracks: setArtistTopTracksReducer,
 });
 
 export default rootReducer;

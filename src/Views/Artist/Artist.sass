@@ -1,3 +1,5 @@
+@use '../../Styles' as v
+  
 .artist-container
   margin: 0
   padding: 0
@@ -13,12 +15,14 @@
     overflow: hidden
     display: flex
     justify-content: space-between
+    height: 45vh
 
     img
-      width: 33.333333%
       height: 100%
+      width: 33.333333%
       user-select: none
       margin: -5px
+      object-fit: cover
 
 
     &-side
@@ -32,17 +36,95 @@
     color: white
 
     &-name
-      font-weight: bold
-      margin: 0
+      font-weight: 700
+      margin-bottom: 0.3em
 
     p
+      margin: 0
       text-transform: capitalize
+      font-size: 1.8rem
 
 .artist-library-container
   display: block
   margin: 0 4em
-  width: 30%
+  width: 80%
 
   ul li
     display: block
     color: white
+
+.list-index
+  margin: auto 0
+  margin-right: 2%
+  text-align: center
+  color: v.$white-2
+  font-size: 1.5rem
+
+.library-header
+  margin-top: 6%
+
+.artist-top-list
+  width: 80%
+  margin: 0 auto
+
+
+  h2
+    color: v.$white-4
+    font-size: 2.5rem
+
+  &__track
+    display: grid
+    grid-template-columns: 5% 55% 35% 10%
+    color: v.$white-4
+    margin-bottom: 0.2%
+    transition: all 0.2s
+    padding: 0.3em
+    border-radius: 0.5em
+    &:hover
+      background: v.$bg-dark-4
+
+    &:hover .button-opacity-hover
+      opacity: 1
+    
+    &:hover .track-title-image__image
+      filter: brightness(80%) blur(1px)
+
+  &__album
+    color: v.$white-2
+    font-size: 1.4rem
+    width: 70%
+    margin: auto 0
+
+  &__duration
+    margin: auto 0
+
+.track-title-image
+  display: flex
+  width: 80%
+    
+  &__image
+    width: 3em
+    height: 3em
+    border-radius: 3px
+
+  &__title
+    font-weight: 700
+    font-size: 1.8rem
+
+  &__play-button
+    height: 2.6em
+    width: 2.6em
+    position: relative
+    right: 7.6%
+    top: 7.6%
+    opacity: 0
+    transition: all 0.2s
+    &:hover
+      transform: scale(1.1)
+      cursor: pointer
+
+.opacity-on
+  opacity: 1
+
+.track-playing-text
+  color: v.$blue-10

@@ -27,7 +27,7 @@ const SearchResults: React.FC<{ searchResults: any }> = ({ searchResults }) => {
       ).values(),
     ];
 
-    newArr = newArr.splice(0, 6);
+    newArr = newArr.splice(0, 9);
 
     spotifyApi
       .getArtists(newArr)
