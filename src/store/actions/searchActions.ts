@@ -1,5 +1,5 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import { DELETE_SEARCH, SET_SEARCH } from '../types/searchTypes';
+import { DELETE_SEARCH, SET_SEARCH } from '../types';
 
 const spotifyApi = new SpotifyWebApi();
 

@@ -1,6 +1,6 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import { SET_ARTIST } from '../types/artistTypes';
-import { SET_ARTIST_TOP_TRACKS } from '../types/tracksTypes';
+import { SET_ARTIST } from '../types';
+import { SET_ARTIST_TOP_TRACKS } from '../types';
 
 const spotifyApi = new SpotifyWebApi();
 spotifyApi.setAccessToken(localStorage.getItem('accessToken'));

@@ -1,4 +1,4 @@
-import { SET_ACCESS_TOKEN, setAccessToken } from '../types/codeTypes';
+import { SET_ACCESS_TOKEN, setAccessToken } from '../types';
 
 const initialState = {
   accessToken: '',

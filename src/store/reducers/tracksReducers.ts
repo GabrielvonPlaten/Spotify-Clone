@@ -5,7 +5,7 @@ import {
   setCurrentPlayingTrack,
   SET_ARTIST_TOP_TRACKS,
   setArtistTopTracks,
-} from '../types/tracksTypes';
+} from '../types';
 
 const initialRecentlyPlayedTracksState = {
   tracks: {},

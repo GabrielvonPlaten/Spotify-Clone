@@ -1,9 +1,4 @@
-import {
-  SET_SEARCH,
-  setSearch,
-  DELETE_SEARCH,
-  deleteSearch,
-} from '../types/searchTypes';
+import { SET_SEARCH, setSearch, DELETE_SEARCH, deleteSearch } from '../types';
 
 const initialState = {
   songResults: {},

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { SET_ACCESS_TOKEN } from './store/types/codeTypes';
+import { SET_ACCESS_TOKEN } from './store/types';
 import axios from 'axios';
 
 const useAuth = (code: string) => {

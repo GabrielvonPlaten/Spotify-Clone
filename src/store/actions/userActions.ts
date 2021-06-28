@@ -1,5 +1,5 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import { SET_USER_DATA } from '../types/userTypes';
+import { SET_USER_DATA } from '../types';
 
 const spotifyApi = new SpotifyWebApi();
 

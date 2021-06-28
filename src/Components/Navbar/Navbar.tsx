@@ -4,7 +4,6 @@ import './Navbar.sass';
 
 // Redux
 import { useSelector } from 'react-redux';
-import { setUserData } from '../../store/types/userTypes';
 
 // Interface
 import { UserInterface } from '../../Interfaces/UserInterface';

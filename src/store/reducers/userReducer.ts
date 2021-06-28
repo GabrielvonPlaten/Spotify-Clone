@@ -1,4 +1,4 @@
-import { setUserData, SET_USER_DATA } from '../types/userTypes';
+import { setUserData, SET_USER_DATA } from '../types';
 
 const initialState = {
   user: {},

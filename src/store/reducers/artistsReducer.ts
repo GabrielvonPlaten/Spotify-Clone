@@ -1,4 +1,4 @@
-import { SET_ARTIST, setArtist } from '../types/artistTypes';
+import { SET_ARTIST, setArtist } from '../types';
 
 const initialArtistState = {
   artist: {},

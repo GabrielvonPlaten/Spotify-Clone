@@ -1,8 +1,5 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import {
-  SET_RECENTLY_PLAYED_TRACKS,
-  SET_PLAYING_TRACK,
-} from '../types/tracksTypes';
+import { SET_RECENTLY_PLAYED_TRACKS, SET_PLAYING_TRACK } from '../types';
 
 const spotifyApi = new SpotifyWebApi();
 

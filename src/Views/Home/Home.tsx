@@ -16,8 +16,9 @@ import Player from '../../Components/Player/Player';
 import SongView from '../SongView/SongView';
 import SearchBar from '../../Components/SearchBar/SearchBar';
 
-// View
+// Views
 import Artist from '../Artist/Artist';
+import Album from '../Album/Album';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -52,6 +53,7 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
               <Switch>
                 <Route exact path='/' component={SongView} />
                 <Route path='/artist/:artist' component={Artist} />
+                <Route path='/album/:album' component={Album} />
               </Switch>
             ) : (
               <SearchResults searchResults={searchResults} />

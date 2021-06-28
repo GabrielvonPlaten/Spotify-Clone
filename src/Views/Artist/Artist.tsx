@@ -6,19 +6,20 @@ import { setArtistAction } from '../../store/actions/artistActions';
 import { useDispatch, useSelector } from 'react-redux';
 import TrackList from '../../Components/TrackList/TrackList';
 
-interface ArtistProps {
+interface ArtistPropsInterface {
   params: {
     artist: string;
   };
 }
 
-const Artist: React.FC<{ match: ArtistProps }> = ({ match }) => {
+const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
   const dispatch = useDispatch();
   const { artist } = useSelector((state: any) => state.artist);
   const { tracks } = useSelector((state: any) => state.artistTopTracks);
 
   useEffect(() => {
     dispatch(setArtistAction(match.params.artist));
+    // get artists albums
   }, [match]);
 
   if (artist?.images) {
