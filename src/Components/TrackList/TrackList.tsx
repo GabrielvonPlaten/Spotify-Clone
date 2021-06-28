@@ -57,15 +57,26 @@ const TrackList: React.FC<{
             </p>
           </div>
           {track.album ? (
-            <Link
-              to={`/collection/${track.album.id}`}
-              className='track-list-item__album'
-            >
-              {track.album.name}
-            </Link>
+            <div style={{ margin: 'auto 0' }}>
+              <Link
+                to={`/collection/${track.album.id}`}
+                className='track-list-item__album'
+              >
+                {track.album.name}
+              </Link>
+            </div>
           ) : (
             // If album is not displayed, add an empty div to correctly align the list item
-            <p></p>
+            <div style={{ margin: 'auto 0' }}>
+              {track.artists.map((artist: any) => (
+                <Link
+                  className='track-list-item__artist'
+                  to={`/artist/${artist.id}`}
+                >
+                  {artist.name}
+                </Link>
+              ))}
+            </div>
           )}
           <p className='track-list-item__duration'>
             {convertMsTime(track.duration_ms)}
