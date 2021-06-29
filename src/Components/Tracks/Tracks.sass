@@ -6,6 +6,9 @@
   flex-shrink: 0
   border-bottom-right-radius: 8px
   border-bottom-left-radius: 8px
+  
+  &:hover .poster-container__play-button
+    opacity: 1
 
   &__title
     color: v.$white-3
@@ -26,8 +29,6 @@
       
 .poster-container
 
-  &:hover &__play-button
-    opacity: 1
 
   &__cover
     width: 100%
@@ -36,8 +37,8 @@
   &__play-button
     position: relative
     bottom: 1.7em
-    height: 3.7rem
-    width: 3.7rem
+    height: 3.9rem
+    width: 3.9rem
     opacity: 0
     z-index: 10
     transition: all 0.2s

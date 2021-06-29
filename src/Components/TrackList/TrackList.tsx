@@ -40,13 +40,13 @@ const TrackList: React.FC<{
             ) : (
               <img className='track-title-image__image' src={albumImage} />
             )}
+            {/* Display play button on hover */}
             <img
               className='track-title-image__play-button button-opacity-hover'
               src={PlayButton}
               onClick={() => playTrack(track)}
             />
             <p
-              // className='track-title-image__title'
               className={` track-title-image__title ${
                 track.uri === playingTrack.track.uri ? 'track-playing-text' : ''
               }`}
@@ -64,7 +64,7 @@ const TrackList: React.FC<{
               </Link>
             </div>
           ) : (
-            // If album is not displayed, add an empty div to correctly align the list item
+            //  Display artists if user is in collection router
             <div style={{ margin: 'auto 0' }}>
               {track.artists.map((artist: any, index: number) => (
                 <Link
