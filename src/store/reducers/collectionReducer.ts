@@ -4,6 +4,7 @@ import {
   setCollection,
   setArtistAlbums,
   CLEAR_STATE,
+  clearState,
 } from '../types';
 
 const collectionInitialState = {
@@ -16,7 +17,7 @@ const artistAlbumsInitialState = {
 
 export const collectionReducer = (
   state = collectionInitialState,
-  action: setCollection,
+  action: setCollection | clearState,
 ) => {
   switch (action.type) {
     case SET_COLLECTION:
