@@ -54,7 +54,7 @@ const useAuth = (code: string) => {
         .catch(() => {
           window.location.href = '/';
         });
-    }, (expiresIn - 1) * 1);
+    }, (expiresIn - 60) * 1000);
 
     return () => clearInterval(interval);
   }, [refreshToken, expiresIn]);
