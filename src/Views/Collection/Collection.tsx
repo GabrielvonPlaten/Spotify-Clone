@@ -4,6 +4,7 @@ import './Collection.sass';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { setCollectionAction } from '../../store/actions/collectionAction';
+import { clearDataAction } from '../../store/actions/clearDataAction';
 
 // Components
 import TrackList from '../../Components/TrackList/TrackList';
@@ -28,6 +29,10 @@ const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
       setTracks(collection.tracks.items);
     }
   }, [collection]);
+
+  useEffect(() => {
+    return () => dispatch(clearDataAction());
+  }, []);
 
   if (collection !== null) {
     return (

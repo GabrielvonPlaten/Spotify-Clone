@@ -3,6 +3,7 @@ import {
   SET_ARTIST_ALBUMS,
   setCollection,
   setArtistAlbums,
+  CLEAR_STATE,
 } from '../types';
 
 const collectionInitialState = {
@@ -21,6 +22,10 @@ export const collectionReducer = (
     case SET_COLLECTION:
       return {
         collection: action.payload,
+      };
+    case CLEAR_STATE:
+      return {
+        collection: {},
       };
     default:
       return state;

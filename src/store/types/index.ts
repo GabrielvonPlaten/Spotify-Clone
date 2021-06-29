@@ -20,6 +20,9 @@ export const DELETE_SEARCH = 'DELETE_SEARCH';
 // Code
 export const SET_ACCESS_TOKEN: string = 'SET_ACCESS_TOKEN';
 
+// CLEAR DATA
+export const CLEAR_STATE: string = 'CLEAR_DATA';
+
 export interface setAccessToken {
   type: typeof SET_ACCESS_TOKEN;
   payload: {
@@ -94,4 +97,9 @@ export interface setArtistAlbums {
   payload: {
     albums: any[];
   };
+}
+
+export interface clearState {
+  type: typeof CLEAR_STATE;
+  payload: {};
 }
