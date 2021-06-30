@@ -32,23 +32,28 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
     };
   }, [match]);
 
-  if (artist?.images) {
+  if (artist) {
     return (
       <div className='artist-container'>
         <div className='artist-jumbotron'>
           <div className='artist-jumbotron__images'>
-            <img
-              className='artist-jumbotron__images-side'
-              src={artist.images[0].url}
-            />
-            <img
-              className='artist-jumbotron__images-middle'
-              src={artist.images[0].url}
-            />
-            <img
-              className='artist-jumbotron__images-side'
-              src={artist.images[0].url}
-            />
+            {/* Not all artist's have a profile picture */}
+            {artist?.images?.length > 0 && (
+              <>
+                <img
+                  className='artist-jumbotron__images-side'
+                  src={artist.images[0].url}
+                />
+                <img
+                  className='artist-jumbotron__images-middle'
+                  src={artist.images[0].url}
+                />
+                <img
+                  className='artist-jumbotron__images-side'
+                  src={artist.images[0].url}
+                />
+              </>
+            )}
           </div>
           <div className='artist-jumbotron__information'>
             <h1 className='artist-jumbotron__information-name'>
