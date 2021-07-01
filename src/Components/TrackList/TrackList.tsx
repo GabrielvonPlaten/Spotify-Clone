@@ -36,20 +36,27 @@ const TrackList: React.FC<{
         <li key={index} className='track-list-item'>
           <p className='list-index'>{index + 1}</p>
           <div className='track-title-image'>
-            {track.album ? (
+            <div className='track-image-box'>
+              {track.album ? (
+                <div
+                  className='track-image-box__image'
+                  style={{
+                    backgroundImage: `url(${track.album.images[2].url})`,
+                  }}
+                ></div>
+              ) : (
+                <div
+                  className='track-image-box__image'
+                  style={{ backgroundImage: `url(${albumImage})` }}
+                ></div>
+              )}
+              {/* Display play button on hover */}
               <img
-                className='track-title-image__image'
-                src={track.album.images[2].url}
+                className='track-image-box__play-button button-opacity-hover'
+                src={PlayButton}
+                onClick={() => playTrack(track)}
               />
-            ) : (
-              <img className='track-title-image__image' src={albumImage} />
-            )}
-            {/* Display play button on hover */}
-            <img
-              className='track-title-image__play-button button-opacity-hover'
-              src={PlayButton}
-              onClick={() => playTrack(track)}
-            />
+            </div>
             <p
               className={` track-title-image__title ${
                 track.uri === playingTrack.track.uri ? 'track-playing-text' : ''

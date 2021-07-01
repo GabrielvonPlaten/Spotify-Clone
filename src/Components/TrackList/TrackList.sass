@@ -33,7 +33,7 @@
   display: grid
   grid-template-columns: 5% 55% 35% 10%
   color: v.$white-4
-  margin-bottom: 0.2%
+  margin-bottom: 0.6%
   transition: all 0.2s
   padding: 0.1em
   border-radius: 0.5em
@@ -43,7 +43,7 @@
   &:hover .button-opacity-hover
     opacity: 1
   
-  &:hover .track-title-image__image
+  &:hover .track-image-box__image
     filter: brightness(80%) blur(1px)
 
   &__album, &__artist
@@ -61,26 +61,32 @@
 // Track image
 .track-title-image
   display: flex
-  height: 80%
   margin: auto 0
   position: relative
   
-  &__image
-    border-radius: 3px
-
   &__title
     font-weight: 500
     font-size: 1.5rem
     color: v.$white-5
-    margin: auto 0
-    margin-right: 2em
+    margin: auto 2em
+
+.track-image-box
+
+  &__image
+    width: 2.7em
+    aspect-ratio: 1 / 1
+    background-size: contain
+    z-idex: -10
+
 
   &__play-button
     height: 2.6em
     width: 2.6em
-    position: relative
-    right: 6.4%
-    top: 6.4%
+    position: absolute
+    inset: 0rem
+    margin: auto 0
+    margin-top: 0.1%
+    z-index: 10
     opacity: 0
     transition: all 0.2s
     &:hover
