@@ -12,7 +12,8 @@ const TrackList: React.FC<{
   tracks: any[];
   headerTitle: string;
   albumImage?: string;
-}> = ({ tracks, headerTitle, albumImage }) => {
+  releaseDate?: string;
+}> = ({ tracks, headerTitle, albumImage, releaseDate }) => {
   const dispatch = useDispatch();
   const playingTrack = useSelector((state: any) => state.playingTrack);
   const playTrack = (trackId: string) => {
@@ -27,7 +28,10 @@ const TrackList: React.FC<{
 
   return (
     <ul className='track-list-container'>
-      <h2>{headerTitle}</h2>
+      <h2 className='header-title'>
+        {headerTitle}
+        {releaseDate && <span className='release-date'> - {releaseDate}</span>}
+      </h2>
       {tracks.map((track: any, index: number) => (
         <li key={index} className='track-list-item'>
           <p className='list-index'>{index + 1}</p>

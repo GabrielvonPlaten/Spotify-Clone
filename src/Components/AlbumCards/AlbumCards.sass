@@ -11,7 +11,7 @@
   ul
     display: grid
     grid-template-columns: repeat(7, 1fr)
-    grid-gap: 4%
+    grid-gap: max(4%, 3em)
     flex-wrap: wrap
 
     a
@@ -53,3 +53,15 @@
       font-size: 1.2rem
       margin: 0
       margin-top: 7%
+
+@media only screen and (max-width: 1350px)
+  .album-cards ul
+    grid-template-columns: repeat(6, 1fr)
+
+@media only screen and (max-width: 1200px)
+  .album-cards ul
+    grid-template-columns: repeat(5, 1fr)
+
+@media only screen and (max-width: 1000px)
+  .album-cards ul
+    grid-template-columns: repeat(3, 1fr)

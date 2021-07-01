@@ -3,20 +3,20 @@
 .search-container
   position: absolute
   padding-bottom: 1em
-  // background: linear-gradient(180deg, rgba(17, 17, 22, 0.8) 0%, rgba(17, 17, 22, 0.529167) 33.85%, rgba(17, 17, 22, 0.283333) 64.58%, rgba(196, 196, 196, 0) 100%)
   filter: v.$drop-shadow
   padding: 2em 0 4em 0
   z-index: 1
 
   .form
     width: 120em
-    margin-left: 3%
+    margin-left: min(4em, 2%, 3%)
 
     &__input
       border: 1px solid v.$border-dark-3
       background: v.$bg-dark-4
       color: v.$white-4
-      width: 20%
+      width: min(15%, 30vw, 20%)
       border-radius: 7px
       margin-right: 1em
       padding: 0.4em 0.5em
+

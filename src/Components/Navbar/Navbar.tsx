@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
   return (
     <header className='navbar'>
       <div className='user_display'>
-        <img className='user_display__avatar' src={userData.imageUrl} />
+        {/* <img className='user_display__avatar' src={userData.imageUrl} /> */}
         <h2 className='user_display__display_name'>{userData.display_name}</h2>
       </div>
     </header>

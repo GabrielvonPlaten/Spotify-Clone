@@ -2,6 +2,7 @@
   
 .artistCard-link
   text-decoration: none
+  margin-bottom: 1.5em
 
 .artistCard-container
   padding-bottom: 1em
@@ -23,7 +24,9 @@
     color: v.$white-3
     margin-top: 0.2em
     margin-bottom: 0
-    font-size: 1.8rem
+    // font-size: 1.8rem
+    // font-size: calc(0.7vw + 0.5rem)
+    font-size: clamp(1.4rem, 1vw, 1.8rem)
     text-align: center
     font-weight: 600
     margin: 0.4em 0.5em
@@ -35,8 +38,10 @@
 
     img
       display: block
-      height: 7em
-      width: 7em
+      // height:7em
+      // width: 7em
+      width: 70%
+      height: auto
       border-radius: 100%
       margin: 0.4em auto
       transition: all 0.3s

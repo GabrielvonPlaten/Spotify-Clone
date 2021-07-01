@@ -7,10 +7,6 @@ interface AlbumCardProps {
 }
 
 const AlbumCards: React.FC<{ albums: AlbumCardProps }> = ({ albums }) => {
-  useEffect(() => {
-    console.log(albums);
-  }, [albums]);
-
   return (
     <div className='album-cards'>
       <h2 className='album-cards__title'>Albums</h2>

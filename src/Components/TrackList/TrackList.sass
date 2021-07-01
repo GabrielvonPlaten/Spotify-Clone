@@ -3,13 +3,22 @@
 .track-list-container
   display: block
   margin: 4.5% auto
-  width: 80%
+  width: max(80%, 35em, 40em)
 
-  h2
+  .header-title
+    margin: 1.2em 0
     color: v.$white-4
-    font-size: 2.5rem
+    font-weight: 700
+    font-size: 2.1rem
+    width: 55%
 
-  ul // li
+  .release-date
+    margin: 0
+    color: v.$white-2
+    font-size: 1.7rem
+    font-weight: 600
+
+  ul
     display: block
     color: white
 
@@ -49,10 +58,12 @@
   &__duration
     margin: auto 0
 
+// Track image
 .track-title-image
   display: flex
   height: 80%
   margin: auto 0
+  position: relative
   
   &__image
     border-radius: 3px
@@ -62,6 +73,7 @@
     font-size: 1.5rem
     color: v.$white-5
     margin: auto 0
+    margin-right: 2em
 
   &__play-button
     height: 2.6em

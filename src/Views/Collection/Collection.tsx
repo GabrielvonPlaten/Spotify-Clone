@@ -18,6 +18,7 @@ interface AlbumPropsInterface {
 const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
   const dispatch = useDispatch();
   const [tracks, setTracks] = useState<any>([]);
+  const [fontSize, setFontSize] = useState('');
   const { collection } = useSelector((state: any) => state.collection);
 
   useEffect(() => {
@@ -50,21 +51,18 @@ const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
             ></div>
           </div>
           <div className='collection-information'>
-            <div className='collection-information__inner'>
-              {collection &&
-                collection.images &&
-                collection.images.length > 0 && (
-                  <img src={collection.images[1].url} />
-                )}
-              <h2>{collection.name}</h2>
-              {collection?.release_date && <p>{collection.release_date}</p>}
-            </div>
+            {collection &&
+              collection.images &&
+              collection.images.length > 0 && (
+                <img src={collection.images[1].url} />
+              )}
           </div>
         </div>
         {tracks.length > 0 && (
           <TrackList
             tracks={tracks}
-            headerTitle='Songs'
+            headerTitle={collection.name}
+            releaseDate={collection.release_date}
             albumImage={collection.images[2].url}
           />
         )}
