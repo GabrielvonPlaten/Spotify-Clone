@@ -35,6 +35,7 @@ const useAuth = (code: string) => {
         .catch(() => {
           window.location.href = '/';
         });
+      // Development code
     } else if (!localStorage.getItem('accessToken')) {
       window.location.href = '/';
     }

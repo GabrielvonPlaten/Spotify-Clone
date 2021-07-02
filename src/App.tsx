@@ -10,6 +10,8 @@ import Login from './Views/Login/Login';
 import Home from './Views/Home/Home';
 
 const App: React.FC = () => {
+  // Development
+  // localStorage.getItem('accessToken') !== ''
   return (
     <div>
       {code || localStorage.getItem('accessToken') !== '' ? (
