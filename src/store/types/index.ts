@@ -60,7 +60,9 @@ export interface setRecentlyPlayedTracks {
 export interface setCurrentPlayingTrack {
   type: typeof SET_PLAYING_TRACK;
   payload: {
-    track: string;
+    tracksList: string[];
+    trackIndex: number;
+    track: {};
   };
 }
 

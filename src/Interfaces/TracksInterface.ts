@@ -23,4 +23,5 @@ export interface TracksInterface {
   href: string;
   id: string;
   name: string;
+  uri: string;
 }

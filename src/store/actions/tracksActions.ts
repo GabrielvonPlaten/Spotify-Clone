@@ -25,9 +25,20 @@ export const setRecentlyPlayedTracksAction = (accessToken: string) => async (
     });
 };
 
-export const setPlayingTrack = (track: any) => async (dispatch: any) => {
+export const setPlayingTrack = (
+  // Player will automatically play through the array
+  tracksArray: string[],
+  // The track currently playing
+  track: {},
+  // Index tells the player where in the collection it should start playing
+  index: number,
+) => async (dispatch: any) => {
   dispatch({
     type: SET_PLAYING_TRACK,
-    payload: track,
+    payload: {
+      tracksList: tracksArray,
+      track,
+      trackIndex: index,
+    },
   });
 };

@@ -12,11 +12,13 @@ const initialRecentlyPlayedTracksState = {
 };
 
 const initialCurrentPlayingTrackState = {
+  tracksList: <string[]>[],
+  trackIndex: 0,
   track: {},
 };
 
 const initialArtistTopTracksState = {
-  tracks: <any>[],
+  tracks: <any[]>[],
 };
 
 export const setRecentlyPlayedTracksReducer = (
@@ -40,7 +42,10 @@ export const setCurrentPlayingTrackReducer = (
   switch (action.type) {
     case SET_PLAYING_TRACK:
       return {
-        track: action.payload,
+        ...state,
+        tracksList: action.payload.tracksList,
+        trackIndex: action.payload.trackIndex,
+        track: action.payload.track,
       };
     default:
       return state;

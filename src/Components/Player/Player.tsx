@@ -12,14 +12,14 @@ const Player: React.FC = () => {
   const dispatch = useDispatch();
   const [play, setPlay] = useState<boolean>(false);
   const accessToken = localStorage.getItem('accessToken');
-  const { track: playingTrackUri } = useSelector(
+  const { tracksList, trackIndex } = useSelector(
     (state: any) => state.playingTrack,
   );
 
   // Change every time the song selected is changed
   useEffect(() => {
     setPlay(true);
-  }, [playingTrackUri]);
+  }, [tracksList]);
 
   if (!accessToken) return null;
   return (
@@ -29,13 +29,25 @@ const Player: React.FC = () => {
         showSaveIcon
         initialVolume={0.4}
         callback={(state) => {
+          // Update the state when a new track automatically finishes playing
+          if (state.type === 'track_update') {
+            dispatch(
+              setPlayingTrack(
+                tracksList,
+                state.track,
+                tracksList.indexOf(state.track.uri),
+              ),
+            );
+          }
+
           if (!state.isPlaying) {
             setPlay(false);
           }
         }}
         // Automatically plays the song after clicking on it
         play={play}
-        uris={playingTrackUri.uri ? [playingTrackUri.uri] : []}
+        uris={tracksList}
+        offset={trackIndex}
         styles={{
           height: '4vh',
           bgColor: '#191A20',

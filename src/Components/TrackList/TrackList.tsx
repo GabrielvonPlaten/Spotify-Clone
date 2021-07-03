@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './TrackList.sass';
 import SpotifyWebApi from 'spotify-web-api-node';
 import PlayButton from '../../Styles/images/play-btn.svg';
@@ -16,8 +16,17 @@ const TrackList: React.FC<{
 }> = ({ tracks, headerTitle, albumImage, releaseDate }) => {
   const dispatch = useDispatch();
   const playingTrack = useSelector((state: any) => state.playingTrack);
-  const playTrack = (trackId: string) => {
-    dispatch(setPlayingTrack(trackId));
+
+  const playTrack = (track: any, trackList: any, index: number) => {
+    let newArr: any[] = [];
+    newArr = [
+      ...new Map(
+        // Remove duplicates by their uri and return items by their uri
+        trackList.map((item: any): string[] => [item.uri, item.uri]),
+      ).values(),
+    ];
+
+    dispatch(setPlayingTrack(newArr, track, index));
   };
 
   const convertMsTime = (time: number): string => {
@@ -32,7 +41,7 @@ const TrackList: React.FC<{
         {headerTitle}
         {releaseDate && <span className='release-date'> - {releaseDate}</span>}
       </h2>
-      {tracks.map((track: any, index: number) => (
+      {tracks.map((track: any, index: number, trackList) => (
         <li key={index} className='track-list-item'>
           <p className='list-index'>{index + 1}</p>
           <div className='track-title-image'>
@@ -54,12 +63,14 @@ const TrackList: React.FC<{
               <img
                 className='track-image-box__play-button button-opacity-hover'
                 src={PlayButton}
-                onClick={() => playTrack(track)}
+                onClick={() => playTrack(track, trackList, index)}
               />
             </div>
             <p
               className={` track-title-image__title ${
-                track.uri === playingTrack.track.uri ? 'track-playing-text' : ''
+                track.name === playingTrack.track.name
+                  ? 'track-playing-text'
+                  : ''
               }`}
             >
               {track.name}

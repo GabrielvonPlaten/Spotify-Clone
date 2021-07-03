@@ -13,7 +13,7 @@ const Tracks: React.FC<{
 }> = ({ track }) => {
   const dispatch = useDispatch();
   const handlePlay = () => {
-    dispatch(setPlayingTrack(track));
+    dispatch(setPlayingTrack([track.uri], track, 0));
   };
 
   return (
