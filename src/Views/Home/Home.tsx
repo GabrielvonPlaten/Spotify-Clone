@@ -23,15 +23,18 @@ import Collection from '../Collection/Collection';
 const spotifyApi = new SpotifyWebApi();
 
 const Landing: React.FC<{ code: string }> = ({ code }) => {
-  useAuth(code);
+  const accessToken = useAuth(code);
   const dispatch = useDispatch();
   const history = useHistory();
-  const accessToken = useSelector((state: any) => state.accessToken);
+  // const accessToken = useSelector((state: any) => state.accessToken);
 
   // Search
   const searchResults = useSelector((state: any) => state.searchResults);
 
   useEffect(() => {
+    // Top condition is for prod
+    // if (!accessToken) return;
+    // For dev
     if (accessToken === '') return history.push('/');
     apiCalls();
   }, [accessToken, history, code]);
