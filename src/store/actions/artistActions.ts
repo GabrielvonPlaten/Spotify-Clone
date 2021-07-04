@@ -6,27 +6,23 @@ const spotifyApi = new SpotifyWebApi();
 spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
 export const setArtistAction = (artist: string) => async (dispatch: any) => {
-  spotifyApi
-    .getArtist(artist)
-    .then((data: any) => {
-      dispatch({
-        type: SET_ARTIST,
-        payload: data.body,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+  try {
+    const res = await spotifyApi.getArtist(artist);
+    dispatch({
+      type: SET_ARTIST,
+      payload: res.body,
     });
+  } catch (error) {
+    console.log(error);
+  }
 
-  spotifyApi
-    .getArtistTopTracks(artist, 'GB')
-    .then((data) => {
-      dispatch({
-        type: SET_ARTIST_TOP_TRACKS,
-        payload: data.body.tracks,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+  try {
+    const res = await spotifyApi.getArtistTopTracks(artist, 'GB');
+    dispatch({
+      type: SET_ARTIST_TOP_TRACKS,
+      payload: res.body.tracks,
     });
+  } catch (error) {
+    console.log(error);
+  }
 };

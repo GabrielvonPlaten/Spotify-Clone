@@ -7,22 +7,17 @@ export const setRecentlyPlayedTracksAction = (accessToken: string) => async (
   dispatch: any,
 ) => {
   spotifyApi.setAccessToken(accessToken);
-
-  spotifyApi
-    .getMyRecentlyPlayedTracks({
-      limit: 10,
-    })
-    .then((data) => {
-      dispatch({
-        type: SET_RECENTLY_PLAYED_TRACKS,
-        payload: {
-          recentlyPlayedTracks: data.body,
-        },
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+  try {
+    const res = await spotifyApi.getMyRecentlyPlayedTracks({ limit: 10 });
+    dispatch({
+      type: SET_RECENTLY_PLAYED_TRACKS,
+      payload: {
+        recentlyPlayedTracks: res.body,
+      },
     });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const setPlayingTrack = (

@@ -10,17 +10,15 @@ export const setSearchAction = (searchString: string) => async (
 
   if (searchString !== '') {
     // Search tracks
-    spotifyApi
-      .searchTracks(searchString)
-      .then((data: any) => {
-        dispatch({
-          type: SET_SEARCH,
-          payload: data.body,
-        });
-      })
-      .catch((err) => {
-        console.log('Searching error.');
+    try {
+      const res = await spotifyApi.searchTracks(searchString);
+      dispatch({
+        type: SET_SEARCH,
+        payload: res.body,
       });
+    } catch (error) {
+      console.log(error);
+    }
   } else {
     dispatch({
       type: DELETE_SEARCH,
