@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import SpotifyWebApi from 'spotify-web-api-node';
+import { useLocation } from 'react-router-dom';
 import './Collection.sass';
+
+const spotifyApi = new SpotifyWebApi();
+spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setCollectionAction } from '../../store/actions/collectionAction';
+import {
+  setAlbumsAction,
+  setPlaylistsAction,
+} from '../../store/actions/collectionAction';
 import { clearDataAction } from '../../store/actions/clearDataAction';
 
 // Components
@@ -17,17 +25,36 @@ interface AlbumPropsInterface {
 
 const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const [tracks, setTracks] = useState<any>([]);
-  const [fontSize, setFontSize] = useState('');
   const { collection } = useSelector((state: any) => state.collection);
+  const routeArray = location.pathname.split('/');
 
   useEffect(() => {
-    dispatch(setCollectionAction(match.params.id));
+    // This view uses both /collection/albums/ and /collection/playlists/
+    // Dispatch the correct collection type depending on the url type
+    if (routeArray[2] === 'albums') {
+      dispatch(setAlbumsAction(match.params.id));
+    } else if (routeArray[2] === 'playlists') {
+      dispatch(setPlaylistsAction(match.params.id));
+    }
   }, [match]);
 
   useEffect(() => {
-    if (Object.keys(collection).length > 0) {
+    if (Object.keys(collection).length > 0 && collection.type === 'album') {
       setTracks(collection.tracks.items);
+    }
+
+    if (Object.keys(collection).length > 0 && collection.type === 'playlist') {
+      // Playlist's tracks are nested one layer deeper than a regular album
+      // Loop through the items array and push the track object
+      // Otherwise the TrackList won't work
+      let tracksArray: any[] = [];
+      collection.tracks.items.map((item: any) => {
+        tracksArray.push(item.track);
+      });
+
+      setTracks(tracksArray);
     }
   }, [collection]);
 
@@ -54,7 +81,7 @@ const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
             {collection &&
               collection.images &&
               collection.images.length > 0 && (
-                <img src={collection.images[1].url} />
+                <img src={collection.images[0].url} />
               )}
           </div>
         </div>
@@ -63,7 +90,7 @@ const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
             tracks={tracks}
             headerTitle={collection.name}
             releaseDate={collection.release_date}
-            albumImage={collection.images[2].url}
+            albumImage={collection.images[0].url}
           />
         )}
       </div>

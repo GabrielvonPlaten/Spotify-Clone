@@ -1,5 +1,5 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import { DELETE_SEARCH, SET_SEARCH } from '../types';
+import { DELETE_SEARCH, SET_ARTIST, SET_SEARCH } from '../types';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -9,12 +9,18 @@ export const setSearchAction = (searchString: string) => async (
   spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
   if (searchString !== '') {
-    // Search tracks
+    // Search tracks and playlists
     try {
-      const res = await spotifyApi.searchTracks(searchString);
+      const tracksResponse = await spotifyApi.searchTracks(searchString, {
+        limit: 20,
+      });
+      const playlistResponse = await spotifyApi.searchPlaylists(searchString);
       dispatch({
         type: SET_SEARCH,
-        payload: res.body,
+        payload: {
+          tracks: tracksResponse.body,
+          playlists: playlistResponse.body,
+        },
       });
     } catch (error) {
       console.log(error);

@@ -8,13 +8,15 @@ spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 // Components
 import Tracks from '../../Components/Tracks/Tracks';
 import ArtistCard from '../../Components/ArtistCard/ArtistCard';
+import CollectionCards from '../../Components/CollectionCards/CollectionCards';
 
 const SearchResults: React.FC<{ searchResults: any }> = ({ searchResults }) => {
   const [artists, setArtists] = useState<{}[]>([]);
+  const { tracks: songResults, playlists: playlistsResults } = searchResults;
 
   useEffect(() => {
     let newArr: any = [];
-    searchResults.songResults.tracks.items.map((i: any, index: number) => {
+    songResults.tracks.items.map((i: any, index: number) => {
       newArr.push(i.artists);
     });
 
@@ -54,12 +56,16 @@ const SearchResults: React.FC<{ searchResults: any }> = ({ searchResults }) => {
       <section className='row-section'>
         <label className='row-section__label'>Songs</label>
         <div className='row-section__items-inline'>
-          {searchResults?.songResults?.tracks?.items.map(
-            (track: any, index: number) => (
-              <Tracks key={index} track={track} />
-            ),
-          )}
+          {songResults?.tracks?.items.map((track: any, index: number) => (
+            <Tracks key={index} track={track} />
+          ))}
         </div>
+        {playlistsResults.playlists.hasOwnProperty('items') && (
+          <CollectionCards
+            collection={playlistsResults.playlists}
+            type='playlists'
+          />
+        )}
       </section>
     </div>
   );

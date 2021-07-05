@@ -52,11 +52,15 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
           <section className='main-section'>
             <SearchBar />
             {/* Hide every route when there are search results */}
-            {!searchResults?.songResults?.hasOwnProperty('tracks') ? (
+            {!searchResults?.tracks?.hasOwnProperty('tracks') ? (
               <Switch>
                 <Route exact path='/' component={SongView} />
                 <Route path='/artist/:artist' component={Artist} />
-                <Route path='/collection/:id' component={Collection} />
+                <Route path='/collection/albums/:id' component={Collection} />
+                <Route
+                  path='/collection/playlists/:id'
+                  component={Collection}
+                />
               </Switch>
             ) : (
               <SearchResults searchResults={searchResults} />

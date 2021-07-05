@@ -2,16 +2,18 @@
   
 .album-cards
   width: 80%
-  margin: 4.5% auto
+  margin: 3% auto
 
   &__title
     color: v.$white-4
     font-size: 2.5rem
+    text-transform: capitalize
+
 
   ul
     display: grid
     grid-template-columns: repeat(7, 1fr)
-    grid-gap: max(4%, 3em)
+    grid-gap: max(3.5%, 1.5em)
     flex-wrap: wrap
 
     a
@@ -19,27 +21,44 @@
 
     li
       background: v.$bg-dark-3
+      border: 1px solid transparent
       list-style: none
       padding: 1em
       height: 90%
       width: 100%
       margin-bottom: 1em
-      flex-shrink: 0      
+      flex-shrink: 0
+      transition: 0.2s
+
+      &:hover
+        border: 1px solid v.$border-dark-3
+        background: v.$bg-dark-4
 
       &:hover .album-cards__info__title
         color: v.$blue-10
 
 
   &__image-container
-    width: 100%
+    padding-top: 100%
+    position: relative
+    overflow: hidden
+    margin: 0 auto
+    filter: v.$drop-shadow
 
-    img
-      width: 100%
-      border-radius: 5px
-      filter: v.$drop-shadow
+    &--inner
+      position: absolute
+      inset: 0px
+
+      img
+        position: absolute
+        width: auto
+        height: 11em
+        left: 50%
+        transform: translateX(-50%)
+        filter: v.$drop-shadow
 
   &__info
-    
+
     &__title
       color: v.$white-5
       margin: 0
@@ -53,6 +72,14 @@
       font-size: 1.2rem
       margin: 0
       margin-top: 7%
+
+// Playlist classes
+.playlist-image-size
+
+.playlist-full-width
+  width: 100%
+
+  
 
 @media only screen and (max-width: 1350px)
   .album-cards ul

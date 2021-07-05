@@ -76,7 +76,8 @@ export interface setArtistTopTracks {
 export interface setSearch {
   type: typeof SET_SEARCH;
   payload: {
-    search: {};
+    tracks: {};
+    playlists: {};
   };
 }
 

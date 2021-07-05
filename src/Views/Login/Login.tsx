@@ -12,9 +12,11 @@ const scopes = [
   'user-read-private',
   'user-library-read',
   'user-library-modify',
+  'playlist-read-private',
   'user-read-playback-state',
   'user-read-recently-played',
   'user-modify-playback-state',
+  'playlist-read-collaborative',
 ];
 
 const AUTH_URL = encodeURI(

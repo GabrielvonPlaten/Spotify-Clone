@@ -9,7 +9,7 @@ import { clearDataAction } from '../../store/actions/clearDataAction';
 
 // Components
 import TrackList from '../../Components/TrackList/TrackList';
-import AlbumCards from '../../Components/AlbumCards/AlbumCards';
+import CollectionCards from '../../Components/CollectionCards/CollectionCards';
 
 interface ArtistPropsInterface {
   params: {
@@ -21,7 +21,9 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
   const dispatch = useDispatch();
   const { artist } = useSelector((state: any) => state.artist);
   const { tracks } = useSelector((state: any) => state.artistTopTracks);
-  const { albums } = useSelector((state: any) => state.artistAlbums);
+  const { albums: collection } = useSelector(
+    (state: any) => state.artistAlbums,
+  );
 
   useEffect(() => {
     dispatch(setArtistAction(match.params.artist));
@@ -64,7 +66,9 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
         </div>
         <div className='artist-library-container'>
           <TrackList tracks={tracks} headerTitle='Top Songs' />
-          {albums.hasOwnProperty('items') && <AlbumCards albums={albums} />}
+          {collection.hasOwnProperty('items') && (
+            <CollectionCards collection={collection} type='albums' />
+          )}
         </div>
       </div>
     );

@@ -1,7 +1,8 @@
 import { SET_SEARCH, setSearch, DELETE_SEARCH, deleteSearch } from '../types';
 
 const initialState = {
-  songResults: {},
+  tracks: {},
+  playlists: {},
 };
 
 export const searchResultsReducer = (
@@ -10,12 +11,16 @@ export const searchResultsReducer = (
 ) => {
   switch (action.type) {
     case SET_SEARCH:
+      const { tracks, playlists } = action.payload;
       return {
-        songResults: action.payload,
+        ...state,
+        tracks,
+        playlists,
       };
     case DELETE_SEARCH:
       return {
-        songResults: {},
+        tracks: {},
+        playlists: {},
       };
     default:
       return state;

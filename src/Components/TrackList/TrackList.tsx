@@ -35,6 +35,9 @@ const TrackList: React.FC<{
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
+  // TODO: Desaturate tracklist or show warning if the song is not available to play
+  // Use available_markets to check if the song is available
+
   return (
     <ul className='track-list-container'>
       <h2 className='header-title'>
@@ -79,7 +82,7 @@ const TrackList: React.FC<{
           {track.album ? (
             <div style={{ margin: 'auto 0' }}>
               <Link
-                to={`/collection/${track.album.id}`}
+                to={`/collection/albums/${track.album.id}`}
                 className='track-list-item__album'
               >
                 {track.album.name}
