@@ -16,9 +16,15 @@ export const setAlbumsAction = (album: string) => async (dispatch: any) => {
   }
 };
 
-export const setArtistAlbums = (artist: string) => async (dispatch: any) => {
+export const setArtistAlbums = (
+  artist: string,
+  offsetNumber: number = 0,
+) => async (dispatch: any) => {
   try {
-    const res = await spotifyApi.getArtistAlbums(artist);
+    const res = await spotifyApi.getArtistAlbums(artist, {
+      limit: 14,
+      offset: offsetNumber,
+    });
     dispatch({
       type: SET_ARTIST_ALBUMS,
       payload: res.body,

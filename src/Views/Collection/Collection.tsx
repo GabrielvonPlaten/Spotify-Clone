@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-node';
 import { useLocation } from 'react-router-dom';
+import PlaceholderImage from '../../Styles/images/placeholder-image.png';
 import './Collection.sass';
 
 const spotifyApi = new SpotifyWebApi();
@@ -71,18 +72,19 @@ const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
               className='collection__jumbotron__inner'
               style={{
                 backgroundImage:
-                  Object.keys(collection).length > 0
-                    ? `url(${collection.images[0].url}) `
-                    : 'none',
+                  Object.keys(collection).length > 0 &&
+                  `url(${collection?.images[0]?.url ?? PlaceholderImage}) `,
               }}
             ></div>
           </div>
           <div className='collection-information'>
-            {collection &&
-              collection.images &&
-              collection.images.length > 0 && (
-                <img src={collection.images[0].url} />
-              )}
+            <img
+              src={
+                collection.images && collection.images[0]
+                  ? collection.images[0].url
+                  : PlaceholderImage
+              }
+            />
           </div>
         </div>
         {tracks.length > 0 && (
@@ -90,7 +92,7 @@ const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
             tracks={tracks}
             headerTitle={collection.name}
             releaseDate={collection.release_date}
-            albumImage={collection.images[0].url}
+            albumImage={collection?.images[0]?.url ?? PlaceholderImage}
           />
         )}
       </div>

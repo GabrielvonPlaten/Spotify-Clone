@@ -1,9 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './CollectionCards.sass';
 
+// Redux
+import { useDispatch } from 'react-redux';
+import { setArtistAlbums } from '../../store/actions/collectionAction';
+
+import PlaceholderImage from '../../Styles/images/placeholder-image.png';
+
 interface CollectionProps {
-  items: any[];
+  items: any;
+  total: number;
 }
 
 type PlaylistType = 'playlists';
@@ -12,11 +19,43 @@ type AlbumsType = 'albums';
 const CollectionCards: React.FC<{
   collection: CollectionProps;
   type: PlaylistType | AlbumsType;
-}> = ({ collection, type }) => {
+  artistId?: string;
+}> = ({ collection, type, artistId }) => {
+  const dispatch = useDispatch();
+  const [offsetNumber, setOffsetNumber] = useState<number>(0);
+
+  // Arrow buttons update the offset which increases or decreases the offset
+  // Offset is used to return the paginated results from the API
+  useEffect(() => {
+    dispatch(setArtistAlbums(artistId, offsetNumber));
+  }, [offsetNumber]);
+
+  useEffect(() => {
+    return () => setOffsetNumber(0);
+  }, []);
+
   return (
     <div
       className={`album-cards ${type === 'playlists' && 'playlist-full-width'}`}
     >
+      {type === 'albums' && (
+        <div>
+          <button
+            disabled={offsetNumber <= 0}
+            // Change the offset by a diff of 14
+            // This is because the fetch function has a limit of in CollectionAction
+            onClick={() => setOffsetNumber(offsetNumber - 14)}
+          >
+            {' < '}
+          </button>
+          <button
+            disabled={offsetNumber >= collection.total}
+            onClick={() => setOffsetNumber(offsetNumber + 14)}
+          >
+            {' > '}
+          </button>
+        </div>
+      )}
       <h2 className='album-cards__title'>{type}</h2>
       <ul>
         {collection.items.map((item: any, index: number) => (
@@ -28,11 +67,8 @@ const CollectionCards: React.FC<{
                     className={`${
                       type === 'playlists' && 'playlist-image-size'
                     }`}
-                    src={
-                      type === 'albums'
-                        ? item.images[1].url
-                        : item.images[0].url
-                    }
+                    // Placehlder image if playlist doesn't have one
+                    src={item?.images[0]?.url || PlaceholderImage}
                     alt={item.name + '- cover'}
                   />
                 </div>

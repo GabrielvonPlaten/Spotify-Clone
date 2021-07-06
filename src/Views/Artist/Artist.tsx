@@ -67,7 +67,11 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
         <div className='artist-library-container'>
           <TrackList tracks={tracks} headerTitle='Top Songs' />
           {collection.hasOwnProperty('items') && (
-            <CollectionCards collection={collection} type='albums' />
+            <CollectionCards
+              collection={collection}
+              artistId={artist.id}
+              type='albums'
+            />
           )}
         </div>
       </div>
