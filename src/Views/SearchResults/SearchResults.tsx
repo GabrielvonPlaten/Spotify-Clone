@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-node';
 import './SearchResults.sass';
 
@@ -16,7 +16,7 @@ const SearchResults: React.FC<{ searchResults: any }> = ({ searchResults }) => {
 
   useEffect(() => {
     let newArr: any = [];
-    songResults.tracks.items.map((i: any, index: number) => {
+    songResults.tracks.items.map((i: any) => {
       newArr.push(i.artists);
     });
 
