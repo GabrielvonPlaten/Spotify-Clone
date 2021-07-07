@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import SpotifyWebPlayer from 'react-spotify-web-playback/lib';
 import './Artist.sass';
 
 // Redux
@@ -10,6 +11,11 @@ import { clearDataAction } from '../../store/actions/clearDataAction';
 // Components
 import TrackList from '../../Components/TrackList/TrackList';
 import CollectionCards from '../../Components/CollectionCards/CollectionCards';
+import SpotifyWebApi from 'spotify-web-api-node';
+import ArtistCard from '../../Components/ArtistCard/ArtistCard';
+
+const spotifyApi = new SpotifyWebApi();
+spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
 interface ArtistPropsInterface {
   params: {
@@ -21,6 +27,7 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
   const dispatch = useDispatch();
   const { artist } = useSelector((state: any) => state.artist);
   const { tracks } = useSelector((state: any) => state.artistTopTracks);
+  const [relatedArtists, setRelatedArtists] = useState<any>([]);
   const { albums: collection } = useSelector(
     (state: any) => state.artistAlbums,
   );
@@ -29,10 +36,24 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
     dispatch(setArtistAction(match.params.artist));
     dispatch(setArtistAlbums(match.params.artist));
 
+    // Get artists related to the current artist
+    getRelatedArtist();
+
     return () => {
       dispatch(clearDataAction());
     };
   }, [match]);
+
+  const getRelatedArtist = async () => {
+    // Since this data is only used in this component, I don't feel nessesary to fetch it
+    // using redux
+    try {
+      const res = await spotifyApi.getArtistRelatedArtists(match.params.artist);
+      setRelatedArtists(res.body.artists.splice(0, 10));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (artist) {
     return (
@@ -73,6 +94,15 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
               type='albums'
             />
           )}
+          {/* Related Artists */}
+          <section className='row-section'>
+            <label className='row-section__label'>Related Artists</label>
+            <div className='row-section__items-inline'>
+              {relatedArtists.map((artist: any, index: number) => (
+                <ArtistCard key={index} artist={artist} />
+              ))}
+            </div>
+          </section>
         </div>
       </div>
     );
