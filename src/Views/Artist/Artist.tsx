@@ -95,9 +95,9 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
             />
           )}
           {/* Related Artists */}
-          <section className='row-section'>
-            <label className='row-section__label'>Related Artists</label>
-            <div className='row-section__items-inline'>
+          <section className='artist-similar'>
+            <label className='artist-similar__label'>Related Artists</label>
+            <div className='artist-similar__items-inline'>
               {relatedArtists.map((artist: any, index: number) => (
                 <ArtistCard key={index} artist={artist} />
               ))}
