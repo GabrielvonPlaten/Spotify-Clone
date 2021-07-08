@@ -6,22 +6,22 @@
   height: 90vh
   width: 12%
   z-index: 1
+  padding: 0.7em 0 1em 1em
 
   a
     color: v.$white-4
     text-decoration: none
     transition: 0.2s
     &:hover
-      color: v.$blue-10
+      color: v.$blue-8
 
 .navbar-links
+  margin-top: 1em
   &__link
     font-weight: 700
 
 .user_display
-  height: 100%
   margin-left: auto
-  margin: 1.5em
 
   &__avatar
     border-radius: 100%
@@ -43,15 +43,19 @@
     font-weight: 700
 
 .navbar-playlists-list
-  height: 71.5vh
+  height: 69.5vh
   list-style-type: none
   overflow-y: scroll
   scrollbar-width: thin
 
   
   li
-    margin: 1em 0
+    margin: 1.1em 0
 
   h3
     font-size: 1.3rem
     font-weight: 400
+
+.activePlaylist
+  h3
+    color: v.$blue-8
