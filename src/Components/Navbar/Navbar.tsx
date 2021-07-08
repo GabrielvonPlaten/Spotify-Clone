@@ -36,7 +36,6 @@ const Navbar: React.FC = () => {
 
     if (routeArray.length === 4) {
       setLocationId(routeArray[3]);
-      console.log(routeArray[3]);
     }
   }, [location]);
 
