@@ -21,22 +21,23 @@
     font-weight: 700
 
 .user_display
-  margin-left: auto
+  display: flex
 
   &__avatar
     border-radius: 100%
-    height: 5%
-    margin-right: 2rem
+    height: min(3em, 23%)
+    width: min(3em, 23%)
 
   &__display_name
     color: #f4f4f4
     text-transform: capitalize
-    font-size: 1.6rem
+    font-size: clamp(1.3rem, 1vw, 1.6rem)
     font-weight: 400
-    margin-right: 2rem
+    margin: auto 0
+    margin-left: 1rem
 
 .navbar-playlists-container
-  height: 90vh
+  height: 80vh
   margin-top: 4em
 
   label
@@ -44,10 +45,11 @@
     font-weight: 700
 
 .navbar-playlists-list
-  height: max(69.5vh, 70%) 
+  height: min(63em, 80%) 
   list-style-type: none
-  overflow-y: scroll
+  overflow-y: auto
   scrollbar-width: thin
+  scrollbar-color: none
 
   
   li
@@ -55,7 +57,7 @@
 
   h3
     font-size: 1.3rem
-    font-weight: 400
+    font-weight: 500
 
 .activePlaylist
   h3

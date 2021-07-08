@@ -25,10 +25,12 @@ const SongView: React.FC = () => {
   }, [user]);
 
   return (
-    <div className='songView-container'>
-      {collection && (
-        <CollectionCards collection={collection} type='playlists' />
-      )}
+    <div className='library-container'>
+      <div className='library-container__playlists'>
+        {collection && (
+          <CollectionCards collection={collection} type='playlists' />
+        )}
+      </div>
     </div>
   );
 };

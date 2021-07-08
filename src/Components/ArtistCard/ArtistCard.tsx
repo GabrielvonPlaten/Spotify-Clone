@@ -17,7 +17,7 @@ const Artist: React.FC<{ artist: any }> = ({ artist }) => {
     <Link to={`/artist/${artist.id}`} className='artistCard-link'>
       <div className='artistCard-container'>
         <div className='artistCard-container__cover-container'>
-          <img src={artist.images[2].url} />
+          <img src={artist?.images[2]?.url || artist.images[0].url} />
         </div>
         <h1 className='artistCard-container__name' onClick={clearSearchBar}>
           {artist.name}
