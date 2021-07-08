@@ -4,7 +4,7 @@ import './CollectionCards.sass';
 
 // Redux
 import { useDispatch } from 'react-redux';
-import { setArtistAlbums } from '../../store/actions/collectionAction';
+import { setArtistAlbumsAction } from '../../store/actions/collectionAction';
 
 import PlaceholderImage from '../../Styles/images/placeholder-image.png';
 
@@ -27,7 +27,9 @@ const CollectionCards: React.FC<{
   // Arrow buttons update the offset which increases or decreases the offset
   // Offset is used to return the paginated results from the API
   useEffect(() => {
-    dispatch(setArtistAlbums(artistId, offsetNumber));
+    if (typeof artistId !== 'undefined') {
+      dispatch(setArtistAlbumsAction(artistId, offsetNumber));
+    }
   }, [offsetNumber]);
 
   useEffect(() => {
