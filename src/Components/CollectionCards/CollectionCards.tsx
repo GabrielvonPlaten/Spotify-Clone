@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 import { setArtistAlbumsAction } from '../../store/actions/collectionAction';
 
 import PlaceholderImage from '../../Styles/images/placeholder-image.png';
-
 interface CollectionProps {
   items: any;
   total: number;
@@ -40,25 +39,31 @@ const CollectionCards: React.FC<{
     <div
       className={`album-cards ${type === 'playlists' && 'playlist-full-width'}`}
     >
-      {type === 'albums' && (
-        <div>
-          <button
-            disabled={offsetNumber <= 0}
-            // Change the offset by a diff of 14
-            // This is because the fetch function has a limit of in CollectionAction
-            onClick={() => setOffsetNumber(offsetNumber - 14)}
-          >
-            {' < '}
-          </button>
-          <button
-            disabled={offsetNumber >= collection.total}
-            onClick={() => setOffsetNumber(offsetNumber + 14)}
-          >
-            {' > '}
-          </button>
-        </div>
-      )}
-      <h2 className='album-cards__title'>{type}</h2>
+      <div className='album-cards__header'>
+        <h2 className='album-cards__header--title'>{type}</h2>
+        {type === 'albums' && (
+          <div className='pagination-buttons'>
+            <button
+              className={`${
+                offsetNumber <= 0 && 'pagination-button--disabled'
+              } pagination-buttons__button`}
+              disabled={offsetNumber <= 0}
+              // Change the offset by a diff of 14
+              // This is because the fetch function has a limit of in CollectionAction
+              onClick={() => setOffsetNumber(offsetNumber - 14)}
+            >
+              Prev.
+            </button>
+            <button
+              className='pagination-buttons__button'
+              disabled={offsetNumber >= collection.total}
+              onClick={() => setOffsetNumber(offsetNumber + 14)}
+            >
+              Next
+            </button>
+          </div>
+        )}
+      </div>
       <ul>
         {collection.items.map((item: any, index: number) => (
           <Link to={`/collection/${type}/${item.id}`} key={index}>

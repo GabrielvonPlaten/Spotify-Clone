@@ -4,10 +4,14 @@
   width: 80%
   margin: 0 auto
 
-  &__title
-    color: v.$white-4
-    font-size: 2.5rem
-    text-transform: capitalize
+  &__header
+    display: flex
+    justify-content: space-between
+
+    &--title
+      color: v.$white-4
+      font-size: 2.5rem
+      text-transform: capitalize
 
 
   ul
@@ -74,7 +78,20 @@
 .playlist-full-width
   width: 100%
 
-  
+.pagination-buttons
+  display: flex
+
+  &__button
+    display: block
+    background: none
+    color: v.$white-5
+    border: none
+    margin-left: 1.5em
+    font-size: 1.8rem
+
+.pagination-button--disabled
+  color: v.$white-1
+
 
 @media only screen and (max-width: 1350px)
   .album-cards ul
