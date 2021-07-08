@@ -16,7 +16,7 @@ export const setAlbumsAction = (album: string) => async (dispatch: any) => {
   }
 };
 
-export const setArtistAlbums = (
+export const setArtistAlbumsAction = (
   artist: string,
   offsetNumber: number = 0,
 ) => async (dispatch: any) => {

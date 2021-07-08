@@ -5,7 +5,7 @@ import './Artist.sass';
 // Redux
 import { setArtistAction } from '../../store/actions/artistActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { setArtistAlbums } from '../../store/actions/collectionAction';
+import { setArtistAlbumsAction } from '../../store/actions/collectionAction';
 import { clearDataAction } from '../../store/actions/clearDataAction';
 
 // Components
@@ -34,7 +34,7 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
 
   useEffect(() => {
     dispatch(setArtistAction(match.params.artist));
-    dispatch(setArtistAlbums(match.params.artist));
+    dispatch(setArtistAlbumsAction(match.params.artist));
 
     // Get artists related to the current artist
     getRelatedArtist();
