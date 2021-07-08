@@ -5,6 +5,7 @@ import './Login.sass';
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const REDIRECT_URI = 'http://localhost:8080/';
+const show_dialog = false; // If true, show the permissions dialog process everytime
 const scopes = [
   'streaming',
   'user-top-read',
@@ -20,7 +21,7 @@ const scopes = [
 ];
 
 const AUTH_URL = encodeURI(
-  `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${REDIRECT_URI}&scope=${scopes.join(
+  `https://accounts.spotify.com/authorize?show_dialog=${show_dialog}&client_id=${CLIENT_ID}&response_type=code&redirect_uri=${REDIRECT_URI}&scope=${scopes.join(
     '%20',
   )}`,
 );
