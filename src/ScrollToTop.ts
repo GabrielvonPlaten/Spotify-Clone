@@ -15,7 +15,7 @@ function ScrollToTop({ history }: History): any {
     return () => {
       unlisten();
     };
-  }, []);
+  }, [history]);
 
   return null;
 }

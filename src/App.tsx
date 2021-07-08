@@ -8,18 +8,20 @@ const code = new URLSearchParams(window.location.search).get('code');
 // Views
 import Login from './Views/Login/Login';
 import Home from './Views/Home/Home';
+import ScrollToTop from './ScrollToTop';
 
 const App: React.FC = () => {
   // Development
   // localStorage.getItem('accessToken') !== ''
   return (
-    <div>
+    <BrowserRouter>
+      <ScrollToTop />
       {code || localStorage.getItem('accessToken') !== '' ? (
         <Home code={code} />
       ) : (
         <Login />
       )}
-    </div>
+    </BrowserRouter>
   );
 };
 
