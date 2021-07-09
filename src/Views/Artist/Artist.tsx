@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import SpotifyWebPlayer from 'react-spotify-web-playback/lib';
 import './Artist.sass';
 
 // Redux
