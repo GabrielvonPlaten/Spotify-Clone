@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const { user } = useSelector((state: UserInterface) => state.userData);
   const [locationId, setLocationId] = useState<string>('');
-  const [playlists, setPlaylists] = useState<any>([]);
+  const [playlists, setPlaylists] = useState<any[]>([]);
 
   useEffect(() => {
     getPlaylists();
@@ -34,9 +34,8 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     const routeArray = location.pathname.split('/');
 
-    if (routeArray.length === 4) {
-      setLocationId(routeArray[3]);
-    }
+    if (routeArray.length === 4) return setLocationId(routeArray[3]);
+    return setLocationId('');
   }, [location]);
 
   return (
@@ -62,7 +61,7 @@ const Navbar: React.FC = () => {
                     to={`/collection/playlists/${item.id}`}
                     className={`${
                       locationId === item.id ? 'activePlaylist' : ''
-                    } testClass`}
+                    }`}
                   >
                     <h3>{item.name}</h3>
                   </Link>

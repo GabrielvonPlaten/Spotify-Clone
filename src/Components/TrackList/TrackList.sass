@@ -31,7 +31,7 @@
 
 .track-list-item
   display: grid
-  grid-template-columns: 5% 55% 35% 10%
+  grid-template-columns: 5% 55% 25% 10% 10%
   color: v.$white-4
   margin-bottom: 0.6%
   transition: all 0.2s
@@ -98,3 +98,66 @@
   transition: all 0.2s
   color: v.$blue-8
   font-weight: 600
+
+// Options
+.track-list-item__options
+  margin: auto 0
+  position: relative
+
+
+  ul
+    margin: 0
+    padding: 0
+
+  label
+    color: v.$white-2
+    font-weight: 600
+    font-size: 1.5rem
+
+  li
+    list-style-type: none
+    padding: 0
+
+  &:hover .track-list-item__options--popover
+    transform: translate(0, -20px)
+    opacity: 1
+    visibility: visible
+    z-index: 10
+    transition: all 0.5s
+
+
+  img
+    height: 1em
+    width: 1em
+    opacity: 0.7
+    transition: 0.2s
+
+    &:hover
+      opacity: 1
+
+  &--popover
+    opacity: 0
+    visibility: hidden
+    position: absolute
+    left: 0px
+    top: 25px
+    transform: translate(0, 10px)
+    background-color: v.$bg-dark-4
+    border: 1px solid v.$border-dark-3
+    border-radius: 8px
+    padding: 0.8em
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
+    width: auto
+    transition: 0.3s
+
+  p
+    border: none
+    background: none
+    color: v.$white-5
+    margin: 1em 0
+    font-size: 1.3rem
+    transition: 0.2s
+
+    &:hover
+      color: v.$blue-8
+      cursor: pointer

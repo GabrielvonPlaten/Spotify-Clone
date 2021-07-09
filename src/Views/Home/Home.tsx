@@ -15,6 +15,7 @@ import Navbar from '../../Components/Navbar/Navbar';
 import Player from '../../Components/Player/Player';
 import SongView from '../SongView/SongView';
 import SearchBar from '../../Components/SearchBar/SearchBar';
+import Message from '../../Components/Message/Message';
 
 // Views
 import Artist from '../Artist/Artist';
@@ -67,6 +68,7 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
             )}
           </section>
         </div>
+        <Message />
         <Player />
       </div>
     </BrowserRouter>

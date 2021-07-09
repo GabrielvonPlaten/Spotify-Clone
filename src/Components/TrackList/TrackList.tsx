@@ -3,9 +3,14 @@ import './TrackList.sass';
 import SpotifyWebApi from 'spotify-web-api-node';
 import PlayButton from '../../Styles/images/play-btn.svg';
 import { Link } from 'react-router-dom';
+import SymbolPlus from '../../Styles/images/symbol-plus.svg';
+
+const spotifyApi = new SpotifyWebApi();
+spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
 // Redux
 import { setPlayingTrack } from '../../store/actions/tracksActions';
+import { setMessageAction } from '../../store/actions/messageActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const TrackList: React.FC<{
@@ -16,6 +21,7 @@ const TrackList: React.FC<{
 }> = ({ tracks, headerTitle, albumImage, releaseDate }) => {
   const dispatch = useDispatch();
   const playingTrack = useSelector((state: any) => state.playingTrack);
+  const { playlists } = useSelector((state: any) => state.userData);
 
   const playTrack = (track: any, trackList: any, index: number) => {
     let newArr: any[] = [];
@@ -33,6 +39,18 @@ const TrackList: React.FC<{
     const minutes: any = Math.floor(time / 60000);
     const seconds: any = ((time % 60000) / 1000).toFixed(0);
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
+  const addTrackToPlaylist = async (playlistId: string, trackUri: string) => {
+    try {
+      const res = await spotifyApi.addTracksToPlaylist(playlistId, [trackUri]);
+
+      dispatch(setMessageAction('Track added to playlist!', 'success'));
+    } catch (error) {
+      dispatch(
+        setMessageAction('Track could not be added to playlist.', 'failure'),
+      );
+    }
   };
 
   // TODO: Desaturate tracklist or show warning if the song is not available to play
@@ -102,6 +120,25 @@ const TrackList: React.FC<{
               ))}
             </div>
           )}
+          {/* Track options */}
+          <div className='track-list-item__options'>
+            <img src={SymbolPlus} />
+            <div className='track-list-item__options--popover'>
+              <ul>
+                <label>Add to Playlist</label>
+                <hr />
+                {playlists &&
+                  playlists.map((playlist: any, index: number) => (
+                    <li
+                      key={index}
+                      onClick={() => addTrackToPlaylist(playlist.id, track.uri)}
+                    >
+                      <p>{playlist.name}</p>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          </div>
           <p className='track-list-item__duration'>
             {convertMsTime(track.duration_ms)}
           </p>
