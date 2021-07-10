@@ -40,11 +40,17 @@
   &:hover
     background: v.$bg-dark-4
 
+  // Show play button
   &:hover .button-opacity-hover
     opacity: 1
   
+  // Blur track image
   &:hover .track-image-box__image
     filter: brightness(80%) blur(1px)
+
+  // Display the minus icon
+  &:hover .onhover-display
+    opacity: 1
 
   &__album, &__artist
     color: v.$white-2
@@ -84,15 +90,13 @@
     position: absolute
     inset: 0rem
     margin: auto 0
+    left: 0.1%
     margin-top: 0.1%
     opacity: 0
     transition: all 0.2s
     &:hover
       transform: scale(1.1)
       cursor: pointer
-
-.opacity-on
-  opacity: 1
 
 .track-playing-text
   transition: all 0.2s
@@ -101,13 +105,9 @@
 
 // Options
 .track-list-item__options
+  display: flex
   margin: auto 0
   position: relative
-
-
-  ul
-    margin: 0
-    padding: 0
 
   label
     color: v.$white-2
@@ -116,40 +116,50 @@
 
   li
     list-style-type: none
-    padding: 0
 
-  &:hover .track-list-item__options--popover
-    transform: translate(0, -20px)
-    opacity: 1
-    visibility: visible
-    z-index: 10
-    transition: all 0.5s
-
-
+  // Option Buttons
   img
     height: 1em
     width: 1em
     opacity: 0.7
     transition: 0.2s
+    margin: 0 0.8em
+    position: relative
 
     &:hover
       opacity: 1
 
-  &--popover
-    opacity: 0
-    visibility: hidden
-    position: absolute
-    left: 0px
-    top: 25px
-    transform: translate(0, 10px)
-    background-color: v.$bg-dark-4
-    border: 1px solid v.$border-dark-3
-    border-radius: 8px
-    padding: 0.8em
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
-    width: auto
-    transition: 0.3s
+  .plus-icon
+    &:hover .track-options--popover
+      transform: translate(0, -20px)
+      opacity: 1
+      visibility: visible
+      z-index: 10
+      transition: all 0.5s
 
+  .minus-icon
+    opacity: 0
+
+  .minus-icon img
+    &:hover
+      cursor: pointer
+
+// Popover - Displays user's playlists
+.track-options--popover
+  opacity: 0
+  visibility: hidden
+  position: absolute
+  left: 0px
+  top: 25px
+  transform: translate(0, 10px)
+  background-color: v.$bg-dark-4
+  border: 1px solid v.$border-dark-3
+  border-radius: 8px
+  padding: 0.8em
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
+  width: auto
+  transition: 0.3s
+  
   p
     border: none
     background: none

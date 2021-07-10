@@ -4,6 +4,7 @@ import SpotifyWebApi from 'spotify-web-api-node';
 import PlayButton from '../../Styles/images/play-btn.svg';
 import { Link } from 'react-router-dom';
 import SymbolPlus from '../../Styles/images/symbol-plus.svg';
+import SymbolMinus from '../../Styles/images/symbol-minus.svg';
 
 const spotifyApi = new SpotifyWebApi();
 spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
@@ -12,18 +13,35 @@ spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 import { setPlayingTrack } from '../../store/actions/tracksActions';
 import { setMessageAction } from '../../store/actions/messageActions';
 import { useDispatch, useSelector } from 'react-redux';
+import { setPlaylistsAction } from '../../store/actions/collectionAction';
 
 const TrackList: React.FC<{
   tracks: any[];
   headerTitle: string;
   albumImage?: string;
   releaseDate?: string;
-}> = ({ tracks, headerTitle, albumImage, releaseDate }) => {
+  // The types below are needed to show the 'remove track' button
+  fromCollectionType?: string;
+  playlistInfo?: {
+    id: string;
+    snapshotId: string;
+    user: any;
+    collaborative?: boolean;
+  };
+}> = ({
+  tracks,
+  headerTitle,
+  albumImage,
+  releaseDate,
+  fromCollectionType,
+  playlistInfo,
+}) => {
   const dispatch = useDispatch();
   const playingTrack = useSelector((state: any) => state.playingTrack);
-  const { playlists } = useSelector((state: any) => state.userData);
+  const { playlists, user } = useSelector((state: any) => state.userData);
 
-  const playTrack = (track: any, trackList: any, index: number) => {
+  // Play the selected track and set the entire list of tracks into a redux state
+  const setPlayTrack = (track: any, trackList: any, index: number) => {
     let newArr: any[] = [];
     newArr = [
       ...new Map(
@@ -41,6 +59,7 @@ const TrackList: React.FC<{
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
+  // Add track to playlist
   const addTrackToPlaylist = async (playlistId: string, trackUri: string) => {
     try {
       const res = await spotifyApi.addTracksToPlaylist(playlistId, [trackUri]);
@@ -50,6 +69,24 @@ const TrackList: React.FC<{
       dispatch(
         setMessageAction('Track could not be added to playlist.', 'failure'),
       );
+    }
+  };
+
+  // Remove track from playlist
+  const removeTrackFromPlaylist = async (trackUri: string) => {
+    const track = [{ uri: trackUri }];
+    const options = { snapshot_id: playlistInfo.snapshotId };
+
+    try {
+      const res = await spotifyApi.removeTracksFromPlaylist(
+        playlistInfo.id,
+        track,
+        options,
+      );
+      dispatch(setMessageAction('Track removed from playlist.', 'success'));
+      dispatch(setPlaylistsAction(playlistInfo.id)); // Update the list
+    } catch (error) {
+      dispatch(setMessageAction('Track could not be removed.', 'failure'));
     }
   };
 
@@ -84,7 +121,7 @@ const TrackList: React.FC<{
               <img
                 className='track-image-box__play-button button-opacity-hover'
                 src={PlayButton}
-                onClick={() => playTrack(track, trackList, index)}
+                onClick={() => setPlayTrack(track, trackList, index)}
               />
             </div>
             <p
@@ -122,21 +159,37 @@ const TrackList: React.FC<{
           )}
           {/* Track options */}
           <div className='track-list-item__options'>
-            <img src={SymbolPlus} />
-            <div className='track-list-item__options--popover'>
-              <ul>
-                <label>Add to Playlist</label>
-                <hr />
-                {playlists &&
-                  playlists.map((playlist: any, index: number) => (
-                    <li
-                      key={index}
-                      onClick={() => addTrackToPlaylist(playlist.id, track.uri)}
-                    >
-                      <p>{playlist.name}</p>
-                    </li>
-                  ))}
-              </ul>
+            {/* Remove track button is only visible IF! */}
+            {/* It's a playlist that is collaborative or the user owns it */}
+            {fromCollectionType === 'playlist' &&
+              (user.id === playlistInfo.user.id ||
+                playlistInfo.collaborative) && (
+                <div className='minus-icon onhover-display'>
+                  <img
+                    src={SymbolMinus}
+                    onClick={() => removeTrackFromPlaylist(track.uri)}
+                  />
+                </div>
+              )}
+            <div className='plus-icon'>
+              <img src={SymbolPlus} />
+              <div className='track-options--popover'>
+                <ul>
+                  <label>Add to Playlist</label>
+                  <hr />
+                  {playlists &&
+                    playlists.map((playlist: any, index: number) => (
+                      <li
+                        key={index}
+                        onClick={() =>
+                          addTrackToPlaylist(playlist.id, track.uri)
+                        }
+                      >
+                        <p>{playlist.name}</p>
+                      </li>
+                    ))}
+                </ul>
+              </div>
             </div>
           </div>
           <p className='track-list-item__duration'>

@@ -29,6 +29,7 @@ const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
   const location = useLocation();
   const [tracks, setTracks] = useState<any>([]);
   const { collection } = useSelector((state: any) => state.collection);
+  const { message } = useSelector((state: any) => state.message);
   const routeArray = location.pathname.split('/');
 
   useEffect(() => {
@@ -93,6 +94,15 @@ const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
             headerTitle={collection.name}
             releaseDate={collection.release_date}
             albumImage={collection?.images[0]?.url ?? PlaceholderImage}
+            fromCollectionType={collection.type}
+            playlistInfo={
+              collection.type === 'playlist' && {
+                id: collection.id,
+                snapshotId: collection.snapshot_id,
+                user: collection.owner,
+                collaborative: collection.collaborative,
+              }
+            }
           />
         )}
       </div>
