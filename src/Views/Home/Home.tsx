@@ -13,7 +13,7 @@ import { setUserAction } from '../../store/actions/userActions';
 import SearchResults from '../SearchResults/SearchResults';
 import Navbar from '../../Components/Navbar/Navbar';
 import Player from '../../Components/Player/Player';
-import SongView from '../SongView/SongView';
+import SongView from '../SongView/Playlists';
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import Message from '../../Components/Message/Message';
 

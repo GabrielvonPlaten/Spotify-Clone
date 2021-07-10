@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-node';
 import { useSelector } from 'react-redux';
-import './SongView.sass';
+import './Playlists.sass';
 
 // Components
 import CollectionCards from '../../Components/CollectionCards/CollectionCards';
@@ -9,20 +9,11 @@ import CollectionCards from '../../Components/CollectionCards/CollectionCards';
 const spotifyApi = new SpotifyWebApi();
 spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
-const SongView: React.FC = () => {
-  const { user } = useSelector((state: any) => state.userData);
-  const [collection, setCollection] = useState<any>(null);
-
-  useEffect(() => {
-    spotifyApi
-      .getUserPlaylists(user.id)
-      .then((data: any) => {
-        setCollection(data.body);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [user]);
+const Playlists: React.FC = () => {
+  const { playlists } = useSelector((state: any) => state.userData);
+  const collection: any = {
+    items: playlists,
+  };
 
   return (
     <div className='library-container'>
@@ -35,4 +26,4 @@ const SongView: React.FC = () => {
   );
 };
 
-export default SongView;
+export default Playlists;
