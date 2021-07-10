@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
-import useAuth from './useAuth';
-import { useSelector } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 const code = new URLSearchParams(window.location.search).get('code');
 
