@@ -29,3 +29,15 @@ export const setUserAction = (accessToken: string) => async (dispatch: any) => {
     window.location.href = '/';
   }
 };
+
+export const setUserPlaylists = (userId: string) => async (dispatch: any) => {
+  try {
+    const playlists = await spotifyApi.getUserPlaylists(userId);
+    dispatch({
+      type: SET_USER_PLAYLISTS,
+      payload: playlists.body.items,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

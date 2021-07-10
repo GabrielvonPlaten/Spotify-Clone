@@ -16,20 +16,7 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const { user } = useSelector((state: UserInterface) => state.userData);
   const [locationId, setLocationId] = useState<string>('');
-  const [playlists, setPlaylists] = useState<any[]>([]);
-
-  useEffect(() => {
-    getPlaylists();
-  }, [user]);
-
-  const getPlaylists = async () => {
-    try {
-      const res = await spotifyApi.getUserPlaylists(user.id);
-      setPlaylists(res.body.items);
-    } catch (error) {
-      console.log(console.log(error));
-    }
-  };
+  const { playlists } = useSelector((state: any) => state.userData);
 
   useEffect(() => {
     const routeArray = location.pathname.split('/');
@@ -50,6 +37,9 @@ const Navbar: React.FC = () => {
             Home
           </Link>
         </div>
+        {/* <div className='navbar-links'>
+          <button>Create Playlist</button>
+        </div> */}
         <div className='navbar-playlists-container'>
           <label>Your Playlists</label>
           <hr />

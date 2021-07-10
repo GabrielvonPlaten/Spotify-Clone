@@ -17,6 +17,8 @@ import { clearDataAction } from '../../store/actions/clearDataAction';
 
 // Components
 import TrackList from '../../Components/TrackList/TrackList';
+import { setMessageAction } from '../../store/actions/messageActions';
+import { setUserPlaylists } from '../../store/actions/userActions';
 
 interface AlbumPropsInterface {
   params: {
@@ -29,7 +31,7 @@ const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
   const location = useLocation();
   const [tracks, setTracks] = useState<any>([]);
   const { collection } = useSelector((state: any) => state.collection);
-  const { message } = useSelector((state: any) => state.message);
+  const { user, playlists } = useSelector((state: any) => state.userData);
   const routeArray = location.pathname.split('/');
 
   useEffect(() => {
@@ -40,7 +42,8 @@ const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
     } else if (routeArray[2] === 'playlists') {
       dispatch(setPlaylistsAction(match.params.id));
     }
-  }, [match]);
+    // Playlists updates the headerTitle
+  }, [match, playlists]);
 
   useEffect(() => {
     if (Object.keys(collection).length > 0 && collection.type === 'album') {
@@ -60,11 +63,30 @@ const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
     }
   }, [collection]);
 
+  // Change playlist name
+  const changePlaylistName = async (e: any) => {
+    e.preventDefault();
+
+    try {
+      const res = await spotifyApi.changePlaylistDetails(collection.id, {
+        name: e.target[0].value,
+      });
+      dispatch(setMessageAction("Playlist's name updated.", 'success'));
+      // Update the user's playlist in the state
+      // Thus updating the navbar
+      dispatch(setUserPlaylists(user.id));
+    } catch (error) {
+      dispatch(
+        setMessageAction('The ame was not able to be updated.', 'failure'),
+      );
+    }
+  };
+
   useEffect(() => {
     return () => dispatch(clearDataAction());
   }, []);
 
-  if (collection !== null) {
+  if (Object.keys(collection).length > 0) {
     return (
       <div className='collection'>
         <div className='collection__jumbotron'>
@@ -103,6 +125,7 @@ const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
                 collaborative: collection.collaborative,
               }
             }
+            changePlaylistName={changePlaylistName}
           />
         )}
       </div>
