@@ -55,6 +55,8 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
     }
   };
 
+  console.log(artist);
+
   if (artist || accessToken !== '') {
     return (
       <div className='artist-container'>
@@ -82,7 +84,10 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
             <h1 className='artist-jumbotron__information-name'>
               {artist.name}
             </h1>
-            <p>{artist.type}</p>
+            <p className='artist-type'>{artist.type}</p>
+            <p className='artist-followers'>
+              {artist?.followers?.total.toLocaleString()} Followers
+            </p>
           </div>
         </div>
         <div className='artist-library-container'>

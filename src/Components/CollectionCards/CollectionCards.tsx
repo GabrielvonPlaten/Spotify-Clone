@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import VinylIcon from '../../Styles//images/vinyl-icon.svg';
 import { Link } from 'react-router-dom';
 import './CollectionCards.sass';
 
@@ -82,6 +83,10 @@ const CollectionCards: React.FC<{
               <div className='album-cards__info'>
                 <h3 className='album-cards__info__title'>{item.name}</h3>
                 <p className='album-cards__info__date'>{item.release_date}</p>
+                <div className='album-cards__info__total-tracks'>
+                  <img src={VinylIcon} alt='Tracks' />
+                  <p>{item?.tracks?.total || item.total_tracks}</p>
+                </div>
               </div>
             </li>
           </Link>
