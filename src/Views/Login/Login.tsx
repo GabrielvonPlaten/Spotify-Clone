@@ -31,8 +31,24 @@ const AUTH_URL = encodeURI(
 
 const Login: React.FC = () => {
   return (
-    <div className='login-button'>
-      <a href={AUTH_URL}>Login with Spotify</a>
+    <div className='login-container'>
+      <div className='login'>
+        <section className='login__intro'>
+          <h1>Spotify Clone</h1>
+          <p className='login__intro--tech'>Built with</p>
+          <p>
+            <span>React</span> - <span>TypeScript</span> - <span>Redux</span> -
+            <span> Sass</span>
+          </p>
+          <p className='author'>By Gabriel von Platen</p>
+          <a href='https://github.com/GabrielvonPlaten/Spotify-Clone'>
+            Github Repo.
+          </a>
+        </section>
+        <a type='button' href={AUTH_URL}>
+          Login with Spotify
+        </a>
+      </div>
     </div>
   );
 };
