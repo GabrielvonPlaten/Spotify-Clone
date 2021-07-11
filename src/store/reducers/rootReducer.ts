@@ -10,6 +10,7 @@ import {
 import { searchResultsReducer } from './searchReducer';
 import { artistReducer } from './artistsReducer';
 import { collectionReducer, artistAlbumsReducer } from './collectionReducer';
+import { messageReducer } from './messageReducer';
 
 const rootReducer = combineReducers({
   accessToken: accessTokenReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   artistTopTracks: setArtistTopTracksReducer,
   collection: collectionReducer,
   artistAlbums: artistAlbumsReducer,
+  message: messageReducer,
 });
 
 export default rootReducer;

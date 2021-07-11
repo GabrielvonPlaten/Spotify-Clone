@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { setSearchAction } from '../../store/actions/searchActions';
 import { useDispatch } from 'react-redux';
 
-const SearchBar: React.FC<{ match?: any }> = ({ match }) => {
+const SearchBar: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [searchString, setSearchString] = useState<string>('');

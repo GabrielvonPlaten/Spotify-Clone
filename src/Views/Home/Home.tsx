@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './Home.sass';
-import SpotifyWebApi from 'spotify-web-api-node';
 import useAuth from '../../useAuth';
-import { useHistory } from 'react-router-dom';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 // Redux
@@ -13,36 +11,29 @@ import { setUserAction } from '../../store/actions/userActions';
 import SearchResults from '../SearchResults/SearchResults';
 import Navbar from '../../Components/Navbar/Navbar';
 import Player from '../../Components/Player/Player';
-import SongView from '../SongView/SongView';
+import SongView from '../SongView/Playlists';
 import SearchBar from '../../Components/SearchBar/SearchBar';
+import Message from '../../Components/Message/Message';
 
 // Views
 import Artist from '../Artist/Artist';
 import Collection from '../Collection/Collection';
 
-const spotifyApi = new SpotifyWebApi();
-
 const Landing: React.FC<{ code: string }> = ({ code }) => {
-  const accessToken = useAuth(code);
+  useAuth(code);
+  const { accessToken } = useSelector((state: any) => state.accessToken);
   const dispatch = useDispatch();
-  const history = useHistory();
-  // const accessToken = useSelector((state: any) => state.accessToken);
 
   // Search
   const searchResults = useSelector((state: any) => state.searchResults);
 
   useEffect(() => {
     // Top condition is for prod
-    // if (!accessToken) return;
+    if (!accessToken) return;
     // For dev
-    if (accessToken === '') return history.push('/');
-    apiCalls();
-  }, [accessToken, history, code]);
-
-  const apiCalls = () => {
-    const accessTokenFromStorage: string = localStorage.getItem('accessToken');
-    dispatch(setUserAction(accessTokenFromStorage));
-  };
+    // if (accessToken === '') return history.push('/');
+    dispatch(setUserAction(accessToken));
+  }, [accessToken]);
 
   return (
     <BrowserRouter>
@@ -67,6 +58,7 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
             )}
           </section>
         </div>
+        <Message />
         <Player />
       </div>
     </BrowserRouter>

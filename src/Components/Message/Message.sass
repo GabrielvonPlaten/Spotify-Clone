@@ -1,0 +1,25 @@
+@use '../../Styles' as v
+  
+.message
+  position: absolute
+  left: 50%
+  transform: translateX(-50%)
+  bottom: 11%
+  border-radius: 5px
+  opacity: 0
+  transition: 0.3s
+
+  p
+    margin: 1em
+    font-weight: 500
+    color: v.$white-5
+
+.message-on
+  opacity: 1
+  transform: translate(-50%, -10px)
+
+.message-success
+  background: v.$blue-4
+
+.message-failure
+  background: v.$failure

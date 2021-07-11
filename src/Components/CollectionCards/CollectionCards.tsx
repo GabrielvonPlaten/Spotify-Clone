@@ -12,12 +12,11 @@ interface CollectionProps {
   total: number;
 }
 
-type PlaylistType = 'playlists';
-type AlbumsType = 'albums';
+type CollectionTypes = 'albums' | 'playlists';
 
 const CollectionCards: React.FC<{
   collection: CollectionProps;
-  type: PlaylistType | AlbumsType;
+  type: CollectionTypes;
   artistId?: string;
 }> = ({ collection, type, artistId }) => {
   const dispatch = useDispatch();

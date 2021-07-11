@@ -1,23 +1,53 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './TrackList.sass';
 import SpotifyWebApi from 'spotify-web-api-node';
 import PlayButton from '../../Styles/images/play-btn.svg';
 import { Link } from 'react-router-dom';
+import SymbolPlus from '../../Styles/images/symbol-plus.svg';
+import SymbolMinus from '../../Styles/images/symbol-minus.svg';
+
+const spotifyApi = new SpotifyWebApi();
 
 // Redux
 import { setPlayingTrack } from '../../store/actions/tracksActions';
+import { setMessageAction } from '../../store/actions/messageActions';
 import { useDispatch, useSelector } from 'react-redux';
+import { setPlaylistsAction } from '../../store/actions/collectionAction';
 
 const TrackList: React.FC<{
   tracks: any[];
   headerTitle: string;
   albumImage?: string;
   releaseDate?: string;
-}> = ({ tracks, headerTitle, albumImage, releaseDate }) => {
+  // The types below are needed to show the 'remove track' button
+  fromCollectionType?: string;
+  playlistInfo?: {
+    id: string;
+    snapshotId: string;
+    user: any;
+    collaborative?: boolean;
+  };
+  changePlaylistName?: (e: any) => void;
+  match?: any;
+}> = ({
+  tracks,
+  headerTitle,
+  albumImage,
+  releaseDate,
+  fromCollectionType,
+  playlistInfo,
+  changePlaylistName,
+  match,
+}) => {
   const dispatch = useDispatch();
   const playingTrack = useSelector((state: any) => state.playingTrack);
+  const { playlists, user } = useSelector((state: any) => state.userData);
+  const [displayEditName, setDisplayEditName] = useState<boolean>(false);
+  const { accessToken } = useSelector((state: any) => state.accessToken);
+  spotifyApi.setAccessToken(accessToken);
 
-  const playTrack = (track: any, trackList: any, index: number) => {
+  // Play the selected track and set the entire list of tracks into a redux state
+  const setPlayTrack = (track: any, trackList: any, index: number) => {
     let newArr: any[] = [];
     newArr = [
       ...new Map(
@@ -35,79 +65,173 @@ const TrackList: React.FC<{
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
+  // Add track to playlist
+  const addTrackToPlaylist = async (playlistId: string, trackUri: string) => {
+    try {
+      const res = await spotifyApi.addTracksToPlaylist(playlistId, [trackUri]);
+
+      dispatch(setMessageAction('Track added to playlist!', 'success'));
+    } catch (error) {
+      dispatch(
+        setMessageAction('Track could not be added to playlist.', 'failure'),
+      );
+    }
+  };
+
+  // Remove track from playlist
+  const removeTrackFromPlaylist = async (trackUri: string) => {
+    const track = [{ uri: trackUri }];
+    const options = { snapshot_id: playlistInfo.snapshotId };
+
+    try {
+      const res = await spotifyApi.removeTracksFromPlaylist(
+        playlistInfo.id,
+        track,
+        options,
+      );
+      dispatch(setMessageAction('Track removed from playlist.', 'success'));
+      dispatch(setPlaylistsAction(playlistInfo.id)); // Update the list
+    } catch (error) {
+      dispatch(setMessageAction('Track could not be removed.', 'failure'));
+    }
+  };
+
+  // Hide edit name input
+  useEffect(() => {
+    return () => setDisplayEditName(false);
+  }, [playlistInfo]);
+
   // TODO: Desaturate tracklist or show warning if the song is not available to play
   // Use available_markets to check if the song is available
 
   return (
-    <ul className='track-list-container'>
+    <div className='track-list-container'>
       <h2 className='header-title'>
-        {headerTitle}
+        <span
+          style={{
+            cursor:
+              fromCollectionType === 'playlist' &&
+              user.id === playlistInfo.user.id &&
+              'pointer',
+          }}
+          className='header-title__title'
+          onClick={() => {
+            fromCollectionType === 'playlist' &&
+              setDisplayEditName(!displayEditName);
+          }}
+        >
+          {headerTitle}
+        </span>
         {releaseDate && <span className='release-date'> - {releaseDate}</span>}
       </h2>
-      {tracks.map((track: any, index: number, trackList) => (
-        <li key={index} className='track-list-item'>
-          <p className='list-index'>{index + 1}</p>
-          <div className='track-title-image'>
-            <div className='track-image-box'>
-              {track.album ? (
-                <div
-                  className='track-image-box__image'
-                  style={{
-                    backgroundImage: `url(${track.album.images[2].url})`,
-                  }}
-                ></div>
-              ) : (
-                <div
-                  className='track-image-box__image'
-                  style={{ backgroundImage: `url(${albumImage})` }}
-                ></div>
-              )}
-              {/* Display play button on hover */}
-              <img
-                className='track-image-box__play-button button-opacity-hover'
-                src={PlayButton}
-                onClick={() => playTrack(track, trackList, index)}
-              />
-            </div>
-            <p
-              className={` track-title-image__title ${
-                track.name === playingTrack.track.name
-                  ? 'track-playing-text'
-                  : ''
-              }`}
-            >
-              {track.name}
-            </p>
-          </div>
-          {track.album ? (
-            <div style={{ margin: 'auto 0' }}>
-              <Link
-                to={`/collection/albums/${track.album.id}`}
-                className='track-list-item__album'
+      {displayEditName && user.id === playlistInfo.user.id && (
+        <div className='playlist-name-edit'>
+          <form onSubmit={(e) => changePlaylistName(e)}>
+            <input type='text' name='name' placeholder='Edit name' />
+          </form>
+        </div>
+      )}
+      <ul>
+        {tracks.map((track: any, index: number, trackList) => (
+          <li key={index} className='track-list-item'>
+            <p className='list-index'>{index + 1}</p>
+            <div className='track-title-image'>
+              <div className='track-image-box'>
+                {track.album ? (
+                  <div
+                    className='track-image-box__image'
+                    style={{
+                      backgroundImage: `url(${track.album.images[2].url})`,
+                    }}
+                  ></div>
+                ) : (
+                  <div
+                    className='track-image-box__image'
+                    style={{ backgroundImage: `url(${albumImage})` }}
+                  ></div>
+                )}
+                {/* Display play button on hover */}
+                <img
+                  className='track-image-box__play-button button-opacity-hover'
+                  src={PlayButton}
+                  onClick={() => setPlayTrack(track, trackList, index)}
+                />
+              </div>
+              <p
+                className={` track-title-image__title ${
+                  track.name === playingTrack.track.name
+                    ? 'track-playing-text'
+                    : ''
+                }`}
               >
-                {track.album.name}
-              </Link>
+                {track.name}
+              </p>
             </div>
-          ) : (
-            //  Display artists if user is in collection router
-            <div style={{ margin: 'auto 0' }}>
-              {track.artists.map((artist: any, index: number) => (
+            {track.album ? (
+              <div style={{ margin: 'auto 0' }}>
                 <Link
-                  key={index}
-                  className='track-list-item__artist'
-                  to={`/artist/${artist.id}`}
+                  to={`/collection/albums/${track.album.id}`}
+                  className='track-list-item__album'
                 >
-                  {artist.name}
+                  {track.album.name}
                 </Link>
-              ))}
+              </div>
+            ) : (
+              //  Display artists if user is in collection router
+              <div style={{ margin: 'auto 0' }}>
+                {track.artists.map((artist: any, index: number) => (
+                  <Link
+                    key={index}
+                    className='track-list-item__artist'
+                    to={`/artist/${artist.id}`}
+                  >
+                    {artist.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+            {/* Track options */}
+            <div className='track-list-item__options'>
+              {/* Remove track button is only visible IF! */}
+              {/* It's a playlist that is collaborative or the user owns it */}
+              {fromCollectionType === 'playlist' &&
+                (user.id === playlistInfo.user.id ||
+                  playlistInfo.collaborative) && (
+                  <div className='minus-icon onhover-display'>
+                    <img
+                      src={SymbolMinus}
+                      onClick={() => removeTrackFromPlaylist(track.uri)}
+                    />
+                  </div>
+                )}
+              <div className='plus-icon'>
+                <img src={SymbolPlus} />
+                <div className='track-options--popover'>
+                  <ul>
+                    <label>Add to Playlist</label>
+                    <hr />
+                    {playlists &&
+                      playlists.map((playlist: any, index: number) => (
+                        <li
+                          key={index}
+                          onClick={() =>
+                            addTrackToPlaylist(playlist.id, track.uri)
+                          }
+                        >
+                          <p>{playlist.name}</p>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              </div>
             </div>
-          )}
-          <p className='track-list-item__duration'>
-            {convertMsTime(track.duration_ms)}
-          </p>
-        </li>
-      ))}
-    </ul>
+            <p className='track-list-item__duration'>
+              {convertMsTime(track.duration_ms)}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

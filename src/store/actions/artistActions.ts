@@ -3,9 +3,9 @@ import { SET_ARTIST } from '../types';
 import { SET_ARTIST_TOP_TRACKS } from '../types';
 
 const spotifyApi = new SpotifyWebApi();
-spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
 export const setArtistAction = (artist: string) => async (dispatch: any) => {
+  spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
   try {
     const res = await spotifyApi.getArtist(artist);
     dispatch({

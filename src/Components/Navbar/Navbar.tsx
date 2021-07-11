@@ -4,7 +4,6 @@ import { Link, useLocation } from 'react-router-dom';
 import './Navbar.sass';
 
 const spotifyApi = new SpotifyWebApi();
-spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
 // Redux
 import { useSelector } from 'react-redux';
@@ -16,27 +15,15 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const { user } = useSelector((state: UserInterface) => state.userData);
   const [locationId, setLocationId] = useState<string>('');
-  const [playlists, setPlaylists] = useState<any>([]);
-
-  useEffect(() => {
-    getPlaylists();
-  }, [user]);
-
-  const getPlaylists = async () => {
-    try {
-      const res = await spotifyApi.getUserPlaylists(user.id);
-      setPlaylists(res.body.items);
-    } catch (error) {
-      console.log(console.log(error));
-    }
-  };
+  const { playlists } = useSelector((state: any) => state.userData);
+  const { accessToken } = useSelector((state: any) => state.accessToken);
+  spotifyApi.setAccessToken(accessToken);
 
   useEffect(() => {
     const routeArray = location.pathname.split('/');
 
-    if (routeArray.length === 4) {
-      setLocationId(routeArray[3]);
-    }
+    if (routeArray.length === 4) return setLocationId(routeArray[3]);
+    return setLocationId('');
   }, [location]);
 
   return (
@@ -51,6 +38,9 @@ const Navbar: React.FC = () => {
             Home
           </Link>
         </div>
+        {/* <div className='navbar-links'>
+          <button>Create Playlist</button>
+        </div> */}
         <div className='navbar-playlists-container'>
           <label>Your Playlists</label>
           <hr />
@@ -62,7 +52,7 @@ const Navbar: React.FC = () => {
                     to={`/collection/playlists/${item.id}`}
                     className={`${
                       locationId === item.id ? 'activePlaylist' : ''
-                    } testClass`}
+                    }`}
                   >
                     <h3>{item.name}</h3>
                   </Link>

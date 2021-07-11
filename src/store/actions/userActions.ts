@@ -1,5 +1,5 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import { SET_USER_DATA } from '../types';
+import { SET_USER_DATA, SET_USER_PLAYLISTS, SET_ACCESS_TOKEN } from '../types';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -8,6 +8,7 @@ export const setUserAction = (accessToken: string) => async (dispatch: any) => {
 
   try {
     const res = await spotifyApi.getMe();
+    const playlists = await spotifyApi.getUserPlaylists(res.body.id);
     dispatch({
       type: SET_USER_DATA,
       payload: {
@@ -20,7 +21,26 @@ export const setUserAction = (accessToken: string) => async (dispatch: any) => {
         product: res.body.product,
       },
     });
+    dispatch({
+      type: SET_USER_PLAYLISTS,
+      payload: playlists.body.items,
+    });
   } catch (error) {
     window.location.href = '/';
+  }
+};
+
+export const setUserPlaylists = (accessToken: string, userId: string) => async (
+  dispatch: any,
+) => {
+  try {
+    spotifyApi.setAccessToken(accessToken);
+    const playlists = await spotifyApi.getUserPlaylists(userId);
+    dispatch({
+      type: SET_USER_PLAYLISTS,
+      payload: playlists.body.items,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };

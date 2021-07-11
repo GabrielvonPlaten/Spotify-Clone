@@ -3,7 +3,9 @@ import SpotifyWebApi from 'spotify-web-api-node';
 import './SearchResults.sass';
 
 const spotifyApi = new SpotifyWebApi();
-spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
+
+// Redux
+import { useSelector } from 'react-redux';
 
 // Components
 import Tracks from '../../Components/Tracks/Tracks';
@@ -13,6 +15,8 @@ import CollectionCards from '../../Components/CollectionCards/CollectionCards';
 const SearchResults: React.FC<{ searchResults: any }> = ({ searchResults }) => {
   const [artists, setArtists] = useState<{}[]>([]);
   const { tracks: songResults, playlists: playlistsResults } = searchResults;
+  const { accessToken } = useSelector((state: any) => state.accessToken);
+  spotifyApi.setAccessToken(accessToken);
 
   useEffect(() => {
     let newArr: any = [];

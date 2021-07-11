@@ -1,5 +1,5 @@
 // User
-export const SET_USER_DATA: string = 'SET_USER_DATA';
+export const SET_USER_DATA = 'SET_USER_DATA';
 
 // Artist
 export const SET_ARTIST = 'SET_ARTIST';
@@ -12,16 +12,21 @@ export const SET_ARTIST_TOP_TRACKS = 'SET_ARTIST_TOP_TRACKS';
 // Collection
 export const SET_COLLECTION = 'SET_COLLECTION';
 export const SET_ARTIST_ALBUMS = 'SET_ARTIST_ALBUMS';
+export const SET_USER_PLAYLISTS = 'SET_USER_PLAYLISTS';
 
 // Search
 export const SET_SEARCH = 'SET_SEARCH';
 export const DELETE_SEARCH = 'DELETE_SEARCH';
 
 // Code
-export const SET_ACCESS_TOKEN: string = 'SET_ACCESS_TOKEN';
+export const SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN';
 
 // CLEAR DATA
-export const CLEAR_STATE: string = 'CLEAR_DATA';
+export const CLEAR_STATE = 'CLEAR_DATA';
+
+// MESSAGE
+export const SET_MESSAGE = 'SET_MESSAGE';
+export const HIDE_MESSAGE = 'HIDE_MESSAGE';
 
 export interface setAccessToken {
   type: typeof SET_ACCESS_TOKEN;
@@ -105,4 +110,22 @@ export interface setArtistAlbums {
 export interface clearState {
   type: typeof CLEAR_STATE;
   payload: {};
+}
+
+export interface setUserPlaylists {
+  type: typeof SET_USER_PLAYLISTS;
+  payload: any[];
+}
+
+export interface setMessage {
+  type: typeof SET_MESSAGE;
+  payload: {
+    message: string;
+    status: string;
+    show: boolean;
+  };
+}
+
+export interface hideMessage {
+  type: typeof HIDE_MESSAGE;
 }

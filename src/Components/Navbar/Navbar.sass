@@ -49,7 +49,6 @@
   list-style-type: none
   overflow-y: auto
   scrollbar-width: thin
-  scrollbar-color: none
 
   
   li
@@ -58,8 +57,23 @@
   h3
     font-size: 1.3rem
     font-weight: 500
+    transition: all 0.2s
+
 
 // Active route link
 .activePlaylist
   h3
     color: v.$blue-8
+
+// Playlist list scrollbar
+.navbar-playlists-list::-webkit-scrollbar
+  width: 6px
+  background: rgb(20, 30, 36)
+
+.navbar-playlists-list::-webkit-scrollbar-track
+  width: 10px
+  // background: v.$bg-dark-3
+
+.navbar-playlists-list::-webkit-scrollbar-thumb
+  width: 10px
+  background: rgb(98, 99, 103)

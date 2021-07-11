@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import SpotifyWebPlayer from 'react-spotify-web-playback/lib';
 import './Artist.sass';
 
 // Redux
@@ -15,7 +14,6 @@ import SpotifyWebApi from 'spotify-web-api-node';
 import ArtistCard from '../../Components/ArtistCard/ArtistCard';
 
 const spotifyApi = new SpotifyWebApi();
-spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
 interface ArtistPropsInterface {
   params: {
@@ -31,6 +29,8 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
   const { albums: collection } = useSelector(
     (state: any) => state.artistAlbums,
   );
+  const { accessToken } = useSelector((state: any) => state.accessToken);
+  spotifyApi.setAccessToken(accessToken);
 
   useEffect(() => {
     dispatch(setArtistAction(match.params.artist));
@@ -55,7 +55,7 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
     }
   };
 
-  if (artist) {
+  if (artist || accessToken !== '') {
     return (
       <div className='artist-container'>
         <div className='artist-jumbotron'>
