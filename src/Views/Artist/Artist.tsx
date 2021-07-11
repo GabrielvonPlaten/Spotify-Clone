@@ -55,8 +55,6 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
     }
   };
 
-  console.log(artist);
-
   if (artist || accessToken !== '') {
     return (
       <div className='artist-container'>
