@@ -5,7 +5,6 @@ import PlaceholderImage from '../../Styles/images/placeholder-image.png';
 import './Collection.sass';
 
 const spotifyApi = new SpotifyWebApi();
-spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,9 +29,11 @@ const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [tracks, setTracks] = useState<any>([]);
+  const { accessToken } = useSelector((state: any) => state.accessToken);
   const { collection } = useSelector((state: any) => state.collection);
   const { user, playlists } = useSelector((state: any) => state.userData);
   const routeArray = location.pathname.split('/');
+  spotifyApi.setAccessToken(accessToken);
 
   useEffect(() => {
     // This view uses both /collection/albums/ and /collection/playlists/
@@ -71,13 +72,13 @@ const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
       const res = await spotifyApi.changePlaylistDetails(collection.id, {
         name: e.target[0].value,
       });
-      dispatch(setMessageAction("Playlist's name updated.", 'success'));
+      dispatch(setMessageAction("Updated Playlist's name.", 'success'));
       // Update the user's playlist in the state
       // Thus updating the navbar
-      dispatch(setUserPlaylists(user.id));
+      dispatch(setUserPlaylists(accessToken, user.id));
     } catch (error) {
       dispatch(
-        setMessageAction('The ame was not able to be updated.', 'failure'),
+        setMessageAction('Error: Unabled to update the name.', 'failure'),
       );
     }
   };

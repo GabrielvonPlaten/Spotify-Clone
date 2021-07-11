@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import SpotifyWebApi from 'spotify-web-api-node';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import './Playlists.sass';
 
 // Components
 import CollectionCards from '../../Components/CollectionCards/CollectionCards';
-
-const spotifyApi = new SpotifyWebApi();
-spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
 const Playlists: React.FC = () => {
   const { playlists } = useSelector((state: any) => state.userData);
@@ -18,7 +14,7 @@ const Playlists: React.FC = () => {
   return (
     <div className='library-container'>
       <div className='library-container__playlists'>
-        {collection && (
+        {playlists.length > 0 && (
           <CollectionCards collection={collection} type='playlists' />
         )}
       </div>

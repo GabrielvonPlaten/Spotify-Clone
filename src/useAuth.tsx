@@ -25,9 +25,7 @@ const useAuth = (code: string) => {
 
           dispatch({
             type: SET_ACCESS_TOKEN,
-            payload: {
-              accessToken,
-            },
+            payload: res.data.accessToken,
           });
           window.history.pushState({}, null, '/');
         })
@@ -35,10 +33,11 @@ const useAuth = (code: string) => {
         .catch(() => {
           window.location.href = '/';
         });
-      // Development code
-    } else if (!localStorage.getItem('accessToken')) {
-      window.location.href = '/';
     }
+    // Development code
+    // } else if (!localStorage.getItem('accessToken')) {
+    //   window.location.href = '/';
+    // }
   }, [code]);
 
   useEffect(() => {

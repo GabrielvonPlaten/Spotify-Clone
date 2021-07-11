@@ -4,7 +4,6 @@ import { Link, useLocation } from 'react-router-dom';
 import './Navbar.sass';
 
 const spotifyApi = new SpotifyWebApi();
-spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
 // Redux
 import { useSelector } from 'react-redux';
@@ -17,6 +16,8 @@ const Navbar: React.FC = () => {
   const { user } = useSelector((state: UserInterface) => state.userData);
   const [locationId, setLocationId] = useState<string>('');
   const { playlists } = useSelector((state: any) => state.userData);
+  const { accessToken } = useSelector((state: any) => state.accessToken);
+  spotifyApi.setAccessToken(accessToken);
 
   useEffect(() => {
     const routeArray = location.pathname.split('/');

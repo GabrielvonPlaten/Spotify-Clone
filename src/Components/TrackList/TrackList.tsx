@@ -7,7 +7,6 @@ import SymbolPlus from '../../Styles/images/symbol-plus.svg';
 import SymbolMinus from '../../Styles/images/symbol-minus.svg';
 
 const spotifyApi = new SpotifyWebApi();
-spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
 
 // Redux
 import { setPlayingTrack } from '../../store/actions/tracksActions';
@@ -44,6 +43,8 @@ const TrackList: React.FC<{
   const playingTrack = useSelector((state: any) => state.playingTrack);
   const { playlists, user } = useSelector((state: any) => state.userData);
   const [displayEditName, setDisplayEditName] = useState<boolean>(false);
+  const { accessToken } = useSelector((state: any) => state.accessToken);
+  spotifyApi.setAccessToken(accessToken);
 
   // Play the selected track and set the entire list of tracks into a redux state
   const setPlayTrack = (track: any, trackList: any, index: number) => {

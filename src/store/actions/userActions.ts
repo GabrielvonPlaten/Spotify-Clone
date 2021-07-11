@@ -1,5 +1,5 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import { SET_USER_DATA, SET_USER_PLAYLISTS } from '../types';
+import { SET_USER_DATA, SET_USER_PLAYLISTS, SET_ACCESS_TOKEN } from '../types';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -30,8 +30,11 @@ export const setUserAction = (accessToken: string) => async (dispatch: any) => {
   }
 };
 
-export const setUserPlaylists = (userId: string) => async (dispatch: any) => {
+export const setUserPlaylists = (accessToken: string, userId: string) => async (
+  dispatch: any,
+) => {
   try {
+    spotifyApi.setAccessToken(accessToken);
     const playlists = await spotifyApi.getUserPlaylists(userId);
     dispatch({
       type: SET_USER_PLAYLISTS,
