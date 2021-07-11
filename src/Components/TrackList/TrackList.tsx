@@ -13,6 +13,7 @@ import { setPlayingTrack } from '../../store/actions/tracksActions';
 import { setMessageAction } from '../../store/actions/messageActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPlaylistsAction } from '../../store/actions/collectionAction';
+import { setUserPlaylists } from '../../store/actions/userActions';
 
 const TrackList: React.FC<{
   tracks: any[];
@@ -70,6 +71,7 @@ const TrackList: React.FC<{
     try {
       const res = await spotifyApi.addTracksToPlaylist(playlistId, [trackUri]);
 
+      dispatch(setUserPlaylists(accessToken, user.id)); // Updates the playlist view
       dispatch(setMessageAction('Track added to playlist!', 'success'));
     } catch (error) {
       dispatch(
@@ -90,6 +92,7 @@ const TrackList: React.FC<{
         options,
       );
       dispatch(setMessageAction('Track removed from playlist.', 'success'));
+      dispatch(setUserPlaylists(accessToken, user.id)); // Updates the playlist view
       dispatch(setPlaylistsAction(playlistInfo.id)); // Update the list
     } catch (error) {
       dispatch(setMessageAction('Track could not be removed.', 'failure'));

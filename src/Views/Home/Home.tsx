@@ -11,7 +11,7 @@ import { setUserAction } from '../../store/actions/userActions';
 import SearchResults from '../SearchResults/SearchResults';
 import Navbar from '../../Components/Navbar/Navbar';
 import Player from '../../Components/Player/Player';
-import SongView from '../SongView/Playlists';
+import Playlists from '../Playlists/Playlists';
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import Message from '../../Components/Message/Message';
 
@@ -45,7 +45,7 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
             {/* Hide every route when there are search results */}
             {!searchResults?.tracks?.hasOwnProperty('tracks') ? (
               <Switch>
-                <Route exact path='/' component={SongView} />
+                <Route exact path='/' component={Playlists} />
                 <Route path='/artist/:artist' component={Artist} />
                 <Route path='/collection/albums/:id' component={Collection} />
                 <Route
