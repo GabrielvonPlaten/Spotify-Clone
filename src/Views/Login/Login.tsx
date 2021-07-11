@@ -4,7 +4,7 @@ import './Login.sass';
 // https://gentle-cliffs-53695.herokuapp.com/
 
 const CLIENT_ID = process.env.CLIENT_ID;
-// const REDIRECT_URI = 'https://gentle-cliffs-53695.herokuapp.com/';
+// const REDIRECT_URI = 'https://clone-spotify-g.herokuapp.com/';
 const REDIRECT_URI = 'http://localhost:8080/';
 const show_dialog = false; // If true, show the permissions dialog process everytime
 const scopes = [

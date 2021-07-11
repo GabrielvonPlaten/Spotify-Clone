@@ -20,8 +20,8 @@ import Artist from '../Artist/Artist';
 import Collection from '../Collection/Collection';
 
 const Landing: React.FC<{ code: string }> = ({ code }) => {
-  useAuth(code);
-  const { accessToken } = useSelector((state: any) => state.accessToken);
+  // const accessToken = useAuth(code); // Prod
+  const { accessToken } = useSelector((state: any) => state.accessToken); // Dev
   const dispatch = useDispatch();
 
   // Search
