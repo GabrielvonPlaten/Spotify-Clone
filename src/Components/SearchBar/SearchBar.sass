@@ -1,0 +1,21 @@
+@use '../../Styles' as v
+  
+.search-container
+  position: absolute
+  filter: v.$drop-shadow
+  margin-top: 2em
+  z-index: 1
+
+  .form
+    width: 120em
+    margin-left: min(4em, 2%, 3%)
+
+    &__input
+      border: 1px solid v.$border-dark-3
+      background: v.$bg-dark-4
+      color: v.$white-4
+      width: min(15%, 30vw, 20%)
+      border-radius: 7px
+      margin-right: 1em
+      padding: 0.4em 0.5em
+

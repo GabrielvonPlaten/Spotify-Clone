@@ -1,0 +1,120 @@
+@use '../../Styles' as v
+  
+.album-cards
+  width: 80%
+  margin: 0 auto
+
+  &__header
+    display: flex
+    justify-content: space-between
+
+    &--title
+      color: v.$white-4
+      font-size: 2.5rem
+      text-transform: capitalize
+
+
+  ul
+    display: grid
+    grid-template-columns: repeat(7, 1fr)
+    grid-gap: max(1%, 1em)
+    flex-wrap: wrap
+
+    a
+      text-decoration: none
+
+    li
+      background: v.$bg-dark-3
+      border: 1px solid transparent
+      list-style: none
+      padding: 1em
+      height: 90%
+      width: 100%
+      margin-bottom: 1em
+      flex-shrink: 0
+      transition: 0.2s
+
+      &:hover
+        border: 1px solid v.$border-dark-3
+        background: v.$bg-dark-4
+
+
+      &:hover .album-cards__info__title
+        color: v.$blue-8
+
+
+  &__image-container
+    padding-top: 100%
+    position: relative
+    overflow: hidden
+    margin: 0 auto
+    filter: v.$drop-shadow
+
+    &--inner
+      position: absolute
+      inset: 0px
+
+      img
+        position: absolute
+        width: auto
+        height: 100%
+        left: 50%
+        transform: translateX(-50%)
+        filter: v.$drop-shadow
+
+  &__info
+
+    &__title
+      color: v.$white-5
+      margin: 5% 0
+      font-size: 1.4rem
+      font-weight: 600
+      transition: all 0.2s
+
+    &__date
+      color: v.$white-2
+      font-size: 1.2rem
+
+    &__total-tracks
+      margin-bottom: 20%
+      display: flex
+
+      p
+        color: v.$white-2
+        font-size: 1.3rem
+        font-weight: 600
+        margin-left: 0.5em
+
+      img
+        width: 1.2em
+        height: auto
+
+.playlist-full-width
+  width: 100%
+
+.pagination-buttons
+  display: flex
+
+  &__button
+    display: block
+    background: none
+    color: v.$white-5
+    border: none
+    margin-left: 1.5em
+    font-size: 1.8rem
+
+.pagination-button--disabled
+  color: v.$white-1
+
+
+@media only screen and (max-width: 1350px)
+  .album-cards ul
+    grid-template-columns: repeat(6, 1fr)
+
+@media only screen and (max-width: 1200px)
+  .album-cards ul
+    grid-template-columns: repeat(5, 1fr)
+
+@media only screen and (max-width: 1000px)
+  .album-cards ul
+    grid-template-columns: repeat(3, 1fr)

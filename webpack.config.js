@@ -5,9 +5,16 @@ const Dotenv = require('dotenv-webpack');
 module.exports = {
   entry: ['babel-polyfill', './src/index.tsx'],
   output: {
-    path: path.join(__dirname, 'public', 'dist'),
+    path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
+    publicPath: '/',
+    chunkFilename: 'bundle.chunk.js',
   },
+  // output: {
+  //   path: path.join(__dirname, 'public', 'dist'),
+  //   filename: 'bundle.js',
+  //   publicPath: '/bundle.js',
+  // },
   module: {
     rules: [
       {
@@ -41,7 +48,10 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true,
-    publicPath: '/dist/',
+    publicPath: '/',
+    proxy: {
+      '/api': 'http://localhost:5000',
+    },
   },
   mode: 'development',
   plugins: [

@@ -1,19 +1,33 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Home from './Components/Home/Home';
-import About from './Components/About/About';
-import Navbar from './Components/Navbar/Navbar';
+import React, { useEffect } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { SET_ACCESS_TOKEN } from './store/types';
+const code = new URLSearchParams(window.location.search).get('code');
+
+// Redux
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
+// Views
+import Login from './Views/Login/Login';
+import Home from './Views/Home/Home';
+import ScrollToTop from './ScrollToTop';
 
 const App: React.FC = () => {
+  const dispatch = useDispatch();
+  const { accessToken } = useSelector((state: any) => state.accessToken);
+
+  useEffect(() => {
+    if (!localStorage.getItem('accessToken')) return;
+    dispatch({
+      type: SET_ACCESS_TOKEN,
+      payload: localStorage.getItem('accessToken'),
+    });
+  }, []);
+
   return (
     <BrowserRouter>
-      <div>
-        <Navbar />
-        <Switch>
-          <Route exact={true} path='/' component={Home} />
-          <Route exact={true} path='/about' component={About} />
-        </Switch>
-      </div>
+      <ScrollToTop />
+      {code || accessToken ? <Home code={code} /> : <Login />}
     </BrowserRouter>
   );
 };

@@ -1,10 +1,79 @@
-.navbar-container
-  display: flex
-  justify-content: flex-end
-  padding-right: 1.2rem
-  background: #171544
-  height: 5rem
+@use '../../Styles' as v
+  
+.navbar
+  background: v.$bg-dark-4
+  flex: 0.1
+  height: 90vh
+  width: 12%
+  z-index: 1
+  padding: 0.7em 0 1em 1em
 
-.navbar__item
+  a
+    color: v.$white-4
+    text-decoration: none
+    transition: 0.2s
+    &:hover
+      color: v.$blue-8
+
+.navbar-links
+  margin-top: 1em
+  &__link
+    font-weight: 700
+
+.user_display
+  display: flex
+
+  &__avatar
+    border-radius: 100%
+    height: min(3em, 23%)
+    width: min(3em, 23%)
+
+  &__display_name
+    color: #f4f4f4
+    text-transform: capitalize
+    font-size: clamp(1.3rem, 1vw, 1.6rem)
+    font-weight: 400
+    margin: auto 0
+    margin-left: 1rem
+
+.navbar-playlists-container
+  height: 80vh
+  margin-top: 4em
+
+  label
+    color: v.$white-2
+    font-weight: 700
+
+.navbar-playlists-list
+  height: min(63em, 80%) 
   list-style-type: none
-  margin: 1.4rem 2rem
+  overflow-y: auto
+  scrollbar-width: thin
+
+  
+  li
+    margin: 1.1em 0
+
+  h3
+    font-size: 1.3rem
+    font-weight: 500
+    transition: all 0.2s
+
+
+// Active route link
+.activePlaylist
+  h3
+    color: v.$blue-8
+
+// Playlist list scrollbar
+.navbar-playlists-list::-webkit-scrollbar
+  width: 6px
+  background: rgb(20, 30, 36)
+
+.navbar-playlists-list::-webkit-scrollbar-track
+  width: 10px
+  // background: v.$bg-dark-3
+
+.navbar-playlists-list::-webkit-scrollbar-thumb
+  width: 10px
+  background: rgb(98, 99, 103)

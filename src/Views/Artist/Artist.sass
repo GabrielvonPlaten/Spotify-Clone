@@ -1,0 +1,82 @@
+@use '../../Styles' as v
+  
+.artist-container
+  margin: 0
+  padding: 0
+  z-index: -20
+  overflow-y: scroll
+  height: 90vh
+
+.artist-jumbotron
+  // height: auto
+  position: relative
+  padding: 1px
+
+  &__images
+    overflow: hidden
+    display: flex
+    justify-content: space-between
+    height: max(50vh, 25em)
+    position: fixed
+    width: 90%
+    z-index: -10
+
+    img
+      height: 100%
+      width: 33.333333%
+      user-select: none
+      margin: -5px
+      object-fit: cover
+
+
+    &-side
+      filter: brightness(65%) blur(9px)
+
+  &__information
+    width: 20%
+    position: relative
+    top: min(16em, 26vh) 
+    left: min(10.5em, 10vw)
+    color: v.$white-6
+    text-shadow: 0px 0px 8px v.$bg-dark-4
+
+    &-name
+      font-weight: 700
+      margin-bottom: 0.3em
+      font-size: 3.7rem
+
+    p
+      margin: 0 0 0.7em 0
+      text-transform: capitalize
+      font-size: 1.8rem
+
+    p.artist-followers
+      color: v.$white-5
+      font-size: 1.6rem
+      font-weight: 500
+
+.artist-library-container
+  background: v.$bg-dark-2
+  position: relative
+  top: min(38%, 30vh)
+  padding-top: 1em
+  filter: drop-shadow(0px -8px 7px rgba(0, 0, 0, 0.5))
+
+
+.artist-similar
+  width: 80%
+  margin: min(4em, 0)
+  margin: 0 auto
+
+  &__label
+    color: v.$white-4
+    font-weight: bold
+    font-size: 2rem
+    display: block
+
+  &__items-inline
+    margin: 0 auto
+    display: grid
+    grid-template-columns: repeat(10, 1fr)
+    margin: 1em 0
+    grid-gap: 1em

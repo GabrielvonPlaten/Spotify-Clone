@@ -1,0 +1,63 @@
+@use '../../Styles' as v
+.app
+  text-align: center
+  
+.login-container
+  background: linear-gradient(243.02deg, #111116 0%, #111116 0.01%, #17191E 28%, #1D1F25 50.82%, #22252C 74.67%, #282C33 99.56%)
+  width: 100vw
+  height: 100vh
+
+.login
+  border: 1px solid v.$border-dark-3
+  border-radius: 8px
+  position: absolute
+  top: min(8em, 25%)
+  left: 50%
+  transform: translateX(-50%)
+  text-align: center
+  background: v.$bg-dark-4
+  padding: 1em 2em 3em 2em
+
+  &__intro
+    margin: 0 auto
+    margin-bottom: 60%
+    color: v.$white-5
+    text-align: center
+
+    h1
+      font-size: 4rem
+
+    &--tech
+      font-size: 1.9rem
+      font-weight: 600
+
+    span
+      color: v.$blue-8
+
+    .author
+      color: v.$white-2
+      position: relative
+      top: 7em
+
+  a
+    color: v.$white-5
+
+  a[type="button"]
+    border: none
+    border-radius: 5px
+    background: v.$blue-4
+    font-weight: 600
+    font-size: 1.7rem
+    padding: 1em 2em
+    transition: 0.2s
+    color: v.$white-5
+    text-decoration: none
+    
+    &:focus
+      background: v.$blue-5
+
+    
+
+    &:hover
+      background: v.$blue-5
+      filter: v.$drop-shadow

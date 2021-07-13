@@ -1,0 +1,68 @@
+@use '../../Styles' as v
+  
+.player-container
+  display: flex
+  justify-content: center
+  align-items: center
+  position: fixed
+  bottom: 0
+  width: 100%
+  padding: 0 2em
+  height: 10vh
+  background: v.$bg-dark-3
+  border-top: 1px solid v.$border-dark-1
+  z-index: 100
+
+  // The slider knobs
+  span[role="slider"]:not(.rrs__thumb)
+    opacity: 0
+    transform: scale(1.3)
+
+
+  // Main slider container - NOT the slider itself
+  ._SliderRSWP
+    width: 50%
+    margin: 0 auto
+    margin-bottom: 0.6em
+
+    // Slider bar
+    div[role="presentation"]
+
+      // 
+      &:hover span[role="slider"]
+        opacity: 1
+  // Track Title
+  .__nnvdcq 
+    margin-bottom: 1em
+
+    span
+      font-weight: bold
+      font-size: 1.6rem
+
+  // Increase the size of the track's poster
+  .__1tych6y img
+    height: 7vh
+    width: 7vh
+    margin-bottom: 1em
+
+._ControlsRSWP
+  .rswp__toggle
+    padding: 0.3em 0.3em 
+    border-radius: 100%
+    margin: 0
+    transition: 0.2s
+    border: 3px solid v.$white-3
+
+    // Play and pause button
+    svg
+      color: v.$white-4
+      position: relative
+      left: 0.1em
+      margin: 0
+      padding: 0
+      font-size: 1.2rem
+
+  // Align inner pause button to the center
+  .rswp__toggle[aria-label="Pause"]
+    svg
+      left: 0

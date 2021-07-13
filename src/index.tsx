@@ -1,7 +1,21 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import 'normalize.css/normalize.css';
-import './Styles/style.sass';
+import './Styles/index.sass';
+import SpotifyWebApi from 'spotify-web-api-node';
 import App from './App';
 
-ReactDOM.render(<App />, document.getElementById('App'));
+// Redux
+import { Provider } from 'react-redux';
+import store from './store/store';
+
+const spotifyApi = new SpotifyWebApi({
+  clientId: process.env.CLIENT_ID,
+});
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('App'),
+);
