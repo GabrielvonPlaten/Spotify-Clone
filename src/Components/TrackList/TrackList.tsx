@@ -71,7 +71,7 @@ const TrackList: React.FC<{
     try {
       const res = await spotifyApi.addTracksToPlaylist(playlistId, [trackUri]);
 
-      dispatch(setUserPlaylists(accessToken, user.id, 0)); // Updates the playlist view
+      dispatch(setUserPlaylists(accessToken, user.id)); // Updates the playlist view
       dispatch(setMessageAction('Track added to playlist!', 'success'));
     } catch (error) {
       dispatch(
@@ -92,7 +92,7 @@ const TrackList: React.FC<{
         options,
       );
       dispatch(setMessageAction('Track removed from playlist.', 'success'));
-      dispatch(setUserPlaylists(accessToken, user.id, 0)); // Updates the playlist view
+      dispatch(setUserPlaylists(accessToken, user.id)); // Updates the playlist view
       dispatch(setPlaylistsAction(playlistInfo.id)); // Update the list
     } catch (error) {
       dispatch(setMessageAction('Track could not be removed.', 'failure'));

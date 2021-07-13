@@ -114,7 +114,7 @@ export interface clearState {
 
 export interface setUserPlaylists {
   type: typeof SET_USER_PLAYLISTS;
-  payload: any[];
+  playlists: any[];
 }
 
 export interface setMessage {

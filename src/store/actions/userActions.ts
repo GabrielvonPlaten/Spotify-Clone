@@ -8,7 +8,9 @@ export const setUserAction = (accessToken: string) => async (dispatch: any) => {
 
   try {
     const res = await spotifyApi.getMe();
-    const playlists = await spotifyApi.getUserPlaylists(res.body.id);
+    const playlists = await spotifyApi.getUserPlaylists(res.body.id, {
+      limit: 50,
+    });
     dispatch({
       type: SET_USER_DATA,
       payload: {
@@ -21,9 +23,10 @@ export const setUserAction = (accessToken: string) => async (dispatch: any) => {
         product: res.body.product,
       },
     });
+
     dispatch({
       type: SET_USER_PLAYLISTS,
-      payload: playlists.body.items,
+      playlists: playlists.body.items,
     });
   } catch (error) {
     window.location.href = '/';
@@ -35,10 +38,13 @@ export const setUserPlaylists = (accessToken: string, userId: string) => async (
 ) => {
   try {
     spotifyApi.setAccessToken(accessToken);
-    const playlists = await spotifyApi.getUserPlaylists(userId);
+    const playlists = await spotifyApi.getUserPlaylists(userId, {
+      limit: 50,
+    });
+
     dispatch({
       type: SET_USER_PLAYLISTS,
-      payload: playlists.body.items,
+      playlists: playlists.body.items,
     });
   } catch (error) {
     console.log(error);
