@@ -38,10 +38,6 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
 
     // Get artists related to the current artist
     getRelatedArtist();
-
-    return () => {
-      dispatch(clearDataAction());
-    };
   }, [match]);
 
   const getRelatedArtist = async () => {
@@ -54,6 +50,10 @@ const Artist: React.FC<{ match: ArtistPropsInterface }> = ({ match }) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    return () => clearDataAction();
+  }, []);
 
   if (artist || accessToken !== '') {
     return (

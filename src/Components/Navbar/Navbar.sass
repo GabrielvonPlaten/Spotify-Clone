@@ -1,7 +1,7 @@
 @use '../../Styles' as v
   
 .navbar
-  background: v.$bg-dark-4
+  background: v.$bg-dark-3
   flex: 0.1
   height: 90vh
   width: 12%
@@ -45,17 +45,23 @@
     font-weight: 700
 
 .navbar-playlists-list
-  height: min(63em, 80%) 
+  overflow-y: scroll
+  height: min(63em, 80%)
+  min-height: 30%
   list-style-type: none
-  overflow-y: auto
   scrollbar-width: thin
-
+  transition: 0.2s
   
   li
-    margin: 1.1em 0
+    transition: 0.2s    
+    &:hover
+      background: v.$bg-dark-4
 
   h3
-    font-size: 1.3rem
+    padding: 0.8em 0
+    padding-left: 0.6em
+    margin: 0
+    font-size: 1.4rem
     font-weight: 500
     transition: all 0.2s
 

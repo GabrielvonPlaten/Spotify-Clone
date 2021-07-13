@@ -7,6 +7,7 @@ import SpotifyPlayer from 'react-spotify-web-playback';
 // Redux
 import { setPlayingTrack } from '../../store/actions/tracksActions';
 import { useSelector, useDispatch } from 'react-redux';
+import { setMessageAction } from '../../store/actions/messageActions';
 
 const Player: React.FC = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,16 @@ const Player: React.FC = () => {
           showSaveIcon
           initialVolume={0.4}
           callback={(state) => {
+            // Dispatch error message if player fails to load
+            if (state.status === 'ERROR') {
+              dispatch(
+                setMessageAction(
+                  'Something went wrong with the player. Please refresh the website.',
+                  'failure',
+                ),
+              );
+            }
+
             // Update the state when a new track automatically finishes playing
             if (state.type === 'track_update') {
               dispatch(

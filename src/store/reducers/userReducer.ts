@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   user: {},
-  playlists: <any>[],
+  playlists: <any[]>[],
 };
 
 export const setUserDataReducer = (
@@ -23,7 +23,7 @@ export const setUserDataReducer = (
     case SET_USER_PLAYLISTS:
       return {
         ...state,
-        playlists: action.payload,
+        playlists: action.playlists,
       };
     default:
       return state;

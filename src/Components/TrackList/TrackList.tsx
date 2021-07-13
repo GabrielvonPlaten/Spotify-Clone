@@ -136,7 +136,12 @@ const TrackList: React.FC<{
       )}
       <ul>
         {tracks.map((track: any, index: number, trackList) => (
-          <li key={index} className='track-list-item'>
+          <li
+            key={index}
+            className={`track-list-item ${
+              track.name === playingTrack.track.name ? 'track-playing-bg' : ''
+            }`}
+          >
             <p className='list-index'>{index + 1}</p>
             <div className='track-title-image'>
               <div className='track-image-box'>
@@ -184,9 +189,9 @@ const TrackList: React.FC<{
               <div style={{ margin: 'auto 0' }}>
                 {track.artists.map((artist: any, index: number) => (
                   <Link
+                    to={`/artist/${artist.id}`}
                     key={index}
                     className='track-list-item__artist'
-                    to={`/artist/${artist.id}`}
                   >
                     {artist.name}
                   </Link>
@@ -195,7 +200,7 @@ const TrackList: React.FC<{
             )}
             {/* Track options */}
             <div className='track-list-item__options'>
-              {/* Remove track button is only visible IF! */}
+              {/* "Remove track button" is only visible IF! */}
               {/* It's a playlist that is collaborative or the user owns it */}
               {fromCollectionType === 'playlist' &&
                 (user.id === playlistInfo.user.id ||
