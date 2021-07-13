@@ -32,34 +32,32 @@ const Navbar: React.FC = () => {
         <img className='user_display__avatar' src={user.imageUrl} />
         <h2 className='user_display__display_name'>{user.display_name}</h2>
       </div>
-      <div>
-        <div className='navbar-links'>
-          <Link to='/' className='navbar-links__link'>
-            Home
-          </Link>
-        </div>
-        {/* <div className='navbar-links'>
+      <div className='navbar-links'>
+        <Link to='/' className='navbar-links__link'>
+          Home
+        </Link>
+      </div>
+      {/* <div className='navbar-links'>
           <button>Create Playlist</button>
         </div> */}
-        <div className='navbar-playlists-container'>
-          <label>Your Playlists</label>
-          <hr />
-          <ul className='navbar-playlists-list'>
-            {playlists.length > 0 &&
-              playlists.map((item: any, index: number) => (
-                <li key={index}>
-                  <Link
-                    to={`/collection/playlists/${item.id}`}
-                    className={`${
-                      locationId === item.id ? 'activePlaylist' : ''
-                    }`}
-                  >
-                    <h3>{item.name}</h3>
-                  </Link>
-                </li>
-              ))}
-          </ul>
-        </div>
+      <div className='navbar-playlists-container'>
+        <label>Your Playlists</label>
+        <hr />
+        <ul className='navbar-playlists-list'>
+          {playlists.length > 0 &&
+            playlists.map((item: any, index: number) => (
+              <li key={index}>
+                <Link
+                  to={`/collection/playlists/${item.id}`}
+                  className={`${
+                    locationId === item.id ? 'activePlaylist' : ''
+                  }`}
+                >
+                  <h3>{item.name}</h3>
+                </Link>
+              </li>
+            ))}
+        </ul>
       </div>
     </header>
   );

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Tracks.sass';
 import PlayButton from '../../Styles/images/play-btn.svg';
 
@@ -15,6 +16,8 @@ const Tracks: React.FC<{
   const handlePlay = () => {
     dispatch(setPlayingTrack([track.uri], track, 0));
   };
+
+  console.log(track);
 
   return (
     <div className='track-container'>
@@ -37,8 +40,12 @@ const Tracks: React.FC<{
           onClick={handlePlay}
         />
       </div>
-      <h3 className='track-container__title'>{track.name}</h3>
-      <h4 className='track-container__artists'>{track.artists[0].name}</h4>
+      <Link to={`/collection/albums/${track.album.id}`}>
+        <h3 className='track-container__title'>{track.name}</h3>
+      </Link>
+      <Link to={`/artist/${track.artists[0].id}`}>
+        <h4 className='track-container__artists'>{track.artists[0].name}</h4>
+      </Link>
     </div>
   );
 };

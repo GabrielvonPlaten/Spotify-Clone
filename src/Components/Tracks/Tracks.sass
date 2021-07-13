@@ -11,6 +11,9 @@
   &:hover .poster-container__play-button
     opacity: 1
 
+  a
+    text-decoration: none
+
   &__title
     color: v.$white-3
     font-weight: 600
@@ -20,13 +23,21 @@
     position: relative
     bottom: 2em
 
+    transition: 0.2s
+    &:hover
+      color: v.$blue-8
+      
   &__artists
+    bottom: 2em
     color: v.$white-2
     font-weight: 400
-    margin-top: 0.2em
     font-size: 1.3rem
+    margin-top: 0.2em
     position: relative
-    bottom: 2em
+
+    transition: 0.2s
+    &:hover
+      color: v.$blue-8
       
 .poster-container
 
