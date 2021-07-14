@@ -17,8 +17,6 @@ const Tracks: React.FC<{
     dispatch(setPlayingTrack([track.uri], track, 0));
   };
 
-  console.log(track);
-
   return (
     <div className='track-container'>
       <div className='poster-container'>
