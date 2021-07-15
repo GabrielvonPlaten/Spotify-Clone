@@ -22,13 +22,7 @@ export const setUserAction = (accessToken: string) => async (dispatch: any) => {
       playlists: playlists.body.items,
     });
   } catch (error) {
-    dispatch(
-      setMessageAction(
-        'ERROR: Unable to retrieve profile information.',
-        'failure',
-      ),
-    );
-    // window.location.href = '/';
+    window.location.href = '/';
   }
 };
 
