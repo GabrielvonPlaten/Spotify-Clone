@@ -31,7 +31,11 @@ const Player: React.FC = () => {
           initialVolume={0.4}
           callback={(state) => {
             // Dispatch error message if player fails to load
-            if (state.status === 'ERROR') {
+            if (
+              state.status === 'ERROR' &&
+              state.error !==
+                'This functionality is restricted to premium users only'
+            ) {
               dispatch(
                 setMessageAction(
                   'Something went wrong with the player. Please refresh the website.',
