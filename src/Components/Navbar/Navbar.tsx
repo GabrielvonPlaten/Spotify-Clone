@@ -30,11 +30,18 @@ const Navbar: React.FC = () => {
   return (
     <header className='navbar'>
       <div className='user_display'>
-        <img
-          className='user_display__avatar'
-          src={(user && user.images && user.images[0].url) || PlaceholderImage}
-        />
-        <h2 className='user_display__display_name'>{user.display_name}</h2>
+        {Object.keys(user).length > 0 && (
+          <>
+            <img
+              className='user_display__avatar'
+              src={
+                (user && user?.images && user?.images[0]?.url) ||
+                PlaceholderImage
+              }
+            />
+            <h2 className='user_display__display_name'>{user.display_name}</h2>
+          </>
+        )}
       </div>
       <div className='navbar-links'>
         <Link to='/' className='navbar-links__link'>
