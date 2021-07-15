@@ -10,4 +10,4 @@ The API has some unexpected behaviour when fetching non-premium user's data. Som
 
 Non-premium users cannot use the Player due to Spotify's restrictions.
 
-Any logged in user, whether their data is fetched or not, will be able to browse their libraries, search for artists, songs, and albums.
+Any logged in user, whether their data is fetched or not, will be able to browse for albums, search for artists, songs, and playlists.
