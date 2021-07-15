@@ -106,7 +106,6 @@ const TrackList: React.FC<{
 
   // TODO: Desaturate tracklist or show warning if the song is not available to play
   // Use available_markets to check if the song is available
-  console.log(playingTrack);
 
   return (
     <div className='track-list-container'>
