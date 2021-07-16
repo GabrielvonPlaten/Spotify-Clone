@@ -22,27 +22,36 @@
 
   &__name
     color: v.$white-3
-    margin-top: 0.2em
+    margin-top: 0
     margin-bottom: 0
-    // font-size: 1.8rem
-    // font-size: calc(0.7vw + 0.5rem)
-    font-size: clamp(1.4rem, 1vw, 1.8rem)
+    font-size: clamp(1.3rem, 1vw, 1.6rem)
     text-align: center
     font-weight: 600
     margin: 0.4em 0.5em
       
 
-  &__cover-container
-    width: 100%
-    margin-bottom: 0
+.artistCard__image-container
+  padding-top: 100%
+  position: relative
+  overflow: hidden
+  margin: 0 auto
+  filter: v.$drop-shadow
 
-    img
-      display: block
-      // height:7em
-      // width: 7em
-      width: 70%
-      height: auto
-      border-radius: 100%
-      margin: 0.4em auto
-      transition: all 0.3s
+  &--inner
+    border-radius: 50%
+    position: absolute
+    inset: 0.6em
+    margin: auto
+    margin: 0.5em
+    overflow: hidden
+
+  img
+    bottom: 0%
+    position: absolute
+    width: auto
+    height: 110%
+    margin-top: 0.5em
+    left: 50%
+    transform: translateX(-50%)
+    filter: v.$drop-shadow
 

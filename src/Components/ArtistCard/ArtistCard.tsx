@@ -17,14 +17,17 @@ const Artist: React.FC<{ artist: any }> = ({ artist }) => {
   return (
     <Link to={`/artist/${artist.id}`} className='artistCard-link'>
       <div className='artistCard-container'>
-        <div className='artistCard-container__cover-container'>
-          <img
-            src={
-              artist?.images[2]?.url ||
-              artist?.images[0]?.url ||
-              PlaceholderImage
-            }
-          />
+        <div className='artistCard__image-container'>
+          <div className='artistCard__image-container--inner'>
+            <img
+              // Placehlder image if playlist doesn't have one
+              src={
+                artist?.images[2]?.url ||
+                artist?.images[0]?.url ||
+                PlaceholderImage
+              }
+            />
+          </div>
         </div>
         <h1 className='artistCard-container__name' onClick={clearSearchBar}>
           {artist.name}
