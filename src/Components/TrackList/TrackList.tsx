@@ -71,7 +71,7 @@ const TrackList: React.FC<{
     try {
       const res = await spotifyApi.addTracksToPlaylist(playlistId, [trackUri]);
 
-      dispatch(setUserPlaylists(accessToken, user.id, 0)); // Updates the playlist view
+      dispatch(setUserPlaylists(accessToken, user.id)); // Updates the playlist view
       dispatch(setMessageAction('Track added to playlist!', 'success'));
     } catch (error) {
       dispatch(
@@ -92,7 +92,7 @@ const TrackList: React.FC<{
         options,
       );
       dispatch(setMessageAction('Track removed from playlist.', 'success'));
-      dispatch(setUserPlaylists(accessToken, user.id, 0)); // Updates the playlist view
+      dispatch(setUserPlaylists(accessToken, user.id)); // Updates the playlist view
       dispatch(setPlaylistsAction(playlistInfo.id)); // Update the list
     } catch (error) {
       dispatch(setMessageAction('Track could not be removed.', 'failure'));
@@ -106,6 +106,7 @@ const TrackList: React.FC<{
 
   // TODO: Desaturate tracklist or show warning if the song is not available to play
   // Use available_markets to check if the song is available
+  console.log(playingTrack);
 
   return (
     <div className='track-list-container'>
@@ -139,7 +140,8 @@ const TrackList: React.FC<{
           <li
             key={index}
             className={`track-list-item ${
-              track.name === playingTrack.track.name ? 'track-playing-bg' : ''
+              // Highlights the track item when the selected track is being played
+              track.id === playingTrack.track.id ? 'track-playing-bg' : ''
             }`}
           >
             <p className='list-index'>{index + 1}</p>
@@ -167,9 +169,8 @@ const TrackList: React.FC<{
               </div>
               <p
                 className={` track-title-image__title ${
-                  track.name === playingTrack.track.name
-                    ? 'track-playing-text'
-                    : ''
+                  // Highlights the track item when the selected track is being played
+                  track.id === playingTrack.track.id ? 'track-playing-text' : ''
                 }`}
               >
                 {track.name}

@@ -33,7 +33,7 @@ const CollectionCards: React.FC<{
 
   useEffect(() => {
     return () => setOffsetNumber(0);
-  }, []);
+  }, [artistId]);
 
   return (
     <div
@@ -55,8 +55,10 @@ const CollectionCards: React.FC<{
               Prev.
             </button>
             <button
-              className='pagination-buttons__button'
-              disabled={offsetNumber >= collection.total}
+              className={`${
+                collection.items.length < 14 && 'pagination-button--disabled'
+              } pagination-buttons__button`}
+              disabled={collection.items.length < 14}
               onClick={() => setOffsetNumber(offsetNumber + 14)}
             >
               Next

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-node';
 import { Link, useLocation } from 'react-router-dom';
+import PlaceholderImage from '../../Styles/images/placeholder-image.png';
 import './Navbar.sass';
 
 const spotifyApi = new SpotifyWebApi();
@@ -29,8 +30,18 @@ const Navbar: React.FC = () => {
   return (
     <header className='navbar'>
       <div className='user_display'>
-        <img className='user_display__avatar' src={user.imageUrl} />
-        <h2 className='user_display__display_name'>{user.display_name}</h2>
+        {Object.keys(user).length > 0 && (
+          <>
+            <img
+              className='user_display__avatar'
+              src={
+                (user && user?.images && user?.images[0]?.url) ||
+                PlaceholderImage
+              }
+            />
+            <h2 className='user_display__display_name'>{user.display_name}</h2>
+          </>
+        )}
       </div>
       <div className='navbar-links'>
         <Link to='/' className='navbar-links__link'>

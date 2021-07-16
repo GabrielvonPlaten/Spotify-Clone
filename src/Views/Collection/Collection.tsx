@@ -43,6 +43,7 @@ const AlbumPlaylist: React.FC<{ match: AlbumPropsInterface }> = ({ match }) => {
     } else if (routeArray[2] === 'playlists') {
       dispatch(setPlaylistsAction(match.params.id));
     }
+
     // Playlists updates the headerTitle
   }, [match, playlists]);
 
