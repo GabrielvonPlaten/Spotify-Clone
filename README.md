@@ -1,6 +1,6 @@
 Spotify Clone
 
-Link: https://gentle-cliffs-53695.herokuapp.com/
+Link: https://clone-spotify-g.herokuapp.com/
 
 ---
 
