@@ -37,3 +37,20 @@ ol, ul
 
 ::webkit-scrollbar-thumb
   width: 0
+
+// Media queries for row_sections
+@media only screen and (max-width: 1400px)
+  .row-section__items-inline
+    grid-template-columns: repeat(8, 1fr)
+
+@media only screen and (max-width: 1100px)
+  .row-section__items-inline
+    grid-template-columns: repeat(6, 1fr)
+
+@media only screen and (max-width: 1100px)
+  .row-section__items-inline
+    grid-template-columns: repeat(5, 1fr)
+
+@media only screen and (max-width: 800px)
+  .row-section__items-inline
+    grid-template-columns: repeat(4, 1fr)

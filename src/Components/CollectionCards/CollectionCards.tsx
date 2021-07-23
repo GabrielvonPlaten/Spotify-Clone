@@ -50,7 +50,7 @@ const CollectionCards: React.FC<{
               disabled={offsetNumber <= 0}
               // Change the offset by a diff of 14
               // This is because the fetch function has a limit of in CollectionAction
-              onClick={() => setOffsetNumber(offsetNumber - 14)}
+              onClick={() => setOffsetNumber(offsetNumber - 16)}
             >
               Prev.
             </button>
@@ -58,8 +58,8 @@ const CollectionCards: React.FC<{
               className={`${
                 collection.items.length < 14 && 'pagination-button--disabled'
               } pagination-buttons__button`}
-              disabled={collection.items.length < 14}
-              onClick={() => setOffsetNumber(offsetNumber + 14)}
+              disabled={collection.items.length < 16}
+              onClick={() => setOffsetNumber(offsetNumber + 16)}
             >
               Next
             </button>

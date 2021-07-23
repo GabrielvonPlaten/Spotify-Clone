@@ -11,7 +11,7 @@ export const setArtistAlbumsAction = (
   spotifyApi.setAccessToken(localStorage.getItem('accessToken'));
   try {
     const res = await spotifyApi.getArtistAlbums(artist, {
-      limit: 14,
+      limit: 16,
       offset: offsetNumber,
     });
     dispatch({
