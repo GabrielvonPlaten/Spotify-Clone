@@ -9,10 +9,9 @@ import { setPlayingTrack } from '../../store/actions/tracksActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { setMessageAction } from '../../store/actions/messageActions';
 
-const Player: React.FC = () => {
+const Player: React.FC<{ accessToken: string }> = ({ accessToken }) => {
   const dispatch = useDispatch();
   const [play, setPlay] = useState<boolean>(false);
-  const { accessToken } = useSelector((state: any) => state.accessToken);
   const { tracksList, trackIndex } = useSelector(
     (state: any) => state.playingTrack,
   );

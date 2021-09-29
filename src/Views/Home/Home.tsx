@@ -20,8 +20,7 @@ import Artist from '../Artist/Artist';
 import Collection from '../Collection/Collection';
 
 const Landing: React.FC<{ code: string }> = ({ code }) => {
-  // const accessToken = useAuth(code); // Prod
-  const { accessToken } = useSelector((state: any) => state.accessToken); // Dev
+  const accessToken = useAuth(code);
   const dispatch = useDispatch();
 
   // Search
@@ -59,7 +58,7 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
           </section>
         </div>
         <Message />
-        <Player />
+        {accessToken && <Player accessToken={accessToken} />}
       </div>
     </BrowserRouter>
   );
