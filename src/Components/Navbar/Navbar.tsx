@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-node';
 import { Link, useLocation } from 'react-router-dom';
+import SymbolPlus from '../../Styles/images/symbol-plus.svg';
 import PlaceholderImage from '../../Styles/images/placeholder-image.png';
 import './Navbar.sass';
 
@@ -48,9 +49,10 @@ const Navbar: React.FC = () => {
           Home
         </Link>
       </div>
-      {/* <div className='navbar-links'>
-          <button>Create Playlist</button>
-        </div> */}
+      <div className='navbar-buttons'>
+        <img src={SymbolPlus} />
+        <button>Create Playlist</button>
+      </div>
       <div className='navbar-playlists-container'>
         <label>Your Playlists</label>
         <hr />

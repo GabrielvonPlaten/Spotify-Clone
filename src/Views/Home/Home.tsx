@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './Home.sass';
 import useAuth from '../../useAuth';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, BrowserRouter, useHistory } from 'react-router-dom';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +20,9 @@ import Artist from '../Artist/Artist';
 import Collection from '../Collection/Collection';
 
 const Landing: React.FC<{ code: string }> = ({ code }) => {
-  const accessToken = useAuth(code);
+  const history = useHistory();
+  // const accessToken = useAuth(code); // Prod
+  const { accessToken } = useSelector((state: any) => state.accessToken); // Dev
   const dispatch = useDispatch();
 
   // Search
@@ -30,7 +32,7 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
     // Top condition is for prod
     if (!accessToken) return;
     // For dev
-    // if (accessToken === '') return history.push('/');
+    // if (!accessToken) return history.push('/');
     dispatch(setUserAction(accessToken));
   }, [accessToken]);
 
