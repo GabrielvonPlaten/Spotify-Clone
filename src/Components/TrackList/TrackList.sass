@@ -6,15 +6,18 @@
   width: max(80%, 35em, 40em)
 
   .header-title
-    color: v.$white-4
+    display: flex
     font-weight: 700
-    font-size: 2.5rem
     width: 55%
     position: relative
     margin: 0
 
+    &__title
+      color: v.$white-4
+      font-size: 2.5rem
+
   .release-date
-    margin: 0
+    margin: 0.4em
     color: v.$white-2
     font-size: 1.7rem
     font-weight: 600
@@ -23,6 +26,29 @@
     display: block
     color: white
     margin-top: 1.3em
+
+.playlist-options
+  margin-left: 0.4em
+
+  &__displayBtn
+    border: 2px solid #9fa2a4
+    height: 18px
+    border: none
+    background: none
+    margin-left: 3%
+    opacity: 0.7
+
+    &:hover
+      opacity: 1
+
+    .dots
+      position: relative
+      bottom: 0.4em
+      color: v.$white-4
+      font-family: Arial, "Helvetica Neue", Helvetica, sans-serif
+      font-size: 36px
+      letter-spacing: 1px
+
 
 // Edit name input
 .playlist-name-edit input
@@ -186,3 +212,35 @@
     &:hover
       color: v.$blue-8
       cursor: pointer
+
+// Popover - Display playlist options
+  // Popover - Displays user's playlists
+.playlist-options--popover
+  position: absolute
+  left: 0px
+  top: 40px
+  transform: translate(0, 10px)
+  background-color: v.$bg-dark-4
+  border: 1px solid v.$border-dark-3
+  border-radius: 8px
+  padding: 0 0.8em
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
+  width: auto
+  z-index: 20
+  font-size: 1.7rem
+
+  ul
+    margin: 0
+    padding: 0
+
+  li
+    list-style: none
+
+  button
+    background: none
+    border: none
+    color: v.$white-4
+    transition: 0.2s
+
+    &:hover
+      color: v.$blue-8

@@ -9,7 +9,11 @@ import {
 } from './tracksReducers';
 import { searchResultsReducer } from './searchReducer';
 import { artistReducer } from './artistsReducer';
-import { collectionReducer, artistAlbumsReducer } from './collectionReducer';
+import {
+  collectionReducer,
+  artistAlbumsReducer,
+  displayPlaylistModalReducer,
+} from './collectionReducer';
 import { messageReducer } from './messageReducer';
 
 const rootReducer = combineReducers({
@@ -23,6 +27,7 @@ const rootReducer = combineReducers({
   collection: collectionReducer,
   artistAlbums: artistAlbumsReducer,
   message: messageReducer,
+  playlistModal: displayPlaylistModalReducer,
 });
 
 export default rootReducer;

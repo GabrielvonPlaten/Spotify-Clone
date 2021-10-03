@@ -13,6 +13,8 @@ export const SET_ARTIST_TOP_TRACKS = 'SET_ARTIST_TOP_TRACKS';
 export const SET_COLLECTION = 'SET_COLLECTION';
 export const SET_ARTIST_ALBUMS = 'SET_ARTIST_ALBUMS';
 export const SET_USER_PLAYLISTS = 'SET_USER_PLAYLISTS';
+export const SHOW_PLAYLIST_MODAL = 'SHOW_PLAYLIST_MODAL';
+export const HIDE_PLAYLIST_MODAL = 'HIDE_PLAYLIST_MODAL';
 
 // Search
 export const SET_SEARCH = 'SET_SEARCH';
@@ -128,4 +130,12 @@ export interface setMessage {
 
 export interface hideMessage {
   type: typeof HIDE_MESSAGE;
+}
+
+export interface showPlaylistModal {
+  type: typeof SHOW_PLAYLIST_MODAL;
+}
+
+export interface hidePlaylistModal {
+  type: typeof HIDE_PLAYLIST_MODAL;
 }

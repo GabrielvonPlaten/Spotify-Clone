@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './Home.sass';
 import useAuth from '../../useAuth';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, BrowserRouter, useHistory } from 'react-router-dom';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,12 +14,14 @@ import Player from '../../Components/Player/Player';
 import Playlists from '../Playlists/Playlists';
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import Message from '../../Components/Message/Message';
+import PlaylistModal from '../../Components/PlaylistModal/PlaylistModal';
 
 // Views
 import Artist from '../Artist/Artist';
 import Collection from '../Collection/Collection';
 
 const Landing: React.FC<{ code: string }> = ({ code }) => {
+  const history = useHistory();
   // const accessToken = useAuth(code); // Prod
   const { accessToken } = useSelector((state: any) => state.accessToken); // Dev
   const dispatch = useDispatch();
@@ -31,7 +33,7 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
     // Top condition is for prod
     if (!accessToken) return;
     // For dev
-    // if (accessToken === '') return history.push('/');
+    // if (!accessToken) return history.push('/');
     dispatch(setUserAction(accessToken));
   }, [accessToken]);
 
@@ -58,8 +60,9 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
             )}
           </section>
         </div>
+        {/* <PlaylistModal /> */}
         <Message />
-        <Player />
+        {accessToken && <Player accessToken={accessToken} />}
       </div>
     </BrowserRouter>
   );

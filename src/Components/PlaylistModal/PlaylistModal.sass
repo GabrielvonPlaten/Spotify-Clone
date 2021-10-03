@@ -1,0 +1,34 @@
+@use '../../Styles' as v
+  
+.PlaylistModal
+  position: absolute
+  left: 50%
+  transform: translateX(-50%)
+  bottom: 13%
+  border-radius: 5px
+  opacity: 0
+  transition: 0.3s
+  background: v.$bg-dark-4
+  filter: v.$drop-shadow
+  border: 1px solid v.$border-dark-3
+  width: 50%
+  aspect-ratio: 2 / 1.5
+
+  p
+    margin: 1em
+    font-weight: 500
+    color: v.$white-5
+
+.PlaylistModal__buttons
+  position: absolute
+  top: 50%
+
+  &__create
+    background: green
+
+  &__cancel
+    backgrouind: red
+
+.PlaylistModal-on
+  opacity: 1
+  transform: translate(-50%, -10px)
