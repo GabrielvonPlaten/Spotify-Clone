@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import './TrackList.sass';
 import SpotifyWebApi from 'spotify-web-api-node';
 import PlayButton from '../../Styles/images/play-btn.svg';
@@ -41,10 +42,12 @@ const TrackList: React.FC<{
   match,
 }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const playingTrack = useSelector((state: any) => state.playingTrack);
   const { playlists, user } = useSelector((state: any) => state.userData);
   const [displayEditName, setDisplayEditName] = useState<boolean>(false);
   const { accessToken } = useSelector((state: any) => state.accessToken);
+  const [displayOptions, setDisplayOptions] = useState(false);
   spotifyApi.setAccessToken(accessToken);
 
   // Play the selected track and set the entire list of tracks into a redux state
@@ -69,7 +72,7 @@ const TrackList: React.FC<{
   // Add track to playlist
   const addTrackToPlaylist = async (playlistId: string, trackUri: string) => {
     try {
-      const res = await spotifyApi.addTracksToPlaylist(playlistId, [trackUri]);
+      await spotifyApi.addTracksToPlaylist(playlistId, [trackUri]);
 
       dispatch(setUserPlaylists(accessToken, user.id)); // Updates the playlist view
       dispatch(setMessageAction('Track added to playlist!', 'success'));
@@ -86,7 +89,7 @@ const TrackList: React.FC<{
     const options = { snapshot_id: playlistInfo.snapshotId };
 
     try {
-      const res = await spotifyApi.removeTracksFromPlaylist(
+      await spotifyApi.removeTracksFromPlaylist(
         playlistInfo.id,
         track,
         options,
@@ -106,7 +109,20 @@ const TrackList: React.FC<{
 
   // TODO: Desaturate tracklist or show warning if the song is not available to play
   // Use available_markets to check if the song is available
-  console.log(playingTrack);
+  const removePlaylist = async () => {
+    try {
+      await spotifyApi.unfollowPlaylist(playlistInfo.id);
+      history.push('/');
+      dispatch(setMessageAction('Playlist removed', 'success'));
+      dispatch(setUserPlaylists(accessToken, user.id));
+    } catch (error) {
+      dispatch(setMessageAction('Playlist could not be removed', 'failure'));
+    }
+  };
+
+  const displayPlaylistOptions = () => {
+    setDisplayOptions(!displayOptions);
+  };
 
   return (
     <div className='track-list-container'>
@@ -127,6 +143,27 @@ const TrackList: React.FC<{
           {headerTitle}
         </span>
         {releaseDate && <span className='release-date'> - {releaseDate}</span>}
+        {fromCollectionType === 'playlist' && (
+          <div className='playlist-options'>
+            <button
+              className='playlist-options__displayBtn'
+              onClick={displayPlaylistOptions}
+            >
+              <div className='dots'>...</div>
+            </button>
+            {displayOptions && (
+              <div className='playlist-options--popover'>
+                <ul>
+                  <li>
+                    <button onClick={removePlaylist}>
+                      <p>Remove Playlist</p>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
       </h2>
       {displayEditName && user.id === playlistInfo.user.id && (
         <div className='playlist-name-edit'>

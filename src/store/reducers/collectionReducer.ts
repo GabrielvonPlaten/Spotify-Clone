@@ -5,6 +5,10 @@ import {
   setArtistAlbums,
   CLEAR_STATE,
   clearState,
+  SHOW_PLAYLIST_MODAL,
+  HIDE_PLAYLIST_MODAL,
+  showPlaylistModal,
+  hidePlaylistModal,
 } from '../types';
 
 const collectionInitialState = {
@@ -13,6 +17,10 @@ const collectionInitialState = {
 
 const artistAlbumsInitialState = {
   albums: {},
+};
+
+const playlistModalInitialState = {
+  show: false,
 };
 
 export const collectionReducer = (
@@ -41,6 +49,24 @@ export const artistAlbumsReducer = (
     case SET_ARTIST_ALBUMS:
       return {
         albums: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const displayPlaylistModalReducer = (
+  state = playlistModalInitialState,
+  action: showPlaylistModal | hidePlaylistModal,
+) => {
+  switch (action.type) {
+    case SHOW_PLAYLIST_MODAL:
+      return {
+        show: true,
+      };
+    case HIDE_PLAYLIST_MODAL:
+      return {
+        show: false,
       };
     default:
       return state;

@@ -14,6 +14,7 @@ import Player from '../../Components/Player/Player';
 import Playlists from '../Playlists/Playlists';
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import Message from '../../Components/Message/Message';
+import PlaylistModal from '../../Components/PlaylistModal/PlaylistModal';
 
 // Views
 import Artist from '../Artist/Artist';
@@ -59,6 +60,7 @@ const Landing: React.FC<{ code: string }> = ({ code }) => {
             )}
           </section>
         </div>
+        {/* <PlaylistModal /> */}
         <Message />
         {accessToken && <Player accessToken={accessToken} />}
       </div>

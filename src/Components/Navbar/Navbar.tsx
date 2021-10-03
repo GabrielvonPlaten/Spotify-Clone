@@ -8,16 +8,18 @@ import './Navbar.sass';
 const spotifyApi = new SpotifyWebApi();
 
 // Redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Interface
 import { UserInterface } from '../../Interfaces/UserInterface';
+import { setMessageAction } from '../../store/actions/messageActions';
+import { setUserPlaylists } from '../../store/actions/userActions';
 
 const Navbar: React.FC = () => {
   const location = useLocation();
-  const { user } = useSelector((state: UserInterface) => state.userData);
+  const dispatch = useDispatch();
   const [locationId, setLocationId] = useState<string>('');
-  const { playlists } = useSelector((state: any) => state.userData);
+  const { user, playlists } = useSelector((state: any) => state.userData);
   const { accessToken } = useSelector((state: any) => state.accessToken);
   spotifyApi.setAccessToken(accessToken);
 
@@ -27,6 +29,19 @@ const Navbar: React.FC = () => {
     if (routeArray.length === 4) return setLocationId(routeArray[3]);
     return setLocationId('');
   }, [location]);
+
+  const createPlaylistHandler = async () => {
+    try {
+      await spotifyApi.createPlaylist(`My Playlist ${playlists.length + 1}`, {
+        description: 'My description',
+        public: true,
+      });
+      dispatch(setMessageAction('Playlist created!', 'success'));
+      dispatch(setUserPlaylists(accessToken, user.id));
+    } catch (error) {
+      dispatch(setMessageAction('Playlist could not be created.', 'failure'));
+    }
+  };
 
   return (
     <header className='navbar'>
@@ -51,7 +66,7 @@ const Navbar: React.FC = () => {
       </div>
       <div className='navbar-buttons'>
         <img src={SymbolPlus} />
-        <button>Create Playlist</button>
+        <button onClick={createPlaylistHandler}>Create Playlist</button>
       </div>
       <div className='navbar-playlists-container'>
         <label>Your Playlists</label>
