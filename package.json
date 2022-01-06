@@ -46,7 +46,7 @@
     "@types/redux": "^3.6.0",
     "@types/spotify-web-api-node": "^5.0.2",
     "react-redux": "^7.2.4",
-    "react-spotify-web-playback": "^0.8.1",
+    "react-spotify-web-playback": "^0.9.1",
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
